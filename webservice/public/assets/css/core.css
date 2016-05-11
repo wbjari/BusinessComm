@@ -3,13 +3,13 @@ body {
 }
 
 .header-big {
-	height: 140px;
+	height: 80px;
 	width: 100%;
 	background: #6666FF;
 }
 .header-big .logo {
-	height: 100px;
-	margin: 20px 20px;
+	height: 50px;
+	margin: 15px 0px;
 }
 .header-big .nav-menu {
 	float: right;
@@ -17,8 +17,8 @@ body {
 }
 .header-big .nav-menu a {
 	float: left;
-	padding: 59px 20px;
-	font-size: 20px;
+	padding: 29.5px 15px;
+	font-size: 16px;
 	font-weight: bold;
 	text-transform: capitalize;
 	text-decoration: none;
