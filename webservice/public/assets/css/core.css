@@ -1,0 +1,31 @@
+body {
+	background-color: #f9f9f9;
+}
+
+.header-big {
+	height: 140px;
+	width: 100%;
+	background: #6666FF;
+}
+.header-big .logo {
+	height: 100px;
+	margin: 20px 20px;
+}
+.header-big .nav-menu {
+	float: right;
+	list-style: none;
+}
+.header-big .nav-menu a {
+	float: left;
+	padding: 59px 20px;
+	font-size: 20px;
+	font-weight: bold;
+	text-transform: capitalize;
+	text-decoration: none;
+	color: rgba(255,255,255,1);
+	-webkit-transition: color .3s;
+	transition: color .3s;
+}
+.header-big .nav-menu a:hover {
+	color: #BBDEFB;
+}
