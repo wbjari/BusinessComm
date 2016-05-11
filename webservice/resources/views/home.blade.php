@@ -14,7 +14,7 @@
 </div>
 
 <div class="jumbotron" style="background-image:url(assets/img/wallpaper1.jpg);height:620px;">
-	
+
 </div>
 
 <div class="container">
