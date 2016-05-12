@@ -3,6 +3,7 @@ body {
 }
 
 .header-big {
+	position: absolute;
 	height: 80px;
 	width: 100%;
 	background: #6666FF;
@@ -28,4 +29,16 @@ body {
 }
 .header-big .nav-menu a:hover {
 	color: #BBDEFB;
+}
+.jumbotron-homepage {
+	background-image: url(../img/wallpaper1.jpg);
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: center center;
+	height: 100vh;
+	width: 100%;
+}
+ 
+.text-white {
+	color: #ffffff;
 }
