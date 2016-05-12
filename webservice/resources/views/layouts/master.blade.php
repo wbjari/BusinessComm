@@ -9,6 +9,11 @@
         <link rel="stylesheet" href="assets/css/core.css" media="screen" charset="utf-8">
     </head>
     <body>
+
         @yield('content')
+
+        <script type="text/javascript" src="assets/js/jquery.min.js"></script>
+        <script type="text/javascript" src="assets/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="assets/js/material.min.js"></script>
     </body>
 </html>
