@@ -3,17 +3,26 @@
     <head>
         <title>Laravel</title>
 
-        <link href='https://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
-        <link rel="stylesheet" href="assets/css/bootstrap.min.css" media="screen" charset="utf-8">
-        <link rel="stylesheet" href="assets/css/material-kit.css" media="screen" charset="utf-8">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+        <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" />
+      	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" />
+
+        <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
+        <link href="assets/css/material-kit.css" rel="stylesheet"/>
         <link rel="stylesheet" href="assets/css/core.css" media="screen" charset="utf-8">
     </head>
     <body>
 
         @yield('content')
 
-        <script type="text/javascript" src="assets/js/jquery.min.js"></script>
-        <script type="text/javascript" src="assets/js/bootstrap.min.js"></script>
-        <script type="text/javascript" src="assets/js/material.min.js"></script>
+      	<script src="assets/js/jquery.min.js" type="text/javascript"></script>
+      	<script src="assets/js/bootstrap.min.js" type="text/javascript"></script>
+      	<script src="assets/js/material.min.js"></script>
+
+      	<!-- <script src="assets/js/nouislider.min.js" type="text/javascript"></script> -->
+
+      	<!-- <script src="assets/js/bootstrap-datepicker.js" type="text/javascript"></script> -->
+
+      	<script src="assets/js/material-kit.js" type="text/javascript"></script>
     </body>
 </html>
