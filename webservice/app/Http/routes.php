@@ -14,15 +14,13 @@
 Route::get('/', function () {
     return view('home');
 });
+Route::post('/createUser', 'Auth\AuthController@postRegister');
 
 Route::get('/register', 'RegisterController@index');
 
-// Everything below the following route is only accessable when logged in.
 Route::auth();
 
-Route::get('/login', function () {
-    return view('login');
-});
+Route::get('/login', 'LoginController@index');
 
 Route::get('/dashboard', function () {
     return view('dashboard');

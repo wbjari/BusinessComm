@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Input;
 
 class RegisterController extends Controller
 {
@@ -14,6 +15,7 @@ class RegisterController extends Controller
 
     public function index()
     {
-        return view('register');
+      return view('register');
     }
+
 }
