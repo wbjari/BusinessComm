@@ -15,13 +15,9 @@ Route::get('/', function () {
     return view('home');
 });
 
-Route::get('/register', function () {
-    return view('register');
-});
+Route::get('/register', 'RegisterController@index');
 
-Route::get('/login', function () {
-    return view('login');
-});
+// Everything below the following route is only accessable when logged in.
 Route::auth();
 
 Route::get('/home', 'HomeController@index');
