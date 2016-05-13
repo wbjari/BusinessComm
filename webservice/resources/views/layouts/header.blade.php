@@ -8,27 +8,15 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="#">Brand</a>
+        <a class="navbar-brand" href="dashboard"><img src="assets/img/logo-white.png" alt="BusinessComm" height="30px"></a>
       </div>
 
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-        <ul class="nav navbar-nav">
-        <li class="active"><a href="#">Link</a></li>
-            <li><a href="#">Link</a></li>
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
-              <ul class="dropdown-menu">
-            <li><a href="#">Action</a></li>
-            <li><a href="#">Another action</a></li>
-            <li><a href="#">Something else here</a></li>
-            <li class="divider"></li>
-            <li><a href="#">Separated link</a></li>
-            <li class="divider"></li>
-              <li><a href="#">One more separated link</a></li>
-              </ul>
-            </li>
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="profile"><i class="material-icons">account_circle</i>Profile<div class="ripple-container"></div></a></li>
         </ul>
       </div>
-     </div>
-   </nav>
- </div>
+    </div>
+  </nav>
+</div>
+<div class="header-fix" style="height:90px"></div>
