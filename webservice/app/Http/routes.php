@@ -20,4 +20,10 @@ Route::get('/register', 'RegisterController@index');
 // Everything below the following route is only accessable when logged in.
 Route::auth();
 
-Route::get('/home', 'HomeController@index');
+Route::get('/login', function () {
+    return view('login');
+});
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+});

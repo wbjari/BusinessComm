@@ -33,3 +33,12 @@ body { background-color: #f9f9f9; }
 .block-lr > h1 {font-size: 25px; font-weight: bold; text-align: center; padding: 30px 0px 15px 0; margin: 0;}.have-account {position:absolute;bottom: -40px;left: 0;right: 0;margin: auto;width: 144px;}
 .btn-lr {position: absolute!important;right: -28px;bottom: 10px;z-index:9;}
 .required-lr {display: block;margin-bottom: 15px;margin-top: 25px;}
+.bordered-rounded{ background-color:rgba(255,255,255,1);box-shadow: 0 1px 11px rgba(0, 0, 0, 0.27);border-radius: 2px; }
+
+/* === === === */
+/* === Dashboard === */
+/* === === === */
+
+.dashboard-profile { float: left; height: 50px; width: 50px; margin: 10px; }
+.dashboard-name { margin: 15px 0px 0px 0px; font-weight: bold; font-size: 16px; }
+.dashboard-function { margin: 0px 0px 13px 0px; font-weight: lighter; font-size: 12px;  }
