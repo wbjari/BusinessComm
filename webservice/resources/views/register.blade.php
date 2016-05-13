@@ -10,6 +10,10 @@
 		        <input type="email" class="form-control">
 	      </div>
       </div>
+
+      <button class="btn btn-primary btn-raised btn-fab btn-round form-submit">
+        <i class="material-icons">favorite</i>
+      </button>
     </div>
   </div>
 

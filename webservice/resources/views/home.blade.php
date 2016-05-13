@@ -7,15 +7,15 @@
 		<img src="assets/img/logo-white.png" class="logo">
 
 		<div class="nav-menu">
-			<a href="#aanmelden"><li>Aanmelden</li></a>
-			<a href="#inloggen"><li>inloggen</li></a>
+			<a href="register"><li>Aanmelden</li></a>
+			<a href="login"><li>inloggen</li></a>
 		</div>
 	</div>
 </div>
 
 <div class="jumbotron jumbotron-homepage">
 	<div class="container text-white">
-		<h1>KOOP DAN!!!!!</h1>
+		<h1>Lorem ipsum dolor sit amet, consectetur adipiscing elit</h1>
 	</div>
 </div>
 
