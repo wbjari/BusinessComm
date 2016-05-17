@@ -22,9 +22,14 @@ Route::get('/login', function () {
 });
 
 
-// Everything below the following route is only accessable when logged in.
-Route::auth();
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-});
+// Everything below the following route is only accessable when logged in.
+// Route::group(['middleware' => 'auth'], function () {
+    Route::get('/dashboard', function () {
+	    return view('dashboard');
+	});
+
+    Route::get('/user/{id}', function ($id) {
+	    return 'User: '. $id;
+	});
+// });
