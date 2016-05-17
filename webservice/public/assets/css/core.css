@@ -44,7 +44,31 @@ body { background-color: #f9f9f9; }
 .businesses {
 	list-style: none;
 	margin: 0;
-	padding: 0px;
+	padding: 0;
+	font-weight: 300;
+}
+.businesses li::after {
+	z-index: 99;
+	position: absolute;
+	content: "";
+	left: 0;
+	right: 0;
+	bottom: -11px;
+	width: 0;
+	height: 2px;
+	background-color: #9C27B0;
+	-webkit-transition: width 1s;
+    transition: width 1s;
+}
+.businesses li:hover::after {
+	width: 100%;
+}
+.businesses a {
+	text-decoration: none;
+	color: inherit;
+}
+.businesses li:hover h3 {
+	font-weight: 400;
 }
 .businesses li {
 	position: relative;
@@ -92,3 +116,19 @@ body { background-color: #f9f9f9; }
 .dashboard-profile-list li p {position: relative; padding: 5px 0px 0 45px; min-height: 34px; }
 .dashboard-profile-list li a button {margin: -15px 0 0 0; text-align: right; }
 .dashboard-profile-list li a { display: inline-block; width: 100%; text-align: right;}
+.dashboard-profile-list li::after {
+	z-index: 99;
+	position: absolute;
+	content: "";
+	left: 0;
+	right: 0;
+	bottom: -1px;
+	width: 0;
+	height: 2px;
+	background-color: #9C27B0;
+	-webkit-transition: width 1s;
+    transition: width 1s;
+}
+.dashboard-profile-list li:hover::after {
+	width: 100%;
+}

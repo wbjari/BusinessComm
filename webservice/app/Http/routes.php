@@ -22,3 +22,14 @@ Route::get('/dashboard', function () {
 Route::auth();
 
 Route::get('/home', 'HomeController@index');
+
+
+// Everything below the following route is only accessable when logged in.
+// Route::group(['middleware' => 'auth'], function () {
+    Route::get('/dashboard', function () {
+	    return view('dashboard');
+	});
+
+    Route::get('/user/{id}', function ($id) {
+	    return 'User: '. $id;
+	});
