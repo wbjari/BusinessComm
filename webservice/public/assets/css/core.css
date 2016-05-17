@@ -28,9 +28,14 @@ body { background-color: #f9f9f9; }
 /* === === === */
 
 .page-lr {position:relative;width:100%;height:100%;}
+.page-lr > img {position: absolute; z-index: 1; top: 15px; left: 0; right: 0; margin: auto; height: 115px; width: auto;}
+.page-lr > h1 {font-weight:600;font-size: 30px;text-align:center;position: absolute;color: #fff;display: block;width: 100%;top: 120px;}
 .page-lr::before {content:""; height:50%; background:#6666FF; position:fixed; top:0; left:0; width:100%; z-index:0;}
-.block-lr {background: #fff;box-shadow: 0 1px 11px rgba(0, 0, 0, 0.27);border-radius: 3px;max-width: 500px;width:90%;position: relative;top: 45%;margin: auto;transform:translateY(-50%);z-index: 5;}
-.block-lr > h1 {font-size: 25px; font-weight: bold; text-align: center; padding: 30px 0px 15px 0; margin: 0;}.have-account {position:absolute;bottom: -40px;left: 0;right: 0;margin: auto;width: 144px;}
+.block-lr {background: #fff;box-shadow: 0 1px 11px rgba(0, 0, 0, 0.27);border-radius: 3px;width:90%;position: relative;top: 330px;margin: auto;transform:translateY(-50%);z-index: 5;}
+#register > .block-lr {max-width:500px;}
+#login > .block-lr {max-width:300px;}
+.block-lr > h1 {font-size: 25px; font-weight: bold; text-align: center; padding: 30px 0px 15px 0; margin: 0;}
+.msg-below-lr {position: absolute;bottom: -55px;width: 100%;text-align: center;}
 .btn-lr {position: absolute!important;right: -28px;bottom: 10px;z-index:9;}
 .required-lr {display: block;margin-bottom: 15px;margin-top: 25px;}
 .bordered-rounded{ background-color:rgba(255,255,255,1);box-shadow: 0 1px 11px rgba(0, 0, 0, 0.27);border-radius: 3px; border: 1px solid #ccc; }

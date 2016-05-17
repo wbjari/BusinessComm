@@ -1,5 +1,7 @@
 @extends('layouts.master')
 
+@section('title', 'Home')
+
 @section('content')
 
 <div class="header-big">
@@ -7,8 +9,12 @@
             <img src="assets/img/logo-white.png" class="logo">
 
             <div class="nav-menu">
-                  <a href="register"><li>Aanmelden</li></a>
-                  <a href="login"><li>inloggen</li></a>
+                <?php if (Auth::check()): ?>
+                  <a href="{{ url('/logout') }}"><li>Uitloggen</li></a>
+                <?php else: ?>
+                  <a href="{{ url('/register') }}"><li>Aanmelden</li></a>
+                  <a href="{{ url('/login') }}"><li>Inloggen</li></a>
+                <?php endif; ?>
             </div>
       </div>
 </div>

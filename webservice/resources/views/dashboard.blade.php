@@ -1,5 +1,7 @@
 @extends('layouts.master')
 
+@section('title', 'Dashboard')
+
 @section('content')
 
 @include('layouts.header')
@@ -8,7 +10,7 @@
       <div class="row">
         <div class="col-md-4 bordered-rounded">
           	<h2>In de buurt</h2>
-          
+
 			<ul class="businesses">
 
 				@foreach ($companies as $company)
