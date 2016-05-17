@@ -8,13 +8,26 @@
 
 
           <div class="col-sm-6">
-    	       <div class="form-group label-floating {{ $errors->has('name') ? ' has-error' : '' }}">
-               <label class="control-label">Naam *</label>
-               <input type="text" class="form-control" name="name" value="{{ old('name') }}">
+    	       <div class="form-group label-floating {{ $errors->has('firstname') ? ' has-error' : '' }}">
+               <label class="control-label">Voornaam *</label>
+               <input type="text" class="form-control" name="firstname" value="{{ old('firstname') }}">
 
-                @if ($errors->has('name'))
+                @if ($errors->has('firstname'))
                     <span class="help-block">
-                        <strong>{{ $errors->first('name') }}</strong>
+                        <strong>{{ $errors->first('firstname') }}</strong>
+                    </span>
+                @endif
+              </div>
+          </div>
+
+          <div class="col-sm-6">
+    	       <div class="form-group label-floating {{ $errors->has('lastname') ? ' has-error' : '' }}">
+               <label class="control-label">Achternaam *</label>
+               <input type="text" class="form-control" name="lastname" value="{{ old('lastname') }}">
+
+                @if ($errors->has('lastname'))
+                    <span class="help-block">
+                        <strong>{{ $errors->first('lastname') }}</strong>
                     </span>
                 @endif
               </div>
