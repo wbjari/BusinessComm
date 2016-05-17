@@ -6,13 +6,13 @@
 
 <div class="page-lr" id="register">
   <img src="assets/img/logo-white.png" alt="BusinessComm" />
-  <h1>Registreren</h1>
+  <h1>@yield('title')</h1>
   <div class="block-lr">
     <form role="form" method="POST" action="{{ url('/register') }}">
         {!! csrf_field() !!}
 
         <div class="col-sm-6">
-  	       <div class="form-group label-floating {{ $errors->has('firstname') ? ' has-error' : '' }}">
+  	       <div class="form-group info label-floating {{ $errors->has('firstname') ? ' has-error' : '' }}">
              <label class="control-label">Voornaam *</label>
              <input type="text" class="form-control" name="firstname" value="{{ old('firstname') }}">
 
@@ -25,7 +25,7 @@
         </div>
 
         <div class="col-sm-6">
-  	       <div class="form-group label-floating {{ $errors->has('lastname') ? ' has-error' : '' }}">
+  	       <div class="form-group info label-floating {{ $errors->has('lastname') ? ' has-error' : '' }}">
              <label class="control-label">Achternaam *</label>
              <input type="text" class="form-control" name="lastname" value="{{ old('lastname') }}">
 
@@ -38,7 +38,7 @@
         </div>
 
         <div class="col-sm-12">
-  	       <div class="form-group label-floating {{ $errors->has('email') ? ' has-error' : '' }}">
+  	       <div class="form-group info label-floating {{ $errors->has('email') ? ' has-error' : '' }}">
              <label class="control-label">E-mailadres *</label>
              <input type="text" class="form-control" name="email" value="{{ old('email') }}">
 
@@ -51,7 +51,7 @@
         </div>
 
         <div class="col-sm-6">
-          <div class="form-group label-floating {{ $errors->has('password') ? ' has-error' : '' }}">
+          <div class="form-group info label-floating {{ $errors->has('password') ? ' has-error' : '' }}">
               <label class="control-label">Wachtwoord *</label>
               <input type="password" class="form-control" name="password">
 
@@ -65,7 +65,7 @@
         </div>
 
         <div class="col-sm-6">
-          <div class="form-group label-floating {{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
+          <div class="form-group info label-floating {{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
               <label class="control-label">Herhaal wachtwoord *</label>
               <input type="password" class="form-control" name="password_confirmation">
 
@@ -78,7 +78,7 @@
           </div>
         </div>
 
-        <button type="submit" class="btn btn-danger btn-raised btn-fab btn-round form-submit btn-lr">
+        <button type="submit" class="btn btn-success btn-raised btn-fab btn-round form-submit btn-lr">
           <i class="material-icons">forward</i>
         </button>
     </form>
@@ -88,7 +88,7 @@
     </div>
 
     <div class=" msg-below-lr">
-      <a href="{{ url('/login') }}" class="btn btn-raised btn-primary btn-xs">Ik heb al een account</a>
+      <a href="{{ url('/login') }}" class="btn btn-raised btn-info btn-xs">Ik heb al een account</a>
     </div>
 
     <div class="clearfix"> </div>

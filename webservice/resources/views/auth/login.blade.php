@@ -6,13 +6,13 @@
 
 <div class="page-lr" id="login">
   <img src="assets/img/logo-white.png" alt="BusinessComm" />
-  <h1>Inloggen</h1>
+  <h1>@yield('title')</h1>
   <div class="block-lr">
     <form role="form" method="POST" action="{{ url('/login') }}">
         {!! csrf_field() !!}
 
         <div class="col-sm-12">
-  	       <div class="form-group label-floating {{ $errors->has('email') ? ' has-error' : '' }}">
+  	       <div class="form-group info label-floating {{ $errors->has('email') ? ' has-error' : '' }}">
             <label class="control-label">E-mailadres</label>
             <input type="email" class="form-control" name="email" value="{{ old('email') }}">
 
@@ -25,7 +25,7 @@
         </div>
 
         <div class="col-sm-6">
-          <div class="form-group label-floating {{ $errors->has('password') ? ' has-error' : '' }}">
+          <div class="form-group info label-floating {{ $errors->has('password') ? ' has-error' : '' }}">
             <label class="control-label">Wachtwoord</label>
             <input type="password" class="form-control" name="password">
 
@@ -39,7 +39,7 @@
         </div>
 
         <div class="col-sm-6">
-          <div class="form-group">
+          <div class="form-group info">
             <div class="checkbox">
                 <label>
                     <input type="checkbox" name="remember"> Onthouden
@@ -48,9 +48,9 @@
           </div>
         </div>
 
-        <a class="btn btn-link col-sm-12" href="{{ url('/password/reset') }}">Wachtwoord vergeten?</a>
+        <a class="btn btn-danger col-sm-12" href="{{ url('/password/reset') }}">Wachtwoord vergeten?</a>
 
-        <button type="submit" class="btn btn-danger btn-raised btn-fab btn-round form-submit btn-lr">
+        <button type="submit" class="btn btn-success btn-raised btn-fab btn-round form-submit btn-lr">
           <i class="material-icons">forward</i>
         </button>
 
@@ -58,7 +58,7 @@
     </form>
 
     <div class="msg-below-lr">
-      <a href="{{ url('/register') }}" class="btn btn-raised btn-primary btn-xs">Ik heb nog geen account</a>
+      <a href="{{ url('/register') }}" class="btn btn-raised btn-info btn-xs">Ik heb nog geen account</a>
     </div>
 
     <div class="clearfix"> </div>

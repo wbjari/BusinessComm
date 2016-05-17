@@ -4,9 +4,9 @@
 
 @section('content')
 
-@include('layouts.header')
+@include('includes.header')
 
-<div class="container">
+<div class="container top">
       <div class="row">
         <div class="col-md-4 bordered-rounded">
           	<h2>In de buurt</h2>
@@ -123,12 +123,8 @@
         	</ul>
         </div>
       </div>
-
-      <hr>
-
-      <footer>
-        <p>© 2016 BusinessComm, Inc.</p>
-      </footer>
     </div>
+
+    @include('includes.footer')
 
 @endsection

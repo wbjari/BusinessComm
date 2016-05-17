@@ -12,7 +12,11 @@
 */
 
 Route::get('/', function () {
+  if (Auth::guest()) {
     return view('home');
+  } else {
+    return redirect('/dashboard');
+  }
 });
 
 Route::auth();
@@ -22,9 +26,11 @@ Route::get('/home', 'HomeController@index');
 
 // Everything below the following route is only accessable when logged in.
 Route::group(['middleware' => 'auth'], function () {
+
     Route::get('/dashboard', 'DashboardController@index');
 
     Route::get('/user/{id}', function ($id) {
 	    return 'User: '. $id;
-	});
+	   });
+
 });
