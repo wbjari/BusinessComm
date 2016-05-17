@@ -10,7 +10,23 @@
           	<h2>In de buurt</h2>
           
 			<ul class="businesses">
-				<a href="#"><li>
+
+				@foreach ($companies as $company)
+
+					<a href="#">
+						<li>
+							<div class="img-container">
+								<img src="assets/img/companies/{{ $company->logo }}" alt="">
+							</div>
+							<div class="info-container">
+								<h3>{{ $company->name }}</h3>
+								<p>{{ $company->slogan }}</p>
+							</div>
+						</li>
+					</a>
+				@endforeach
+
+<!-- 				<a href="#"><li>
 					<div class="img-container">
 						<img src="data:image/png;base64,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" alt="">
 					</div>
@@ -34,8 +50,8 @@
 						<img src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcSBcqrZGK0WYKSCt0TPSINKCP7OxPO-u9mwOnWgBrA75Dk4UJXIVXQymYU" alt="">
 					</div>
 					<div class="info-container">
-						<h3>Bbusinessiscomoesijoeghesoughesouhgoeu</h3>
-						<p>Mediatechnologie</p>
+						<h3>BusinessComm</h3>
+						<p><?= $companies ?></p>
 					</div>
 				</li></a>
 
@@ -56,7 +72,7 @@
 						<h3>Apple</h3>
 						<p>Mediatechnologie</p>
 					</div>
-				</li></a>
+				</li></a> -->
 			</ul>
 
         </div>

@@ -15,10 +15,6 @@ Route::get('/', function () {
     return view('home');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-});
-
 Route::auth();
 
 Route::get('/home', 'HomeController@index');
@@ -26,10 +22,9 @@ Route::get('/home', 'HomeController@index');
 
 // Everything below the following route is only accessable when logged in.
 // Route::group(['middleware' => 'auth'], function () {
-    Route::get('/dashboard', function () {
-	    return view('dashboard');
-	});
+    Route::get('/dashboard', 'DashboardController@index');
 
     Route::get('/user/{id}', function ($id) {
 	    return 'User: '. $id;
 	});
+// });
