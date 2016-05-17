@@ -14,14 +14,11 @@
 Route::get('/', function () {
     return view('home');
 });
-Route::post('/createUser', 'Auth\AuthController@postRegister');
-
-Route::get('/register', 'RegisterController@index');
-
-Route::auth();
-
-Route::get('/login', 'LoginController@index');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
 });
+
+Route::auth();
+
+Route::get('/home', 'HomeController@index');
