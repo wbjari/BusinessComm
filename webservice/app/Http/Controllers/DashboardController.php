@@ -13,13 +13,18 @@ class DashboardController extends Controller
 {
     public function __construct()
     {
-       
+
     }
 
     public function index()
     {
+<<<<<<< HEAD
     	$userid = \Auth::User()->id;
         $user = User::where('id', $userid)->first(['firstname','lastname','profilepicture']);
+=======
+    	// $userid = Auth::User()->id;
+
+>>>>>>> origin/master
 
         $notifications = '';
 
