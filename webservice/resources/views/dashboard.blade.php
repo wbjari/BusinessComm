@@ -18,7 +18,7 @@
 					<a href="#">
 						<li>
 							<div class="img-container">
-								<img src="assets/img/companies/{{ $company->logo }}" alt="">
+								{{ isset($company->logo) ? '<img src="assets/img/companies/   " alt="">' : 'test' }}
 							</div>
 							<div class="info-container">
 								<h3>{{ $company->name }}</h3>

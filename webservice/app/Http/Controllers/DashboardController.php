@@ -27,11 +27,10 @@ class DashboardController extends Controller
 
         // return $users;
 
-    	$companies = Company::all(['name','slogan']);
+    	$companies = Company::all(['name','slogan','logo']);
 
     	$data = [
-    		'companies' => $companies,
-            'date' => date('Y-m-d')
+    		'companies' => $companies
         ];
 
         return view('dashboard')->with($data);
