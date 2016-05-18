@@ -7,9 +7,11 @@
   @include('includes.header')
 
   <div class="jumbotron jumbotron-homepage">
-    <div class="container text-white text-center">
-      <img src="assets/img/logo-white-shadow.png" alt="BusinessComm" />
-      <h2>BusinessComm, hét social media platform voor uw bedrijf!</h2>
+    <div class="text-white text-center">
+      <div class="container">
+        <img src="assets/img/logo-white-shadow.png" alt="BusinessComm" />
+        <h2>BusinessComm, hét social media platform voor uw bedrijf!</h2>
+      </div>
     </div>
   </div>
 

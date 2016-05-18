@@ -13,13 +13,13 @@ class DashboardController extends Controller
 {
     public function __construct()
     {
-       
+
     }
 
     public function index()
     {
     	// $userid = Auth::User()->id;
-    	
+
 
     	// return Company::where('name', 'Facebook')->first();
 

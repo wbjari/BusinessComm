@@ -21,9 +21,6 @@ Route::get('/', function () {
 
 Route::auth();
 
-Route::get('/home', 'HomeController@index');
-
-
 // Everything below the following route is only accessable when logged in.
 Route::group(['middleware' => 'auth'], function () {
 
