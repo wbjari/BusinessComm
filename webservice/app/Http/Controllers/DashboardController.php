@@ -18,22 +18,18 @@ class DashboardController extends Controller
 
     public function index()
     {
-    	// $userid = Auth::User()->id;
-    	
+    	$userid = \Auth::User()->id;
+        $user = User::where('id', $userid)->first(['firstname','lastname','profilepicture']);
 
-    	// return Company::where('name', 'Facebook')->first();
-
-    	// $users = DB::table('companies')->get();
-
-        // return $users;
+        $notifications = '';
 
     	$companies = Company::all(['name','slogan','logo']);
 
-    	$data = [
+        return view('dashboard', [
+        	'user' => $user,
+        	'notifications' => $notifications,
     		'companies' => $companies
-        ];
-
-        return view('dashboard')->with($data);
+        ]);
     }
 
 }
