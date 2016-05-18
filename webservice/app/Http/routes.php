@@ -26,8 +26,6 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/dashboard', 'DashboardController@index');
 
-    Route::get('/user/{id}', function ($id) {
-	    return 'User: '. $id;
-	   });
+    Route::get('/user/{user_id}', 'UserController@index');
 
 });
