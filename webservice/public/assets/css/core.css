@@ -150,3 +150,9 @@ header::after {content:''; display:block; height:70px;}
 /* Important */
 .form-group.has-error.is-focused .form-control {background-image: linear-gradient(#F44336, #F44336), linear-gradient(#D2D2D2, #D2D2D2)!important;}
 .form-group.has-error.is-focused .control-label, .form-group.has-error.is-focused label {color:#F44336!important;}
+
+/* === === === */
+/* === Custom text styling === */
+/* === === === */
+
+.no-result { color: #BDBDBD; }

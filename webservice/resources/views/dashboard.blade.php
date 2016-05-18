@@ -13,20 +13,26 @@
 
 			<ul class="businesses">
 
-				@foreach ($companies as $company)
-
-					<a href="#">
-						<li>
-							<div class="img-container">
-								<?= isset($company->logo) && $company->logo != '' ? '<img src="assets/img/companies/'.$company->logo.'" alt="">' : '<i class="material-icons">business</i>' ?>
-							</div>
-							<div class="info-container">
-								<h3>{{ $company->name }}</h3>
-								<p>{{ $company->slogan }}</p>
-							</div>
-						</li>
-					</a>
-				@endforeach
+				@if (count($companies) < 5)
+					<li>
+						<h4 class="no-result">Geen resultaten gevonden...</h4>
+					</li>
+				@else
+					@foreach ($companies as $company)
+						<a href="company/{{ $company->id }}">
+							<li>
+								<div class="img-container">
+									<?= isset($company->logo) && $company->logo != '' ? '<img src="assets/img/companies/'.$company->logo.'" alt="">' : '<i class="material-icons">business</i>' ?>
+								</div>
+								<div class="info-container">
+									<h3>{{ $company->name }}</h3>
+									<p>{{ $company->slogan }}</p>
+								</div>
+							</li>
+						</a>
+					@endforeach
+				@endif
+					
 			</ul>
 
         </div>

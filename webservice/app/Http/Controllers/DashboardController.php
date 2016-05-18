@@ -24,7 +24,7 @@ class DashboardController extends Controller
 
         $notifications = '';
 
-    	$companies = Company::all(['name','slogan','logo']);
+    	$companies = Company::all(['id','name','slogan','logo']);
 
         return view('dashboard', [
         	'user' => $user,
