@@ -94,6 +94,8 @@ header::after {content:''; display:block; height:70px;}
 .profile-header .container h2 {margin: -10px 0; font-size: 24px; font-weight: 400; }
 .profile-header .container h5 {margin: 10px 0; font-size: 18px; font-weight: 100; }
 
+.btn-profile-save { z-index: 99; display: none; position: fixed !important; right: 15px; bottom: 15px; }
+
 /* === === === */
 /* === Custom form colors === */
 /* === === === */
