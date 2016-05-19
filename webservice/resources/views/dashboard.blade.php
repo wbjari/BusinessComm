@@ -13,7 +13,7 @@
 
 			<ul class="businesses">
 
-				@if (count($companies) < 5)
+				@if (count($companies) < 1)
 					<li>
 						<h4 class="no-result">Geen resultaten gevonden...</h4>
 					</li>

@@ -16,9 +16,9 @@ class UserController extends Controller
     {
     	$userid = \Auth::User()->id;
       $user = User::where('id', $user_id)->first();
-      echo '<pre>';
-      echo $user;
-      echo '</pre>';
+      // echo '<pre>';
+      // echo $user;
+      // echo '</pre>';
 
       return view('profile', $user);
 

@@ -20,13 +20,13 @@ class DashboardController extends Controller
     {
     	$userid = \Auth::User()->id;
         $user = User::where('id', $userid)->first(['firstname','lastname','profilepicture']);
-    	// $userid = Auth::User()->id;
 
         $notifications = '';
 
     	$companies = Company::all(['id','name','slogan','logo']);
 
         return view('dashboard', [
+        	'id' => $userid,
         	'user' => $user,
         	'notifications' => $notifications,
     		'companies' => $companies
