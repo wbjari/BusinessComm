@@ -26,6 +26,11 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/dashboard', 'DashboardController@index');
 
+    Route::get('/company/{company_id}', 'CompanyController@index');
+
+    Route::get('/create-company', 'CompanyController@index_create');
+    Route::post('/create-company', 'CompanyController@create');
+
     Route::get('/user/{user_id}', 'UserController@index');
 
 });

@@ -13,10 +13,10 @@ class CreateCompanyUsersTable extends Migration
      public function up()
      {
        Schema::create('company_users', function (Blueprint $table) {
-           $table->increments('id');
-           $table->integer('user_id');
-           $table->integer('company_id');
-           $table->integer('role');
+           $table->increments('id', 11);
+           $table->integer('user_id')->unsigned();
+           $table->integer('company_id')->unsigned();
+           $table->tinyInteger('role')->default(0);
            $table->timestamps();
        });
      }

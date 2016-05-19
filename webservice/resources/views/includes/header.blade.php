@@ -20,7 +20,14 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav navbar-right">
             <?php if (Auth::check()): ?>
-              <li><a href="{{ url('/profile') }}"><i class="material-icons">account_circle</i>Profiel<div class="ripple-container"></div></a></li>
+              <li class="dropdown">
+        	       <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="material-icons">account_circle</i>Profiel</a>
+        			   <ul class="dropdown-menu">
+					              <li><a href="{{ url('/user') }}">Mijn profiel</a></li>
+            					  <li class="divider"></li>
+            					  <li><a href="{{ url('/logout') }}">Uitloggen</a></li>
+                  </ul>
+              </li>
               <li><a href="{{ url('/logout') }}">Uitloggen<div class="ripple-container"></div></a></li>
             <?php else: ?>
               <li><a href="{{ url('/register') }}">Registreren<div class="ripple-container"></div></a></li>

@@ -32,14 +32,14 @@
 						</a>
 					@endforeach
 				@endif
-					
+
 			</ul>
 
         </div>
         <div class="col-md-3 col-md-offset-1 bordered-rounded">
           <h2>Mijn bedrijven</h2>
           <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-          <p><a href=""><button class="btn btn-raised btn-primary btn-sm pull-right">Bedrijf aanmaken</button></a></p>
+          <p><a href="{{ url('/create-company') }}"><button class="btn btn-raised btn-primary btn-sm pull-right">Bedrijf aanmaken</button></a></p>
        </div>
         <div class="col-md-3 col-md-offset-1 bordered-rounded">
         	<div class="row">

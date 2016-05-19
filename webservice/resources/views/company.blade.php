@@ -8,7 +8,7 @@
 
 	<div class="profile-header">
 		<div class="container">
-			<img src="../assets/img/avatar.png" alt="">
+			<img src="{{ url('assets/img/avatar.png') }}" alt="">
 			<h1 data-profile="name">Koen de Bont</h1>
 			<h2 data-profile="function">Functie</h2>
 			<h5 data-profile="location">Breda, Provincie Noord-Brabant, Nederland</h5>

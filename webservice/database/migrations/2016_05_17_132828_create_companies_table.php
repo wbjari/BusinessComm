@@ -13,20 +13,20 @@ class CreateCompaniesTable extends Migration
     public function up()
     {
       Schema::create('companies', function (Blueprint $table) {
-          $table->increments('id');
-          $table->string('name');
-          $table->string('slogan');
-          $table->string('logo');
-          $table->string('email');
-          $table->integer('telephone');
-          $table->string('biography');
-          $table->string('address');
-          $table->string('zipcode');
-          $table->string('location');
-          $table->string('province');
-          $table->string('country');
-          $table->integer('category_id');
-          $table->integer('status');
+          $table->increments('id', 11);
+          $table->string('name', 150);
+          $table->string('slogan', 200);
+          $table->string('logo', 255);
+          $table->string('email', 150);
+          $table->string('telephone', 30);
+          $table->text('biography', 1000);
+          $table->string('address', 150);
+          $table->string('zipcode', 20);
+          $table->string('location', 150);
+          $table->string('province', 150);
+          $table->string('country', 150);
+          $table->tinyInteger('category_id');
+          $table->tinyInteger('status')->default(1);
           $table->timestamps();
       });
     }
