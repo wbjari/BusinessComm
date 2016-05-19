@@ -14,7 +14,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="{{ url('/dashboard') }}"><img src="assets/img/logo-white.png" alt="BusinessComm"></a>
+          <a class="navbar-brand" href="{{ url('/dashboard') }}"><img src="{{ url('/assets/img/logo-white.png') }}" alt="BusinessComm"></a>
         </div>
 
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
