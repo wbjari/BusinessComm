@@ -7,7 +7,7 @@
   @include('includes.header')
 
   <div class="container">
-    <form role="form" method="POST" action="{{ url('/create-company') }}">
+    <form role="form" method="POST" enctype="multipart/form-data" action="{{ url('/create-company') }}">
         {!! csrf_field() !!}
 
         <div class="col-sm-6">

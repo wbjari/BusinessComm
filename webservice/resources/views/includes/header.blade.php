@@ -1,6 +1,6 @@
 <header>
   <div id="navbar">
-    <?php if (Auth::check()): ?>
+    <?php if (\Auth::check()): ?>
       <nav class="navbar navbar-success navbar-fixed-top" role="navigation">
     <?php else: ?>
       <nav class="navbar navbar-info navbar-fixed-top" role="navigation">
@@ -19,7 +19,7 @@
 
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav navbar-right">
-            <?php if (Auth::check()): ?>
+            <?php if (\Auth::check()): ?>
               <li class="dropdown">
         	       <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="material-icons">account_circle</i>Profiel</a>
         			   <ul class="dropdown-menu">
