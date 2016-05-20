@@ -51,13 +51,13 @@ class CompanyController extends Controller
     {
 
       $company = Company::where('id', $company_id)->first();
-      
+
       if ($company) {
         return view('company', [
           'company' => $company
         ]);
       } else {
-        return view('404');
+        abort(404);
       }
 
     }
