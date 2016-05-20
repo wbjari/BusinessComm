@@ -47,9 +47,19 @@ class CompanyController extends Controller
 
     }
 
-    public function index()
+    public function index($company_id)
     {
-      return view('company');
+
+      $company = Company::where('id', $company_id)->first();
+      
+      if ($company) {
+        return view('company', [
+          'company' => $company
+        ]);
+      } else {
+        return view('404');
+      }
+
     }
 
 }

@@ -9,16 +9,28 @@
 	<div class="profile-header">
 		<div class="container">
 			<img src="{{ url('assets/img/avatar.png') }}" alt="">
-			<h1 data-profile="name">Koen de Bont</h1>
+			<h1 data-profile="name">{{ $company['name'] }}</h1>
 			<h2 data-profile="function">Functie</h2>
-			<h5 data-profile="location">Breda, Provincie Noord-Brabant, Nederland</h5>
+			<h5 data-profile="location">
+        @if ($company['location'])
+          {{ $company['location'] }},
+        @endif
+        @if ($company['province'])
+          {{ $company['province'] }},
+        @endif
+        @if ($company['country'])
+          {{ $company['country'] }}
+        @endif
 		</div>
 	</div>
 
 	<div class="container">
+    @if ($company['biography'])
 		<div class="card">
-			<h2>Over mij</h2>
+			<h2>Biografie</h2>
+      <p> {{ $company['biography'] }} </p>
 		</div>
+    @endif
 	</div>
 
   @include('includes.footer')
