@@ -9,6 +9,7 @@
 	<div class="profile-header">
 		<div class="container">
 			<img src="../assets/img/avatar.png" alt="">
+			<i class="material-icons profile-picture-edit">camera_alt</i>
 			<h1 data-profile="name">Koen de Bont</h1>
 			<h2 data-profile="function">Functie</h2>
 			<h5 data-profile="location">Breda, Provincie Noord-Brabant, Nederland</h5>
@@ -71,21 +72,28 @@ $('*[data-profile]').click(function(){
     lastInput = this;
 
     // Verander text met een data-profile naar een input
-	var input = $('<input type="text" data-profile="reset" placeholder="" class="form-control" />')
+	var input = $('<input type="text" data-profile="reset" placeholder="" class="form-control" autofocus />')
 	.val( $(this).text() )
     .attr('name', $(this).attr('data-profile') )
     .attr('placeholder', $(this).attr('data-profile') )
     .css({
-    	"heigth": $(this).height(),
-    	"font-size": $(this).css('font-size'),
-    	"margin": $(this).css('margin')
+    	'height': $(this).height(),
+    	'font-size': $(this).css('font-size'),
+    	'margin': $(this).css('margin')
     })
-    .keyup(function(e){
+    .keyup(function(){
     	$('.btn-profile-save').css('background-color', '#ff0000').fadeIn();
-    });
+    }).focusout(function(){
+    	console.warn('hoi');
+    })
+
+    setInterval(function(){
+    	input.focus();
+    }, 5)
 
     $(lastInput).replaceWith(input);
-});
+})
+
 
 $('.btn-profile-save').click(function(){
 	var values = '';
@@ -104,6 +112,15 @@ $('.btn-profile-save').click(function(){
     })
 	$(this).css('background-color', '#419745').fadeIn();
 })
+
+$('.profile-header .container img, .profile-picture-edit').mouseover(function(){
+	$('.profile-picture-edit').css('display', 'block');
+}).mouseleave(function(){
+	$('.profile-picture-edit').css('display', 'none');
+}).click(function(){
+	alert('foto upload')
+})
+
 </script>
 
 @endsection

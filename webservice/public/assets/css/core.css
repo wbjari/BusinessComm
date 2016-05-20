@@ -90,6 +90,8 @@ header::after {content:''; display:block; height:70px;}
 .profile-header {margin-bottom: 20px; width: 100%; height: 240px; background-color: #65ce68; }
 .profile-header .container {position: relative; padding: 60px 10px 60px 140px; height: 120px; color: #fff; }
 .profile-header .container img {position: absolute; top: 60px; left: 10px; height: 120px; width: 120px; border-radius: 100%; }
+.profile-header .container .profile-picture-edit { display:none; position: absolute; top: 140px; left: 80px;text-shadow: 1px 1px 5px #000; }
+.profile-header .container img:hover {  }
 .profile-header .container h1 {margin: 12px 0; font-size: 32px; font-weight: 500; }
 .profile-header .container h2 {margin: -10px 0; font-size: 24px; font-weight: 400; }
 .profile-header .container h5 {margin: 10px 0; font-size: 18px; font-weight: 100; }
