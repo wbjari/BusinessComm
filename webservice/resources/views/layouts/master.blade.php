@@ -20,7 +20,8 @@
 
       	<script src="{{ url('assets/js/jquery.min.js') }}" type="text/javascript"></script>
       	<script src="{{ url('assets/js/bootstrap.min.js') }}" type="text/javascript"></script>
-      	<script src="{{ url('assets/js/material.min.js') }}"></script>
+      	<script src="{{ url('assets/js/material.min.js') }}" type="text/javascript"></script>
+      	<script src="{{ url('assets/js/core.js') }}" type="text/javascript"></script>
 
       	<!-- <script src="{{ url('assets/js/nouislider.min.js') }}" type="text/javascript"></script> -->
 
