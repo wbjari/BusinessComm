@@ -34,37 +34,6 @@
 var lastInput;
 
 $('*[data-profile]').click(function(){
-	// active, means we were in input mode - revert input to td
-    if ($(this).hasClass('active')) {
-        // go through each column in the table
-        $(this).each(function() {
-           // get column text
-           var colData = $(this).val();
-           // get column class
-           var colClass = $(this).attr('class');
-           // create td element
-           var col = $('<td></td>');
-           // fill it with data
-           col.addClass(colClass).text(colData);
-           // now. replace
-           $(this).replaceWith(col);
-        });
-    } else {
-        // go through each column in the table
-        $(this).each(function() {
-           // get column text
-           var colData = $(this).text();
-           // get column class
-           var colClass = $(this).attr('class');
-           // create input element
-           var input = $('<input />');
-           // fill it with data
-           input.addClass(colClass).val(colData);
-           // now. replace
-           $(this).replaceWith(input);
-        });
-
-    }
 	// Verander de laatst opgeslagen input naar de hiervoor staande tekst
     $('*[data-profile="reset"]').replaceWith(lastInput);
 
@@ -83,8 +52,6 @@ $('*[data-profile]').click(function(){
     })
     .keyup(function(){
     	$('.btn-profile-save').css('background-color', '#ff0000').fadeIn();
-    }).focusout(function(){
-    	console.warn('hoi');
     })
 
     setInterval(function(){
@@ -114,7 +81,7 @@ $('.btn-profile-save').click(function(){
 })
 
 $('.profile-header .container img, .profile-picture-edit').mouseover(function(){
-	$('.profile-picture-edit').css('display', 'block');
+	$('.profile-picture-edit').css({'display': 'block', 'cursor': 'pointer'});
 }).mouseleave(function(){
 	$('.profile-picture-edit').css('display', 'none');
 }).click(function(){
