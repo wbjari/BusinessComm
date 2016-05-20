@@ -23,7 +23,7 @@
               <li class="dropdown">
         	       <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="material-icons">account_circle</i>Profiel</a>
         			   <ul class="dropdown-menu">
-					              <li><a href="{{ url('/user') }}">Mijn profiel</a></li>
+					              <li><a href="{{ url('/user/') }}">Mijn profiel</a></li>
             					  <li class="divider"></li>
             					  <li><a href="{{ url('/logout') }}">Uitloggen</a></li>
                   </ul>

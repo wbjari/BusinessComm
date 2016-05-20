@@ -8,7 +8,7 @@
 
 	<div class="profile-header">
 		<div class="container">
-			<img src="{{ url('assets/img/avatar.png') }}" alt="">
+			<img src="{{ url('assets/img/company.png') }}" alt="">
       <i class="material-icons profile-picture-edit">camera_alt</i>
 			<h1 data-profile="name">{{ $company['name'] }}</h1>
 			<h2 data-profile="function">Functie</h2>

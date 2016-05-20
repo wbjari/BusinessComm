@@ -48,7 +48,8 @@ $('.btn-profile-save').click(function(){
 })
 
 $('.profile-header .container img, .profile-picture-edit').mouseover(function(){
-	$('.profile-picture-edit').css({'display': 'block', 'cursor': 'pointer'});
+	$('.profile-picture-edit').css('display', 'block');
+    $(this).css('cursor', 'pointer');
 }).mouseleave(function(){
 	$('.profile-picture-edit').css('display', 'none');
 }).click(function(){
