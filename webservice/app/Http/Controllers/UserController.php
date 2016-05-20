@@ -20,7 +20,12 @@ class UserController extends Controller
       // echo $user;
       // echo '</pre>';
 
-      return view('profile', $user);
+      $user_skills = ['html', 'css', 'php', 'javascript'];
+
+      return view('profile', [
+        'user' => $user,
+        'user_skills' => $user_skills
+        ]);
 
       //   $notifications = '';
       //
