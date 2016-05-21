@@ -30,6 +30,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/create-company', 'CompanyController@index_create');
     Route::post('/create-company', 'CompanyController@create');
+    Route::any('/change-logo', 'CompanyController@change_logo');
 
     Route::get('/user/{user_id}', 'UserController@index');
 

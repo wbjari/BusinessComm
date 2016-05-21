@@ -3,7 +3,8 @@
     <head>
         <title>@yield('title') | BusinessComm</title>
 
-        <meta name="_token" content="{{ csrf_token() }}"/>
+        <meta name="_token" content="{{ csrf_token() }}" />
+        <meta name="url" content="{{  url('/') }}" />
 
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
         <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" />
@@ -21,12 +22,13 @@
       	<script src="{{ url('assets/js/jquery.min.js') }}" type="text/javascript"></script>
       	<script src="{{ url('assets/js/bootstrap.min.js') }}" type="text/javascript"></script>
       	<script src="{{ url('assets/js/material.min.js') }}" type="text/javascript"></script>
+        <script src="{{ url('assets/js/material-kit.js') }}" type="text/javascript"></script>
       	<script src="{{ url('assets/js/core.js') }}" type="text/javascript"></script>
+      	<script src="{{ url('assets/js/ajax.js') }}" type="text/javascript"></script>
 
       	<!-- <script src="{{ url('assets/js/nouislider.min.js') }}" type="text/javascript"></script> -->
 
       	<!-- <script src="{{ url('assets/js/bootstrap-datepicker.js') }}" type="text/javascript"></script> -->
 
-      	<script src="{{ url('assets/js/material-kit.js') }}" type="text/javascript"></script>
     </body>
 </html>

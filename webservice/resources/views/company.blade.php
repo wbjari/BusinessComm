@@ -8,14 +8,14 @@
 
 	<div class="profile-header">
 		<div class="container company-profile">
-      <div class="img-container">
+      <div class="img-container" data-toggle="modal" data-target="#changeLogoModal">
         @if($company->logo)
           <img src="{{ $company['logo'] }}" alt="{{ $company['name'] }}">
         @else
           <img src="{{ url('assets/img/company.png') }}" alt="{{ $company['name'] }}">
         @endif
 <!--         <img src="{{ url('assets/img/company.png') }}" alt="{{ $company['name'] }}"> -->
-        <i class="material-icons profile-picture-edit" data-toggle="modal" data-target="#myModal">camera_alt</i>
+        <i class="material-icons profile-picture-edit">camera_alt</i>
       </div>
 
 			<h1 data-profile="name">{{ $company['name'] }}</h1>
@@ -45,32 +45,24 @@
     @endif
 	</div>
 
-  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal fade" id="changeLogoModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+        <h4 class="modal-title" id="myModalLabel">Logo aanpassen</h4>
       </div>
       <div class="modal-body">
-        <form role="form" method="POST" enctype="multipart/form-data" action="{{ url('/create-company') }}">
-            {!! csrf_field() !!}
 
-            <div class="col-sm-6">
-               <div class="form-group">
-                 <label class="control-label">Logo</label>
-                 <input type="file" class="form-control" name="logo">
-               </div>
-            </div>
+        <div class="col-sm-6">
+         <label class="control-label">Logo</label>
+         <input type="file" id="changeLogo">
+        </div>
 
-            <button type="submit" class="btn btn-success btn-raised btn-fab btn-round form-submit btn-lr">
-              <i class="material-icons">forward</i>
-            </button>
-        </form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Sluiten</button>
-        <button type="button" class="btn btn-info ">Opslaan</button>
+        <button type="button" class="btn btn-info" id="changeLogoButton">Opslaan</button>
       </div>
     </div>
   </div>

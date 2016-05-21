@@ -79,4 +79,12 @@ class CompanyController extends Controller
 
     }
 
+    public function change_logo()
+    {
+
+      $input = Input::get('value');
+      return($input);
+
+    }
+
 }
