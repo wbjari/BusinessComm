@@ -104,6 +104,13 @@ header::after {content:''; display:block; height:70px;}
 .btn-profile-save { z-index: 99; display: none; position: fixed !important; right: 15px; bottom: 15px; }
 
 /* === === === */
+/* === Company === */
+/* === === === */
+
+.remove-post {float:right; cursor:pointer; transition:0.35s;}
+.remove-post:hover {color:red;}
+
+/* === === === */
 /* === Custom form colors === */
 /* === === === */
 

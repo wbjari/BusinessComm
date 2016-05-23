@@ -52,4 +52,25 @@ class PostController extends Controller
 
   }
 
+  public function remove()
+  {
+
+    $post_id = Input::get('data');
+    $query = Post::where('id', $post_id);
+
+    $image_url = $query->first(['image'])['image'];
+
+    $query->delete();
+
+    if ($image_url) {
+      $image_path = public_path() . '' . parse_url($image_url)['path'];
+      if (file_exists($image_path)) {
+        unlink($image_path);
+      }
+    }
+
+    return Response::json(true);
+
+  }
+
 }

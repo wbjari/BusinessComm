@@ -76,13 +76,18 @@
       <div class="posts">
 
         <div class="card">
-          <div class="col-md-12">
 
             @if (count($posts) < 1)
+            <div class="col-md-12">
     					<h4>Er zijn nog geen berichten</h4>
+            </div>
     				@else
 
     					@foreach ($posts as $post)
+              <div class="col-md-12">
+
+                <span class="remove-post" data-id="{{ $post->id }}" data-toggle="modal" data-target="#removePostModal"><i class="material-icons">delete_forever</i></span>
+
                 <h4>{{ $post->title }}</h4>
                 <p>{{ $post->content }}</p>
                 @if ($post->image)
@@ -95,6 +100,7 @@
                   <br>
                   <b>op:</b> {{ $post->created_at }}
                 </div>
+              </div>
               @endforeach
 
             @endif
@@ -107,6 +113,30 @@
     </div>
 
 	</div>
+
+  <div class="modal fade" id="removePostModal" tabindex="-1" role="dialog" aria-labelledby="removePost" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Waarschuwing!</h4>
+      </div>
+      <div class="modal-body">
+
+        <p class="modal-message">
+          Weet u zeker dat uw het bericht "<span></span>" wilt verwijderen?
+          <br />
+          Het is niet mogelijk om dit ongedaan te maken.
+        </p>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Annuleren</button>
+        <button type="button" class="btn btn-danger" id="removePostButton">Verwijderen</button>
+      </div>
+    </div>
+  </div>
+</div>
 
   <div class="modal fade" id="changeLogoModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">

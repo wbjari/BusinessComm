@@ -63,7 +63,7 @@ $('.btn-profile-save').click(function(){
 
 	for (i = 0; i < thisdata.length; i++) {
 		data.push({
-			name: $(thisdata[i]).attr('data-profile'), 
+			name: $(thisdata[i]).attr('data-profile'),
 			variable:  $(thisdata[i]).text()
 		});
 
@@ -85,8 +85,15 @@ $('.btn-profile-save').click(function(){
 		   console.log(textStatus, errorThrown);
 		}
 	})
-	
-})
+
+});
+
+$('.remove-post').click(function() {
+	var title = $(this).parent().find('h4').html();
+	var post_id = $(this).data('id');
+	$('#removePostModal').find('.modal-message span').html(title);
+	prepareRemovePost(post_id);
+});
 
 // === === === //
 // === Click -> ajax.js === //
@@ -122,3 +129,14 @@ $('#changeLogo').fileupload({
 // === === === //
 // == Functions === //
 // === === === //
+
+function prepareRemovePost(post_id)
+{
+
+	$('#removePostButton').click(function() {
+
+		ajax_removePost(post_id);
+
+	});
+
+}
