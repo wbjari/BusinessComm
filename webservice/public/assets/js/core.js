@@ -76,13 +76,19 @@ $('#changeLogo').fileupload({
     }
 });
 
+
+// $('#newPostForm').submit(function(e) {
+//   e.stopPropagation();
+//   e.preventDefault();
+//
+//   // formdata
+//   var data = $(this).find('input[type="file"]').prop('files');
+//
+//   console.log(data);
+//   ajax_newPost(data);
+//
+// })
+
 // === === === //
 // == Functions === //
 // === === === //
-
-function changeLogo()
-{
-
-
-
-}

@@ -6,6 +6,7 @@ use DB;
 use Response;
 use App\User;
 use App\Company;
+use App\Post;
 use App\Auth;
 use App\Http\Requests;
 use Illuminate\Http\Request;
@@ -13,6 +14,24 @@ use Illuminate\Support\Facades\Input;
 
 class CompanyController extends Controller
 {
+
+    public function index($company_id)
+    {
+
+      $company = Company::where('id', $company_id)->first();
+      $posts = Post::where('company_id', $company_id)->get();
+
+      if ($company) {
+        return view('company', [
+          'company' => $company,
+          'posts' => $posts
+        ]);
+      } else {
+        abort(404);
+      }
+
+    }
+
     public function index_create()
     {
 
@@ -42,11 +61,6 @@ class CompanyController extends Controller
 
       $company->name        =   $input["name"];
       $company->slogan      =   $input["slogan"];
-
-      if (Input::hasFile('logo')) {
-        $company->logo        =   $database_path.'/'.$filename;
-      }
-
       $company->email       =   $input["email"];
       $company->telephone   =   $input["telephone"];
       $company->biography   =   $input["biography"];
@@ -56,26 +70,15 @@ class CompanyController extends Controller
       $company->province    =   $input["province"];
       $company->country     =   $input["country"];
 
+      if (Input::hasFile('logo')) {
+        $company->logo        =   $database_path.'/'.$filename;
+      }
+
       $company->save();
 
       $current_company_id = DB::getPdo()->lastInsertId();
       $url = '/company/' . $current_company_id;
       return redirect(url($url));
-
-    }
-
-    public function index($company_id)
-    {
-
-      $company = Company::where('id', $company_id)->first();
-
-      if ($company) {
-        return view('company', [
-          'company' => $company
-        ]);
-      } else {
-        abort(404);
-      }
 
     }
 

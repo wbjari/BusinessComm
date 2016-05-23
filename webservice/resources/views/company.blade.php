@@ -42,6 +42,70 @@
       </div>
 		</div>
     @endif
+
+    <div class="timeline col-xs-12 col-md-6 col-md-offset-3">
+
+      <div class="new-post">
+        <div class="card">
+          <div class="col-md-12">
+            <form id="newPostForm" method="POST" enctype="multipart/form-data" action="/create-post">
+              {!! csrf_field() !!}
+
+              <input type="hidden" name="company_id" value="{{ $company['id'] }}">
+
+              <div class="form-group">
+                <input type="text" name="title" class="form-control" placeholder="Titel *">
+              </div>
+
+              <div class="form-group">
+                <textarea name="message" class="form-control" placeholder="Bericht *"></textarea>
+              </div>
+
+              <label class="control-label" for="file">Afbeelding</label>
+              <input type="file" name="file">
+
+              <div class="form-group">
+                <input type="submit" class="btn btn-primary btn-raised pull-right" name="submit" value="Plaatsen">
+              </div>
+
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <div class="posts">
+
+        <div class="card">
+          <div class="col-md-12">
+
+            @if (count($posts) < 1)
+    					<h4>Er zijn nog geen berichten</h4>
+    				@else
+
+    					@foreach ($posts as $post)
+                <h4>{{ $post->title }}</h4>
+                <p>{{ $post->content }}</p>
+                @if ($post->image)
+                <div>
+                  <img src="{{ $post->image }}" />
+                </div>
+                @endif
+                <div>
+                  <b>Door:</b> {{ $post->id }}
+                  <br>
+                  <b>op:</b> {{ $post->created_at }}
+                </div>
+              @endforeach
+
+            @endif
+
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
 	</div>
 
   <div class="modal fade" id="changeLogoModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
