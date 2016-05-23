@@ -38,4 +38,28 @@ class UserController extends Controller
       //   ]);
     }
 
+    public function edit()
+    {
+
+      $userid = \Auth::User()->id;
+
+      $input = Input::get('data');
+
+      for ($i=0; $i < count($input); $i++) { 
+        $data[$input[$i]['name']] = $input[$i]['variable'];
+      }
+
+      unset($data['skill']);
+
+      if( User::where('id', $userid)->update($data) ){
+        $result['code'] = '200';
+        $result['status'] = 'Uw account is successvol bijgewerkt.';
+      } else {
+        $result['code'] = '500';
+        $result['status'] = 'Oops! Er is iets fout gegaan.';
+      }
+
+      return json_encode($result);
+    }
+
 }

@@ -34,6 +34,6 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::post('/create-post', 'PostController@create');
 
+    Route::get('/user/edit', 'UserController@edit');
     Route::get('/user/{user_id}', 'UserController@index');
-
 });
