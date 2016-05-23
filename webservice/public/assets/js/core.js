@@ -2,7 +2,7 @@
 // === Global variables === //
 // === === === //
 
-var site_url = $('meta[name=url]').attr('content'); 
+var site_url = $('meta[name=url]').attr('content');
 
 // === === === //
 // === User / company edit === //
@@ -62,9 +62,18 @@ $('.btn-profile-save').click(function(){
 // === Click -> ajax.js === //
 // === === === //
 
-$('#changeLogoButton').click(function() {
-  var data = $('input#changeLogo').val();
-  ajax_changeLogo(data);
+$('#changeLogo').fileupload({
+    dataType: 'json',
+    beforeSend: function (xhr) {
+        var token = $('meta[name="_token"]').attr('content');
+
+        if (token) {
+              return xhr.setRequestHeader('X-CSRF-TOKEN', token);
+        }
+    },
+    done: function (e, data) {
+        console.log(data);
+    }
 });
 
 // === === === //

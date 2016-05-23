@@ -20,9 +20,15 @@
         @yield('content')
 
       	<script src="{{ url('assets/js/jquery.min.js') }}" type="text/javascript"></script>
+
       	<script src="{{ url('assets/js/bootstrap.min.js') }}" type="text/javascript"></script>
+
       	<script src="{{ url('assets/js/material.min.js') }}" type="text/javascript"></script>
         <script src="{{ url('assets/js/material-kit.js') }}" type="text/javascript"></script>
+
+        <script src="{{ url('assets/js/jquery.ui.widget.js') }}" type="text/javascript"></script>
+        <script src="{{ url('assets/js/jquery.fileupload.js') }}" type="text/javascript"></script>
+
       	<script src="{{ url('assets/js/core.js') }}" type="text/javascript"></script>
       	<script src="{{ url('assets/js/ajax.js') }}" type="text/javascript"></script>
 

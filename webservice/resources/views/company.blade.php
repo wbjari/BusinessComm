@@ -53,10 +53,10 @@
       </div>
       <div class="modal-body">
 
-        <div class="col-sm-6">
-         <label class="control-label">Logo</label>
-         <input type="file" id="changeLogo">
-        </div>
+          <div class="col-sm-6">
+           <label class="control-label">Logo</label>
+           <input type="file" id="changeLogo" name="changeLogo" data-url="/change-logo">
+          </div>
 
       </div>
       <div class="modal-footer">
