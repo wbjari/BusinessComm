@@ -9,8 +9,7 @@
 	<div class="profile-header">
 		<div class="container company-profile">
       <div class="img-container">
-        <?= isset($company->logo) && $company->logo != '' ? '<img src="../assets/img/companies/'.$company->logo.'" alt="">' : '<img src="../assets/img/company.png" alt="">' ?>
-<!--         <img src="{{ url('assets/img/company.png') }}" alt="{{ $company['name'] }}"> -->
+        <?= isset($company->logo) && !file_exists(url('assets/img/'.$company->logo)) ? '<img src="../assets/img/'.$company->logo.'" alt="'.$company->name.'">' : '<img src="../assets/img/company.png" alt="'.$company->name.'">' ?>
         <i class="material-icons profile-picture-edit">camera_alt</i>
       </div>
       

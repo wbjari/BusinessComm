@@ -72,6 +72,11 @@
 			
 			<table class="table">
 				<tbody>
+					@if ($user->firstname !== '' || $user->lastname !== ''){
+						<span data-profile="location">{{ $user->firstname .' '.
+$user->lastname }}</span>,
+					}
+					@endif
 				    <tr><th>Volledige naam</th></tr>
 				    <tr><td>{{ $user->firstname.' '.$user->lastname }}</td></tr>
 
@@ -98,6 +103,8 @@
 
 				    <tr><th>Talen</th></tr>
 				    <tr><td>{{ $user->languages }}</td></tr>
+
+					
 				</tbody>
 			</table>
 		</div>
@@ -112,3 +119,4 @@
   @include('includes.footer')
 
 @endsection
+
