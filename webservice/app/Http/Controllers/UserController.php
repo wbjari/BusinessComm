@@ -38,4 +38,50 @@ class UserController extends Controller
       //   ]);
     }
 
+    public function edit()
+    {
+
+      $userid = \Auth::User()->id;
+
+      $input = Input::get('data');
+
+      for ($i=0; $i < count($input); $i++) { 
+        $result[$input[$i]['name']] = $input[$i]['variable'];
+      }
+
+      // address
+
+      // country
+
+      // email
+
+      // firstname
+
+      // function
+
+      // languages
+
+      // lastname
+
+      // location
+
+      // phone
+
+      // province
+
+      // skill
+
+      // telephone
+
+      // zipcode
+
+
+      dB::table('users')->where('id', $userid)->update($result);
+
+      // echo $result['data'][1]['name'];
+
+      // return json_encode($result['data']);
+      // return 'test';
+    }
+
 }

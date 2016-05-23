@@ -32,6 +32,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/create-company', 'CompanyController@create');
     Route::any('/change-logo', 'CompanyController@change_logo');
 
+    Route::get('/user/edit', 'UserController@edit');
     Route::get('/user/{user_id}', 'UserController@index');
-
 });

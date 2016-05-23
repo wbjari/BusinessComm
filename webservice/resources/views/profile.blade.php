@@ -10,7 +10,7 @@
 		<div class="container">
 			<img src="{{ url('assets/img/avatar.png') }}" alt="">
 			<i class="material-icons profile-picture-edit">camera_alt</i>
-			<h1 data-profile="name">{{ $user->firstname.' '.$user->lastname }}</h1>
+			<h1><span data-profile="firstname">{{ $user->firstname }}</span>&nbsp;<span data-profile="lastname">{{ $user->lastname }}</span></h1>
 			<h2 data-profile="function">{{ $user->category_id }}Functie</h2>
 			<h5>
 		        @if ($user->location)
@@ -72,39 +72,50 @@
 			
 			<table class="table">
 				<tbody>
-					@if ($user->firstname !== '' || $user->lastname !== ''){
-						<span data-profile="location">{{ $user->firstname .' '.
-$user->lastname }}</span>,
-					}
+				    @if ($user->address !== '')
+						<tr><th>Adres</th></tr>
+					    <tr><td data-profile="address">{{ $user->address }}</td></tr>
 					@endif
-				    <tr><th>Volledige naam</th></tr>
-				    <tr><td>{{ $user->firstname.' '.$user->lastname }}</td></tr>
+					    
+					@if ($user->zipcode !== '')
+					    <tr><th>Postcode</th></tr>
+					    <tr><td data-profile="zipcode">{{ $user->zipcode }}</td></tr>
+					@endif
 
-				    <tr><th>Adres</th></tr>
-				    <tr><td>{{ $user->address }}</td></tr>
+					@if ($user->location !== '')
+					    <tr><th>Plaats</th></tr>
+					    <tr><td data-profile="location">{{ $user->location }}</td></tr>
+					@endif
 
-				    <tr><th>Postcode</th></tr>
-				    <tr><td>{{ $user->zipcode }}</td></tr>
+					@if ($user->province !== '')
+					    <tr><th>Provincie</th></tr>
+					    <tr><td data-profile="province">{{ $user->province }}</td></tr>
+					@endif
 
-				    <tr><th>Plaats</th></tr>
-				    <tr><td>{{ $user->location }}</td></tr>
+					@if ($user->country !== '')
+					    <tr><th>Land</th></tr>
+					    <tr><td data-profile="country">{{ $user->country }}</td></tr>
+					@endif
 
-				    <tr><th>Land</th></tr>
-				    <tr><td>{{ $user->country }}</td></tr>
+					@if ($user->email !== '')
+					    <tr><th>E-mailadres</th></tr>
+					    <tr><td data-profile="email">{{ $user->email }}</td></tr>
+					@endif
 
-				    <tr><th>E-mailadres</th></tr>
-				    <tr><td>{{ $user->email }}</td></tr>
+					@if ($user->telephone !== '')
+					    <tr><th>Telefoonnummer</th></tr>
+					    <tr><td data-profile="telephone">{{ $user->telephone }}</td></tr>
+					@endif
 
-				    <tr><th>Telefoonnummer</th></tr>
-				    <tr><td>{{ $user->telephone }}</td></tr>
+					@if ($user->mobile !== '')
+					    <tr><th>Mobiel</th></tr>
+					    <tr><td data-profile="phone">{{ $user->mobile }}</td></tr>
+					@endif
 
-				    <tr><th>Mobiel</th></tr>
-				    <tr><td>{{ $user->phone }}</td></tr>
-
-				    <tr><th>Talen</th></tr>
-				    <tr><td>{{ $user->languages }}</td></tr>
-
-					
+					@if ($user->languages !== '')
+					    <tr><th>Talen</th></tr>
+					    <tr><td data-profile="languages">{{ $user->languages }}</td></tr>
+					@endif
 				</tbody>
 			</table>
 		</div>
