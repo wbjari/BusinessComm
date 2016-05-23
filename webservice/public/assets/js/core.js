@@ -44,13 +44,18 @@ $(document).on('click', '*[data-profile]', function(){
 		$(lastInput).replaceWith(input);
 	}
 })
-$('.btn-profile-save').css('background-color', '#ff0000').fadeIn();
 
 $('.btn-profile-save').click(function(){
 	$('*[data-profile="reset"]').replaceWith(lastInput);
 
 	if(lastInput !== undefined){
 		$(lastInput).text(lastText);
+	}
+
+	if( lastText !== undefined ){
+		inputName = $(lastInput).attr('data-profile');
+		$('*[data-profile="'+inputName+'"]').text(lastText);
+		lastText = undefined;
 	}
 
 	var thisdata = $('*[data-profile]');
@@ -69,14 +74,18 @@ $('.btn-profile-save').click(function(){
 		type: "get",
 		data: { data },
 		success: function (response) {
-		   console.log("response => "+response);
-
+			response = JSON.parse(response);
+			if(response.code == 200){
+				$('.btn-profile-save').css('background-color', '#419745').fadeIn();
+			} else {
+				alert('fuck');
+			}
 		},
 		error: function(jqXHR, textStatus, errorThrown) {
 		   console.log(textStatus, errorThrown);
 		}
 	})
-	$(this).css('background-color', '#419745').fadeIn();
+	
 })
 
 // === === === //
