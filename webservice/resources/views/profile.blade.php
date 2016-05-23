@@ -99,7 +99,7 @@
 
 					@if ($user->email !== '')
 					    <tr><th>E-mailadres</th></tr>
-					    <tr><td data-profile="email">{{ $user->email }}</td></tr>
+					    <tr><td>{{ $user->email }}</td></tr>
 					@endif
 
 					@if ($user->telephone !== '')
@@ -109,12 +109,12 @@
 
 					@if ($user->mobile !== '')
 					    <tr><th>Mobiel</th></tr>
-					    <tr><td data-profile="phone">{{ $user->mobile }}</td></tr>
+					    <tr><td data-profile="mobile">{{ $user->mobile }}</td></tr>
 					@endif
 
 					@if ($user->languages !== '')
 					    <tr><th>Talen</th></tr>
-					    <tr><td data-profile="languages">{{ $user->languages }}</td></tr>
+					    <tr><td>{{ $user->languages }}</td></tr>
 					@endif
 				</tbody>
 			</table>

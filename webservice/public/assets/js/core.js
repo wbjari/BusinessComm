@@ -9,11 +9,19 @@ var site_url = $('meta[name=url]').attr('content');
 // === === === //
 
 var lastInput;
+var lastText;
 
 $(document).on('click', '*[data-profile]', function(){
 	if(!$(this).hasClass('form-control')){
+
 		// Verander de laatst opgeslagen input naar de hiervoor staande tekst
 		$('*[data-profile="reset"]').replaceWith(lastInput);
+
+		if( lastText !== undefined ){
+			inputName = $(lastInput).attr('data-profile');
+			$('*[data-profile="'+inputName+'"]').text(lastText);
+			lastText = undefined;
+		}
 
 		// Sla de aangeklikte input op
 		lastInput = this;
@@ -30,6 +38,7 @@ $(document).on('click', '*[data-profile]', function(){
 		})
 		.keyup(function(){
 			$('.btn-profile-save').css('background-color', '#ff0000').fadeIn();
+			lastText = $(this).val();
 		});
 
 		$(lastInput).replaceWith(input);
@@ -38,6 +47,12 @@ $(document).on('click', '*[data-profile]', function(){
 $('.btn-profile-save').css('background-color', '#ff0000').fadeIn();
 
 $('.btn-profile-save').click(function(){
+	$('*[data-profile="reset"]').replaceWith(lastInput);
+
+	if(lastInput !== undefined){
+		$(lastInput).text(lastText);
+	}
+
 	var thisdata = $('*[data-profile]');
 	var data = [];
 
@@ -49,14 +64,12 @@ $('.btn-profile-save').click(function(){
 
 	}
 
-	console.log(data)
-
 	$.ajax({
 		url: "/user/edit",
 		type: "get",
 		data: { data },
 		success: function (response) {
-		   console.log(response);
+		   console.log("response => "+response);
 
 		},
 		error: function(jqXHR, textStatus, errorThrown) {

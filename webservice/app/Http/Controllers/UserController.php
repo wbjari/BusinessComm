@@ -46,42 +46,20 @@ class UserController extends Controller
       $input = Input::get('data');
 
       for ($i=0; $i < count($input); $i++) { 
-        $result[$input[$i]['name']] = $input[$i]['variable'];
+        $data[$input[$i]['name']] = $input[$i]['variable'];
       }
 
-      // address
+      unset($data['skill']);
 
-      // country
+      if( User::where('id', $userid)->update($data) ){
+        $result['code'] = '200';
+        $result['status'] = 'Uw account is successvol bijgewerkt.';
+      } else {
+        $result['code'] = '500';
+        $result['status'] = 'Oops! Er is iets fout gegaan.';
+      }
 
-      // email
-
-      // firstname
-
-      // function
-
-      // languages
-
-      // lastname
-
-      // location
-
-      // phone
-
-      // province
-
-      // skill
-
-      // telephone
-
-      // zipcode
-
-
-      dB::table('users')->where('id', $userid)->update($result);
-
-      // echo $result['data'][1]['name'];
-
-      // return json_encode($result['data']);
-      // return 'test';
+      return json_encode($result);
     }
 
 }
