@@ -61,10 +61,10 @@ function ajax_removePost(post_id)
         }
     },
     success: function(response) {
-      
-      if ($('.posts').find('.remove-post').data('id') === post_id) {
-        $(this).parent().fadeOut().remove();
-      }
+
+      // if ($('.posts').find('.remove-post').data('id') === post_id) {
+      //   $(this).parent().fadeOut().remove();
+      // }
 
     },
     error: function(response) {
