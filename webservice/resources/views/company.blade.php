@@ -1,6 +1,6 @@
 @extends('layouts.master')
 
-@section('title', 'Company')
+@section('title', 'Bedrijf')
 
 @section('content')
 
@@ -8,11 +8,15 @@
 
 	<div class="profile-header">
 		<div class="container company-profile">
-      <div class="img-container">
-        <?= isset($company->logo) && !file_exists(url('assets/img/'.$company->logo)) ? '<img src="../assets/img/'.$company->logo.'" alt="'.$company->name.'">' : '<img src="../assets/img/company.png" alt="'.$company->name.'">' ?>
+      <div class="img-container" data-toggle="modal" data-target="#changeLogoModal">
+        @if($company->logo)
+          <img src="{{ $company['logo'] }}" alt="{{ $company['name'] }}">
+        @else
+          <img src="{{ url('assets/img/company.png') }}" alt="{{ $company['name'] }}">
+        @endif
         <i class="material-icons profile-picture-edit">camera_alt</i>
       </div>
-      
+
 			<h1 data-profile="name">{{ $company['name'] }}</h1>
 			<h2 data-profile="slogan">{{ $company['slogan'] }}</h2>
 			<h5>
@@ -39,6 +43,29 @@
 		</div>
     @endif
 	</div>
+
+  <div class="modal fade" id="changeLogoModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Logo aanpassen</h4>
+      </div>
+      <div class="modal-body">
+
+        <div class="col-sm-6">
+         <label class="control-label">Logo</label>
+         <input type="file" id="changeLogo">
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Sluiten</button>
+        <button type="button" class="btn btn-info" id="changeLogoButton">Opslaan</button>
+      </div>
+    </div>
+  </div>
+</div>
 
   @include('includes.footer')
 

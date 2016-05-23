@@ -25,11 +25,28 @@ class CompanyController extends Controller
 
       $input = Input::all();
 
+      if (Input::hasFile('logo')) {
+
+        $file = Input::file('logo');
+        $original_name = $file->getClientOriginalName();
+
+        $filename = date('d_m_Y_h_i_s') . '_' . rand(1000, 9999) . '_' . $original_name;
+        $file_path = public_path() . '/storage/companies';
+        $database_path = url('/storage/companies');
+
+        $file->move($file_path, $filename);
+
+      }
+
       $company = new Company;
 
       $company->name        =   $input["name"];
       $company->slogan      =   $input["slogan"];
-      $company->logo        =   $input["logo"];
+
+      if (Input::hasFile('logo')) {
+        $company->logo        =   $database_path.'/'.$filename;
+      }
+
       $company->email       =   $input["email"];
       $company->telephone   =   $input["telephone"];
       $company->biography   =   $input["biography"];
@@ -59,6 +76,14 @@ class CompanyController extends Controller
       } else {
         abort(404);
       }
+
+    }
+
+    public function change_logo()
+    {
+
+      $input = Input::get('value');
+      return($input);
 
     }
 

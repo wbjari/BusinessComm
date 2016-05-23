@@ -2,6 +2,6 @@
   <hr>
 
   <footer>
-    <p>© 2016 BusinessComm, Inc.</p>
+    <p>&copy; <?= date('Y'); ?> BusinessComm, Inc.</p>
   </footer>
 </div>

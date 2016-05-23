@@ -4,6 +4,7 @@
 
 html, body {height:100%;}
 body { background-color: #f9f9f9; }
+input, .form-control:focus {outline:0; box-shadow:none;}
 .container.top {padding-top:15px;}
 
 /* === === === */
@@ -91,8 +92,9 @@ header::after {content:''; display:block; height:70px;}
 .profile-header .container {position: relative; padding: 60px 10px 60px 140px; height: 120px; color: #fff; }
 .profile-header .company-profile { padding: 60px 10px 60px 220px; }
 .profile-header .container img {position: absolute; top: 60px; left: 10px; height: 120px; width: 120px; border-radius: 100%; }
-.profile-header .container .img-container {position: absolute; top: 60px; left: 10px; height: 120px; width: 200px; text-align: center; }
+.profile-header .container .img-container {cursor:pointer; position: absolute; top: 60px; left: 10px; height: 120px; width: 200px; text-align: center; }
 .profile-header .container .img-container img {position: relative; top: 50%; left: 0; max-height: 120px; max-width: 200px; transform: translateY(-50%); border-radius: 0; height: auto; width: auto; }
+.profile-header .container .img-container:hover i {display:block;}
 .profile-header .container .profile-picture-edit { display:none; position: absolute; top: 140px; left: 80px;text-shadow: 1px 1px 5px #000; }
 .profile-header .container .img-container .profile-picture-edit {position: absolute; top: 85px; left: 160px; }
 .profile-header .container h1 {margin: 12px 0; font-size: 32px; font-weight: 500; }

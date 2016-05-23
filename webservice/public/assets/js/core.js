@@ -1,3 +1,13 @@
+// === === === //
+// === Global variables === //
+// === === === //
+
+var site_url = $('meta[name=url]').attr('content'); 
+
+// === === === //
+// === User / company edit === //
+// === === === //
+
 // Defineer input buiten de functies
 var lastInput;
 
@@ -9,13 +19,14 @@ $('*[data-profile]').click(function(){
     lastInput = this;
 
     // Verander text met een data-profile naar een input
-	var input = $('<input type="text" data-profile="reset" placeholder="" class="form-control" autofocus />')
+	var input = $('<input type="text" data-profile="reset" placeholder="" class="form-control" autocomplete="off" autofocus />')
 	.val( $(this).text() )
     .attr('name', $(this).attr('data-profile') )
     .attr('placeholder', $(this).attr('data-profile') )
     .css({
     	'height': $(this).height(),
-    	'margin': $(this).css('margin')
+    	'margin': $(this).css('margin'),
+      'color': $(this).css('color')
     })
     .keyup(function(){
     	$('.btn-profile-save').css('background-color', '#ff0000').fadeIn();
@@ -47,11 +58,22 @@ $('.btn-profile-save').click(function(){
 	$(this).css('background-color', '#419745').fadeIn();
 })
 
-$('.profile-header .container img, .profile-picture-edit').mouseover(function(){
-	$('.profile-picture-edit').css('display', 'block');
-    $(this).css('cursor', 'pointer');
-}).mouseleave(function(){
-	$('.profile-picture-edit').css('display', 'none');
-}).click(function(){
-	alert('foto upload')
-})
+// === === === //
+// === Click -> ajax.js === //
+// === === === //
+
+$('#changeLogoButton').click(function() {
+  var data = $('input#changeLogo').val();
+  ajax_changeLogo(data);
+});
+
+// === === === //
+// == Functions === //
+// === === === //
+
+function changeLogo()
+{
+
+
+
+}
