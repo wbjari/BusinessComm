@@ -54,11 +54,11 @@
               <input type="hidden" name="company_id" value="{{ $company['id'] }}">
 
               <div class="form-group">
-                <input type="text" name="title" class="form-control" placeholder="Titel *">
+                <input type="text" name="title" class="form-control" placeholder="Titel *" autocomplete="off">
               </div>
 
               <div class="form-group">
-                <textarea name="message" class="form-control" placeholder="Bericht *"></textarea>
+                <textarea name="message" class="form-control" placeholder="Bericht *" autocomplete="off"></textarea>
               </div>
 
               <label class="control-label" for="file">Afbeelding</label>
@@ -75,30 +75,34 @@
 
       <div class="posts">
 
-        <div class="card">
 
             @if (count($posts) < 1)
-            <div class="col-md-12">
-    					<h4>Er zijn nog geen berichten</h4>
+            <div class="card">
+              <div class="col-md-12">
+    					  <h4>Er zijn nog geen berichten</h4>
+              </div>
             </div>
     				@else
 
     					@foreach ($posts as $post)
-              <div class="col-md-12">
+              <div class="card">
+                <div class="col-md-12">
 
-                <span class="remove-post" data-id="{{ $post->id }}" data-toggle="modal" data-target="#removePostModal"><i class="material-icons">delete_forever</i></span>
+                  <span class="remove-post" data-id="{{ $post->id }}" data-toggle="modal" data-target="#removePostModal"><i class="material-icons">delete_forever</i></span>
 
-                <h4>{{ $post->title }}</h4>
-                <p>{{ $post->content }}</p>
-                @if ($post->image)
-                <div>
-                  <img src="{{ $post->image }}" />
-                </div>
-                @endif
-                <div>
-                  <b>Door:</b> {{ $post->id }}
-                  <br>
-                  <b>op:</b> {{ $post->created_at }}
+                  <h4>{{ $post->title }}</h4>
+                  <p>{{ $post->content }}</p>
+                  @if ($post->image)
+                  <div>
+                    <img src="{{ $post->image }}" />
+                  </div>
+                  @endif
+                  <div>
+                    <b>Door:</b> {{ $post->id }}
+                    <br>
+                    <b>op:</b> {{ $post->created_at }}
+                  </div>
+
                 </div>
               </div>
               @endforeach

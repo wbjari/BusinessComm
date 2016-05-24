@@ -62,9 +62,22 @@ function ajax_removePost(post_id)
     },
     success: function(response) {
 
-      // if ($('.posts').find('.remove-post').data('id') === post_id) {
-      //   $(this).parent().fadeOut().remove();
-      // }
+      $('.posts').find('.remove-post[data-id="' + post_id + '"]').parent()
+      .slideUp(350, function() {
+        $(this).remove();
+      });
+
+      $('#removePostModal').modal('hide');
+
+      if($('.posts > .card').length < 1) {
+        $('.posts').append('\
+        <div class="card">\
+          <div class="col-md-12">\
+            <h4>Er zijn nog geen berichten</h4>\
+          </div>\
+        </div>\
+        ')
+      }
 
     },
     error: function(response) {
