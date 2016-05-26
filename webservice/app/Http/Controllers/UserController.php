@@ -49,6 +49,8 @@ class UserController extends Controller
         $data[$input[$i]['name']] = $input[$i]['variable'];
       }
 
+      dd($data);
+
       unset($data['skill']);
 
       if( User::where('id', $userid)->update($data) ){

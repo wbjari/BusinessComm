@@ -41,9 +41,17 @@
 			<div class="col-md-12">
 				<h2>Vaardigheden</h2>
 
-				@foreach ($user_skills as $skill)
-					<span class="label label-primary" data-profile="skill">{{ $skill }}</span>
-				@endforeach
+				<div data-card="skills">
+					<?php $i = 1 ?>
+					@foreach ($user_skills as $skill)
+						<span class="label label-primary" data-profile="skill-{{ $i }}" data-color="#000">{{ $skill }}</span>
+
+						<?php $i++ ?>
+					@endforeach
+				</div>
+			</div>
+			<div class="col-md-12 text-right">
+				<button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#add_skill">Vaardigheid toevoegen<div class="ripple-container"></div></button>
 			</div>
 		</div>
 	@endif
@@ -53,6 +61,12 @@
 			<div class="col-md-12">
 				<h2>Ervaring</h2>
 
+				<div data-card="experience">
+					
+				</div>
+			</div>
+			<div class="col-md-12 text-right">
+				<button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#add_experience">Ervaring toevoegen<div class="ripple-container"></div></button>
 			</div>
 		</div>
 	@endif
@@ -62,65 +76,140 @@
 			<div class="col-md-12">
 				<h2>Opleiding</h2>
 
+				<div data-card="education">
+					
+				</div>
+			</div>
+			<div class="col-md-12 text-right">
+				<button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#add_education">Opleiding toevoegen<div class="ripple-container"></div></button>
 			</div>
 		</div>
 	@endif
 
-	<div class="card">
-		<div class="col-md-12">
-			<h2>Aanvullende informatie</h2>
-			
-			<table class="table">
-				<tbody>
-				    @if ($user->address !== '')
-						<tr><th>Adres</th></tr>
-					    <tr><td data-profile="address">{{ $user->address }}</td></tr>
-					@endif
-					    
-					@if ($user->zipcode !== '')
-					    <tr><th>Postcode</th></tr>
-					    <tr><td data-profile="zipcode">{{ $user->zipcode }}</td></tr>
-					@endif
+		<div class="card">
+			<div class="col-md-12">
+				<h2>Aanvullende informatie</h2>
+				
+				<table class="table">
+					<tbody>
+					    @if ($user->address !== '')
+							<tr><th>Adres</th></tr>
+						    <tr><td data-profile="address">{{ $user->address }}</td></tr>
+						@endif
+						    
+						@if ($user->zipcode !== '')
+						    <tr><th>Postcode</th></tr>
+						    <tr><td data-profile="zipcode">{{ $user->zipcode }}</td></tr>
+						@endif
 
-					@if ($user->location !== '')
-					    <tr><th>Plaats</th></tr>
-					    <tr><td data-profile="location">{{ $user->location }}</td></tr>
-					@endif
+						@if ($user->location !== '')
+						    <tr><th>Plaats</th></tr>
+						    <tr><td data-profile="location">{{ $user->location }}</td></tr>
+						@endif
 
-					@if ($user->province !== '')
-					    <tr><th>Provincie</th></tr>
-					    <tr><td data-profile="province">{{ $user->province }}</td></tr>
-					@endif
+						@if ($user->province !== '')
+						    <tr><th>Provincie</th></tr>
+						    <tr><td data-profile="province">{{ $user->province }}</td></tr>
+						@endif
 
-					@if ($user->country !== '')
-					    <tr><th>Land</th></tr>
-					    <tr><td data-profile="country">{{ $user->country }}</td></tr>
-					@endif
+						@if ($user->country !== '')
+						    <tr><th>Land</th></tr>
+						    <tr><td data-profile="country">{{ $user->country }}</td></tr>
+						@endif
 
-					@if ($user->email !== '')
-					    <tr><th>E-mailadres</th></tr>
-					    <tr><td>{{ $user->email }}</td></tr>
-					@endif
+						@if ($user->email !== '')
+						    <tr><th>E-mailadres</th></tr>
+						    <tr><td>{{ $user->email }}</td></tr>
+						@endif
 
-					@if ($user->telephone !== '')
-					    <tr><th>Telefoonnummer</th></tr>
-					    <tr><td data-profile="telephone">{{ $user->telephone }}</td></tr>
-					@endif
+						@if ($user->telephone !== '')
+						    <tr><th>Telefoonnummer</th></tr>
+						    <tr><td data-profile="telephone">{{ $user->telephone }}</td></tr>
+						@endif
 
-					@if ($user->mobile !== '')
-					    <tr><th>Mobiel</th></tr>
-					    <tr><td data-profile="mobile">{{ $user->mobile }}</td></tr>
-					@endif
+						@if ($user->mobile !== '')
+						    <tr><th>Mobiel</th></tr>
+						    <tr><td data-profile="mobile">{{ $user->mobile }}</td></tr>
+						@endif
 
-					@if ($user->languages !== '')
-					    <tr><th>Talen</th></tr>
-					    <tr><td>{{ $user->languages }}</td></tr>
-					@endif
-				</tbody>
-			</table>
+						@if ($user->languages !== '')
+						    <tr><th>Talen</th></tr>
+						    <tr><td>{{ $user->languages }}</td></tr>
+						@endif
+					</tbody>
+				</table>
+			</div>
+		</div>
+
+	</div>
+
+	<!-- VAARDIGHEID TOEVOEGEN -->
+	<div class="modal fade" id="add_skill" tabindex="-1" role="dialog" aria-labelledby="add_skill" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="material-icons">clear</i></button>
+					<h4 class="modal-title">Vaardigheid toevoegen</h4>
+				</div>
+				<div class="modal-body">
+					<form data-name="skills">
+						<input type="text" class="form-control" name="skill" placeholder="Vaardigheid">
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Annuleren</button>
+					<button type="button" class="btn btn-info" data-dismiss="modal" data-profile-add="skills">Toevoegen</button>
+				</div>
+			</div>
 		</div>
 	</div>
 
+	<!-- ERVARING TOEVOEGEN -->
+	<div class="modal fade" id="add_experience" tabindex="-1" role="dialog" aria-labelledby="add_experience" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="material-icons">clear</i></button>
+					<h4 class="modal-title">Ervaring toevoegen</h4>
+				</div>
+				<div class="modal-body">
+					<form data-name="experience">
+						<input type="text" class="form-control" name="name" placeholder="Naam">
+						<input type="date" class="form-control" name="start_date" placeholder="begindatum">
+						<input type="date" class="form-control" name="end_date" placeholder="einddatum">
+						<input type="text" class="form-control" name="description" placeholder="beschrijving">
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Annuleren</button>
+					<button type="button" class="btn btn-info" data-dismiss="modal" data-profile-add="experience">Toevoegen</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- OPLEIDING TOEVOEGEN -->
+	<div class="modal fade" id="add_education" tabindex="-1" role="dialog" aria-labelledby="add_education" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="material-icons">clear</i></button>
+					<h4 class="modal-title">Opleiding toevoegen</h4>
+				</div>
+				<div class="modal-body">
+					<form data-name="education">
+						<input type="text" class="form-control" name="name" placeholder="Naam">
+						<input type="date" class="form-control" name="start_date" placeholder="begindatum">
+						<input type="date" class="form-control" name="end_date" placeholder="einddatum">
+						<input type="text" class="form-control" name="description" placeholder="beschrijving">
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Annuleren</button>
+					<button type="button" class="btn btn-info" data-dismiss="modal" data-profile-add="education">Toevoegen</button>
+				</div>
+			</div>
+		</div>
 	</div>
 
 	<button class="btn-profile-save btn btn-primary btn-raised btn-fab btn-round">

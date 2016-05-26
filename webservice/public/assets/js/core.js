@@ -10,6 +10,7 @@ var site_url = $('meta[name=url]').attr('content');
 
 var lastInput;
 var lastText;
+var data = [];
 
 $(document).on('click', '*[data-profile]', function(){
 	if(!$(this).hasClass('form-control')){
@@ -25,6 +26,18 @@ $(document).on('click', '*[data-profile]', function(){
 
 		// Sla de aangeklikte input op
 		lastInput = this;
+		lastColor = $(this).css('color');
+		thisHeight = parseInt($(this).css('height'), 10);
+
+		console.log( $(this).attr('data-colors') )
+
+		if( $(this).attr('data-color') !== "" ) {
+			$(this).css('color', $(this).attr('data-color'))
+		}
+
+		if( thisHeight < 24 ) {
+			thisHeight = 24;
+		}
 
 		// Verander text met een data-profile naar een input
 		var input = $('<input type="text" data-profile="reset" class="form-control" autocomplete="off" autofocus />')
@@ -32,7 +45,7 @@ $(document).on('click', '*[data-profile]', function(){
 		.attr('name', $(this).attr('data-profile') )
 		.attr('placeholder', $(this).attr('data-profile') )
 		.css({
-			'height': $(this).height(),
+			'height': thisHeight,
 			'margin': $(this).css('margin'),
 			'color': $(this).css('color')
 		})
@@ -42,7 +55,51 @@ $(document).on('click', '*[data-profile]', function(){
 		});
 
 		$(lastInput).replaceWith(input);
+		$(lastInput).css('color', lastColor);
 	}
+})
+
+$(document).on('click', '[data-toggle="modal"]', function(){
+	form = $( $(this).attr('data-target') ).find('form')[0];
+	submit = $( $(this).attr('data-target') ).find('[data-profile-add]');
+
+
+	$(submit).click(function() {
+		if( $(form).attr('data-name') == 'skills' )
+		{
+			dataLength = $("[data-card=" + $(form).attr('data-name') + "]").find('span').length + 1;
+			$("[data-card=" + $(form).attr('data-name') + "]").append('<span class="label label-primary" data-profile="skill-'+ dataLength +'" data-color="#000">'+ $(form).serializeArray()[0]['value'] +'</span>');
+		}
+		else if ($(form).attr('data-name') == 'experience')
+		{
+
+		}
+		else if ($(form).attr('data-name') == 'education')
+		{
+
+		} else {
+			console.log('werkt niet');
+		}
+
+		$(form)[0].reset().unbind();
+	})
+
+
+
+	//// vaardigheid
+	// naam
+
+	//// ervaring
+	// naam
+	// begindatum
+	// einddatum
+	// info
+
+	//// opleiding
+	// naam
+	// begindatum
+	// einddatum
+	// info
 })
 
 $('.btn-profile-save').click(function(){
@@ -59,7 +116,7 @@ $('.btn-profile-save').click(function(){
 	}
 
 	var thisdata = $('*[data-profile]');
-	var data = [];
+	
 
 	for (i = 0; i < thisdata.length; i++) {
 		data.push({
@@ -78,7 +135,7 @@ $('.btn-profile-save').click(function(){
 			if(response.code == 200){
 				$('.btn-profile-save').css('background-color', '#419745').fadeIn();
 			} else {
-				alert('fuck');
+				alert('Er is iets fout gegaan. Probeer het later opnieuw.');
 			}
 		},
 		error: function(jqXHR, textStatus, errorThrown) {
