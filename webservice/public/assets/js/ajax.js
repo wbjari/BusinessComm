@@ -45,6 +45,58 @@ function ajax_newPost(data)
 
 }
 
+function ajax_requestCompany(data)
+{
+
+  $.ajax({
+    url: "/request",
+    type: "POST",
+    data: { data: data },
+    dataType: 'json',
+    beforeSend: function (xhr) {
+        var token = $('meta[name="_token"]').attr('content');
+
+        if (token) {
+              return xhr.setRequestHeader('X-CSRF-TOKEN', token);
+        }
+    },
+    success: function(response) {
+      $('button.requester')
+      .attr('id', 'cancelRequestCompany')
+      .html('Annuleren')
+      .removeClass('btn-primary')
+      .addClass('btn-danger');
+    }
+  });
+
+}
+
+function ajax_cancelRequestCompany(data)
+{
+
+  $.ajax({
+    url: "/cancel-request",
+    type: "POST",
+    data: { data: data },
+    dataType: 'json',
+    beforeSend: function (xhr) {
+        var token = $('meta[name="_token"]').attr('content');
+
+        if (token) {
+              return xhr.setRequestHeader('X-CSRF-TOKEN', token);
+        }
+    },
+    success: function(response) {
+      $('button.requester')
+      .attr('id', 'requestCompany')
+      .html('Aansluiten')
+      .removeClass('btn-danger')
+      .addClass('btn-primary');
+    }
+  });
+
+}
+
 function ajax_removePost(post_id)
 {
 

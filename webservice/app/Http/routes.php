@@ -32,8 +32,12 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/create-company', 'CompanyController@create');
     Route::any('/change-logo', 'CompanyController@change_logo');
 
+    Route::post('/request', 'CompanyController@request');
+    Route::post('/cancel-request', 'CompanyController@cancel_request');
+
     Route::post('/create-post', 'PostController@create');
     Route::post('/remove-post', 'PostController@remove');
+
 
     Route::get('/user/edit', 'UserController@edit');
     Route::get('/user/{user_id}', 'UserController@index');

@@ -6,6 +6,10 @@
         <meta name="_token" content="{{ csrf_token() }}" />
         <meta name="url" content="{{  url('/') }}" />
 
+        @if (isset($company))
+          <meta name="company" content="{{ $company->id }}">
+        @endif
+
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
         <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" />
       	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" />

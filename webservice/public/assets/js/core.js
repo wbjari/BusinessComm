@@ -113,18 +113,23 @@ $('#changeLogo').fileupload({
     }
 });
 
+// Start of the company request function.
+$(document).on('click', 'button#requestCompany', function() {
+	// Get ID of current company.
+	var companyID = $('meta[name="company"]').attr('content');
 
-// $('#newPostForm').submit(function(e) {
-//   e.stopPropagation();
-//   e.preventDefault();
-//
-//   // formdata
-//   var data = $(this).find('input[type="file"]').prop('files');
-//
-//   console.log(data);
-//   ajax_newPost(data);
-//
-// })
+	// Send data to ajax function.
+	ajax_requestCompany(companyID);
+});
+
+// Start of the company cancel request function.
+$(document).on('click', 'button#cancelRequestCompany', function() {
+	// Get ID of current company.
+	var companyID = $('meta[name="company"]').attr('content');
+
+	// Send data to ajax function.
+	ajax_cancelRequestCompany(companyID);
+});
 
 // === === === //
 // == Functions === //

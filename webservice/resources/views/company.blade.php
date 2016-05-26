@@ -10,7 +10,7 @@
 		<div class="container company-profile">
       <div class="img-container" data-toggle="modal" data-target="#changeLogoModal">
         @if($company->logo)
-          <img src="{{ $company['logo'] }}" alt="{{ $company['name'] }}">
+          <img src="{{ url($company['logo']) }}" alt="{{ $company['name'] }}">
         @else
           <img src="{{ url('assets/img/company.png') }}" alt="{{ $company['name'] }}">
         @endif
@@ -31,9 +31,40 @@
         @endif
       </h5>
 		</div>
+
+    @if ($role = 0)
+
+      @if ($requested == false)
+
+        <button type="button" id="requestCompany" class="btn btn-primary btn-raised requester">Aansluiten</button>
+
+      @else
+
+        <button type="button" id="cancelRequestCompany" class="btn btn-danger btn-raised requester">Annuleren</button>
+
+      @endif
+
+    @endif
+
 	</div>
 
 	<div class="container">
+
+    @if ($role = 2 | $role = 3)
+    <div class="card">
+      <div class="col-md-12">
+        <h2>Verzoeken</h2>
+        <ul>
+          @foreach ($requests as $request)
+
+            <li>hoi</li>
+
+          @endforeach
+        </ul>
+      </div>
+    </div>
+    @endif
+
     @if ($company['biography'])
 		<div class="card">
       <div class="col-md-12">
@@ -42,6 +73,8 @@
       </div>
 		</div>
     @endif
+
+    @if ($role != 0)
 
     <div class="timeline col-xs-12 col-md-6 col-md-offset-3">
 
@@ -98,7 +131,7 @@
                   </div>
                   @endif
                   <div>
-                    <b>Door:</b> {{ $post->id }}
+                    <b>Door:</b> {{ $post->firstname }} {{ $post->lastname }}
                     <br>
                     <b>op:</b> {{ $post->created_at }}
                   </div>
@@ -111,6 +144,8 @@
 
           </div>
         </div>
+
+        @endif
 
       </div>
 
