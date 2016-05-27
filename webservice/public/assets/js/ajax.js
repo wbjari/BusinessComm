@@ -25,25 +25,6 @@ function ajax_changeLogo(data)
 
 }
 
-function ajax_newPost(data)
-{
-
-  $.ajax({
-    url: "/new-post",
-    type: "POST",
-    data: { data: data },
-    dataType: 'json',
-    processData: false,
-    beforeSend: function (xhr) {
-        var token = $('meta[name="_token"]').attr('content');
-
-        if (token) {
-              return xhr.setRequestHeader('X-CSRF-TOKEN', token);
-        }
-    }
-  });
-
-}
 
 function ajax_requestCompany(data)
 {
@@ -100,6 +81,26 @@ function ajax_cancelRequestCompany(data)
 function ajax_removePost(post_id)
 {
 
+  // function ajax_newPost(data)
+  // {
+  //
+  //   $.ajax({
+  //     url: "/new-post",
+  //     type: "POST",
+  //     data: { data: data },
+  //     dataType: 'json',
+  //     processData: false,
+  //     beforeSend: function (xhr) {
+  //       var token = $('meta[name="_token"]').attr('content');
+  //
+  //       if (token) {
+  //         return xhr.setRequestHeader('X-CSRF-TOKEN', token);
+  //       }
+  //     }
+  //   });
+  //
+  // }
+
   $.ajax({
     url: "/remove-post",
     type: "POST",
@@ -134,6 +135,28 @@ function ajax_removePost(post_id)
     },
     error: function(response) {
       alert('Er is iets fout gegaan, probeer het later opnieuw');
+    }
+  });
+
+}
+
+function ajax_acceptRequest(data)
+{
+
+  $.ajax({
+    url: "/accept-request",
+    type: "POST",
+    data: { data: data },
+    dataType: 'json',
+    beforeSend: function (xhr) {
+        var token = $('meta[name="_token"]').attr('content');
+
+        if (token) {
+              return xhr.setRequestHeader('X-CSRF-TOKEN', token);
+        }
+    },
+    success: function(response) {
+      $('.requests').find('li[data-id="' + data['user'] + '"]').remove();
     }
   });
 

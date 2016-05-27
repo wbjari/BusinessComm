@@ -116,7 +116,7 @@ $('.btn-profile-save').click(function(){
 	}
 
 	var thisdata = $('*[data-profile]');
-	
+
 
 	for (i = 0; i < thisdata.length; i++) {
 		data.push({
@@ -168,6 +168,17 @@ $('#changeLogo').fileupload({
     done: function (e, data) {
         console.log(data);
     }
+});
+
+$('.acceptRequest').click(function() {
+
+	var user = $(this).parent().data('id');
+	var company = $('meta[name="company"]').attr('content');
+
+	var data = {user, company};
+
+	ajax_acceptRequest(data);
+
 });
 
 // Start of the company request function.

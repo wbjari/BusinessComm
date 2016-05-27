@@ -32,7 +32,7 @@
       </h5>
 		</div>
 
-    @if ($role = 0)
+    @if ($role == 0)
 
       @if ($requested == false)
 
@@ -50,14 +50,19 @@
 
 	<div class="container">
 
-    @if ($role = 2 | $role = 3)
-    <div class="card">
+    @if ($role == 2 || $role == 3)
+    <div class="card requests">
       <div class="col-md-12">
         <h2>Verzoeken</h2>
         <ul>
           @foreach ($requests as $request)
 
-            <li>hoi</li>
+            <li data-id="{{ $request['user_id'] }}">
+              <a href="{{ url('/user/' . $request['user_id']) }}">{{ $request['firstname'] }} {{ $request['lastname'] }}</a>
+              <br />
+              <button type="button" class="btn btn-success btn-sm btn-raised acceptRequest" name="button">Accepteren</button>
+              <button type="button" class="btn btn-danger btn-sm btn-raised denyRequest" name="button">Weigeren</button>
+            </li>
 
           @endforeach
         </ul>

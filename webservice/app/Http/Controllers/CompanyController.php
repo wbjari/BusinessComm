@@ -39,10 +39,13 @@ class CompanyController extends Controller
       if ($is_member) {
 
         //Check if member is member/co-manager/manager.
-        $role = CompanyUser::where('user_id', $user_id)->where('company_id', $company_id)->pluck('role');
+        $role = CompanyUser::where('user_id', $user_id)->where('company_id', $company_id)->pluck('role')[0];
 
-        if ($role = 2 | $role = 3) {
-          $requests = Inquiry::where('company_id', $company_id)->get();
+        if ($role == 2 || $role == 3) {
+          $requests = Inquiry::
+          where('company_id', $company_id)
+          ->join('users', 'requests.user_id', '=', 'users.id')
+          ->get(['requests.*', 'users.firstname', 'users.lastname']);
         }
 
       } else {
@@ -178,6 +181,33 @@ class CompanyController extends Controller
       Inquiry::where('user_id', '=', \Auth::id())->where('company_id', '=', $data)->delete();
 
       return Response::json(true);
+
+    }
+
+    public function accept_request()
+    {
+
+      $data = Input::get('data');
+      $user_id = $data['user'];
+      $company_id = $data['company'];
+
+      $inquiry_query = Inquiry::where('user_id', '=', $user_id)->where('company_id', '=', $company_id);
+
+      if ($inquiry_query->exists()) {
+
+        $company_user = new CompanyUser;
+
+        $company_user->user_id = $user_id;
+        $company_user->company_id = $company_id;
+        $company_user->role = 1;
+
+        $company_user->save();
+
+        $inquiry_query->delete();
+
+        return Response::json(true);
+
+      }
 
     }
 

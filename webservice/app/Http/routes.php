@@ -34,6 +34,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::post('/request', 'CompanyController@request');
     Route::post('/cancel-request', 'CompanyController@cancel_request');
+    Route::post('/accept-request', 'CompanyController@accept_request');
 
     Route::post('/create-post', 'PostController@create');
     Route::post('/remove-post', 'PostController@remove');
