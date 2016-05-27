@@ -26,15 +26,19 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/dashboard', 'DashboardController@index');
 
+    Route::get('/admin', 'AdminController@index');
+
     Route::get('/company/{company_id}', 'CompanyController@index');
 
     Route::get('/create-company', 'CompanyController@index_create');
     Route::post('/create-company', 'CompanyController@create');
+
     Route::any('/change-logo', 'CompanyController@change_logo');
 
     Route::post('/request', 'CompanyController@request');
     Route::post('/cancel-request', 'CompanyController@cancel_request');
     Route::post('/accept-request', 'CompanyController@accept_request');
+    Route::post('/deny-request', 'CompanyController@deny_request');
 
     Route::post('/create-post', 'PostController@create');
     Route::post('/remove-post', 'PostController@remove');

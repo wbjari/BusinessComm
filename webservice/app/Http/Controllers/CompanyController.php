@@ -61,15 +61,21 @@ class CompanyController extends Controller
       }
 
       // Get posts that are placed on the timeline of the company.
-      $posts = Post::
-      where('company_id', $company_id)
-      ->leftJoin('users', 'posts.user_id', '=', 'users.id')
-      ->get([
-        'posts.*',
+      $posts = Post::where('posts.company_id', $company_id)
+                    ->orderBy('created_at', 'DESC')
+                    ->join('users', 'posts.user_id', '=', 'users.id')
+                    ->join('company_users', function($join) {
+                      $join->on('posts.user_id', '=', 'company_users.user_id')
+                      ->on('posts.company_id', '=', 'company_users.company_id');
+                    })
+                    ->get([
+                      'posts.*',
 
-        'users.firstname',
-        'users.lastname'
-      ]);
+                      'company_users.role',
+
+                      'users.firstname',
+                      'users.lastname'
+                    ]);
 
       if (!$company) {
         abort(404);
@@ -147,9 +153,33 @@ class CompanyController extends Controller
 
     public function change_logo()
     {
-      $data = Input::get();
-      dd($data);
-      return Response::json(['hello']);
+
+      $company_id = Input::get('company');
+
+      if (Input::hasFile('changeLogo')) {
+
+        $old_logo = Company::where('id', $company_id)->pluck('logo')[0];
+        $image_path = public_path() . '' . $old_logo;
+        if (file_exists($image_path)) {
+          unlink($image_path);
+        }
+
+        $file = Input::file('changeLogo');
+        $original_name = $file->getClientOriginalName();
+
+        $filename = date('d_m_Y_h_i_s') . '_' . rand(1000, 9999) . '_' . $original_name;
+        $file_path = public_path() . '/storage/companies';
+        $database_path = '/storage/companies';
+        $database_path = $database_path.'/'.$filename;
+
+        $file->move($file_path, $filename);
+
+        Company::where('id', $company_id)->update(['logo' => $database_path]);
+
+      }
+
+      $url = '/company/' . $company_id;
+      return redirect(url($url));
 
     }
 
@@ -202,6 +232,25 @@ class CompanyController extends Controller
         $company_user->role = 1;
 
         $company_user->save();
+
+        $inquiry_query->delete();
+
+        return Response::json(true);
+
+      }
+
+    }
+
+    public function deny_request()
+    {
+
+      $data = Input::get('data');
+      $user_id = $data['user'];
+      $company_id = $data['company'];
+
+      $inquiry_query = Inquiry::where('user_id', '=', $user_id)->where('company_id', '=', $company_id);
+
+      if ($inquiry_query->exists()) {
 
         $inquiry_query->delete();
 

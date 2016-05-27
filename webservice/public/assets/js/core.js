@@ -102,6 +102,12 @@ $(document).on('click', '[data-toggle="modal"]', function(){
 	// info
 })
 
+$('.nav.posts a').click(function() {
+	var id = $(this).data('id');
+	$('.the-posts').hide();
+	$('.the-posts[data-id="' + id + '"]').show();
+});
+
 $('.btn-profile-save').click(function(){
 	$('*[data-profile="reset"]').replaceWith(lastInput);
 
@@ -156,21 +162,31 @@ $('.remove-post').click(function() {
 // === Click -> ajax.js === //
 // === === === //
 
-$('#changeLogo').fileupload({
-    dataType: 'json',
-    beforeSend: function (xhr) {
-        var token = $('meta[name="_token"]').attr('content');
+$('.requests button').click(function() {
 
-        if (token) {
-              return xhr.setRequestHeader('X-CSRF-TOKEN', token);
-        }
-    },
-    done: function (e, data) {
-        console.log(data);
-    }
+	if ($(this).data('type') == 'accept') {
+
+		var user = $(this).parent().data('id');
+		var company = $('meta[name="company"]').attr('content');
+
+		var data = {user, company};
+
+		ajax_acceptRequest(data);
+
+	} else if ($(this).data('type') == 'deny') {
+
+		var user = $(this).parent().data('id');
+		var company = $('meta[name="company"]').attr('content');
+
+		var data = {user, company};
+
+		ajax_denyRequest(data);
+
+	}
+
 });
 
-$('.acceptRequest').click(function() {
+$('.denyRequest').click(function() {
 
 	var user = $(this).parent().data('id');
 	var company = $('meta[name="company"]').attr('content');

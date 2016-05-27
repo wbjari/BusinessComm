@@ -123,13 +123,14 @@ function ajax_removePost(post_id)
       $('#removePostModal').modal('hide');
 
       if($('.posts > .card').length < 1) {
-        $('.posts').append('\
+        $('.the-posts').append('\
         <div class="card">\
           <div class="col-md-12">\
             <h4>Er zijn nog geen berichten</h4>\
           </div>\
         </div>\
         ')
+        $('.nav.posts').remove();
       }
 
     },
@@ -145,6 +146,28 @@ function ajax_acceptRequest(data)
 
   $.ajax({
     url: "/accept-request",
+    type: "POST",
+    data: { data: data },
+    dataType: 'json',
+    beforeSend: function (xhr) {
+        var token = $('meta[name="_token"]').attr('content');
+
+        if (token) {
+              return xhr.setRequestHeader('X-CSRF-TOKEN', token);
+        }
+    },
+    success: function(response) {
+      $('.requests').find('li[data-id="' + data['user'] + '"]').remove();
+    }
+  });
+
+}
+
+function ajax_denyRequest(data)
+{
+
+  $.ajax({
+    url: "/deny-request",
     type: "POST",
     data: { data: data },
     dataType: 'json',

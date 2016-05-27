@@ -51,23 +51,26 @@
 	<div class="container">
 
     @if ($role == 2 || $role == 3)
-    <div class="card requests">
-      <div class="col-md-12">
-        <h2>Verzoeken</h2>
-        <ul>
-          @foreach ($requests as $request)
+    <?php $count = count($requests); ?>
+      @if ($count != 0)
+        <div class="card requests">
+          <div class="col-md-12">
+            <h2>Verzoeken</h2>
+            <ul>
+              @foreach ($requests as $request)
 
-            <li data-id="{{ $request['user_id'] }}">
-              <a href="{{ url('/user/' . $request['user_id']) }}">{{ $request['firstname'] }} {{ $request['lastname'] }}</a>
-              <br />
-              <button type="button" class="btn btn-success btn-sm btn-raised acceptRequest" name="button">Accepteren</button>
-              <button type="button" class="btn btn-danger btn-sm btn-raised denyRequest" name="button">Weigeren</button>
-            </li>
+                <li data-id="{{ $request['user_id'] }}">
+                  <a href="{{ url('/user/' . $request['user_id']) }}">{{ $request['firstname'] }} {{ $request['lastname'] }}</a>
+                  <br />
+                  <button type="button" class="btn btn-success btn-sm btn-raised" data-type="accept" name="button">Accepteren</button>
+                  <button type="button" class="btn btn-danger btn-sm btn-raised" data-type="accept" name="button">Weigeren</button>
+                </li>
 
-          @endforeach
-        </ul>
-      </div>
-    </div>
+              @endforeach
+            </ul>
+          </div>
+        </div>
+      @endif
     @endif
 
     @if ($company['biography'])
@@ -122,28 +125,74 @@
             </div>
     				@else
 
-    					@foreach ($posts as $post)
-              <div class="card">
-                <div class="col-md-12">
+              <ul class="nav nav-pills nav-pills-primary posts" role="tablist">
+                <li class="active"><a href="#" role="tab" data-id="1" data-toggle="tab">Alle</a></li>
+                <li><a href="#schedule" data-id="2" role="tab" data-toggle="tab">Alleen (mede-)beheerders</a></li>
+              </ul>
 
-                  <span class="remove-post" data-id="{{ $post->id }}" data-toggle="modal" data-target="#removePostModal"><i class="material-icons">delete_forever</i></span>
+              <div class="the-posts" data-id="1">
 
-                  <h4>{{ $post->title }}</h4>
-                  <p>{{ $post->content }}</p>
-                  @if ($post->image)
-                  <div>
-                    <img src="{{ $post->image }}" />
+                @foreach ($posts as $post)
+                <div class="card">
+                  <div class="col-md-12">
+
+                    @if ($post['user_id'] == \Auth::id() || $role == 2 || $role == 3)
+                      <span class="remove-post" data-id="{{ $post->id }}" data-toggle="modal" data-target="#removePostModal"><i class="material-icons">delete_forever</i></span>
+                    @endif
+
+                    <h4 class="post-title">{{ $post->title }}</h4>
+                    <p class="post-content">{{ $post->content }}</p>
+                    @if ($post->image)
+                    <div class="post-image">
+                      <img src="{{ $post->image }}" />
+                    </div>
+                    @endif
+                    <div class="post-footer">
+                      <span class="post-author"><b><a href="{{ url('/user/' . $post->user_id) }}">{{ $post->firstname }} {{ $post->lastname }}</a> plaatste dit bericht op: <span style="float:right;">{{ $post->created_at }}</span></b></span>
+                      @if ($post->created_at != $post->updated_at)
+                        <span class="post-editor"><b><a href="{{ url('/user/' . $post->edited_by) }}">{{ $post->edited_by }}</a> bewerkte dit bericht op: <span style="float:right;">{{ $post->updated_at }}</span></b></span>
+                      @endif
+                    </div>
+
                   </div>
+                </div>
+                @endforeach
+
+              </div>
+
+              <div class="the-posts" style="display:none;" data-id="2">
+
+                @foreach ($posts as $post)
+                  @if ($post['role'] == 3)
+                    <div class="card">
+                      <div class="col-md-12">
+
+                        @if ($post['user_id'] == \Auth::id() || $role == 2 || $role == 3)
+                          <span class="remove-post" data-id="{{ $post->id }}" data-toggle="modal" data-target="#removePostModal"><i class="material-icons">delete_forever</i></span>
+                        @endif
+                        
+                        <h4 class="post-title">{{ $post->title }}</h4>
+                        <p class="post-content">{{ $post->content }}</p>
+                        @if ($post->image)
+                        <div class="post-image">
+                          <img src="{{ $post->image }}" />
+                        </div>
+                        @endif
+                        <div class="post-footer">
+                          <span class="post-author"><b><a href="{{ url('/user/' . $post->user_id) }}">{{ $post->firstname }} {{ $post->lastname }}</a> plaatste dit bericht op: <span style="float:right;">{{ $post->created_at }}</span></b></span>
+                          @if ($post->created_at != $post->updated_at)
+                            <span class="post-editor"><b><a href="{{ url('/user/' . $post->edited_by) }}">{{ $post->edited_by }}</a> bewerkte dit bericht op: <span style="float:right;">{{ $post->updated_at }}</span></b></span>
+                          @endif
+                        </div>
+
+                      </div>
+                    </div>
                   @endif
-                  <div>
-                    <b>Door:</b> {{ $post->firstname }} {{ $post->lastname }}
-                    <br>
-                    <b>op:</b> {{ $post->created_at }}
-                  </div>
+                @endforeach
 
                 </div>
               </div>
-              @endforeach
+
 
             @endif
 
@@ -189,18 +238,23 @@
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
         <h4 class="modal-title" id="myModalLabel">Logo aanpassen</h4>
       </div>
-      <div class="modal-body">
+      <form id="changeLogoForm" method="POST" enctype="multipart/form-data" action="/change-logo">
+        {!! csrf_field() !!}
+        <input type="hidden" name="company" value="{{ $company['id'] }}">
+
+        <div class="modal-body">
 
           <div class="col-sm-6">
            <label class="control-label">Logo</label>
-           <input type="file" id="changeLogo" name="changeLogo" data-url="/change-logo">
+           <input type="file" id="changeLogo" name="changeLogo">
           </div>
 
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Sluiten</button>
-        <button type="button" class="btn btn-info" id="changeLogoButton">Opslaan</button>
-      </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Sluiten</button>
+          <button type="submit" class="btn btn-info">Opslaan</button>
+        </div>
+      </form>
     </div>
   </div>
 </div>

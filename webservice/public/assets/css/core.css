@@ -6,6 +6,8 @@ html, body {height:100%;}
 body { background-color: #f9f9f9; }
 input, .form-control:focus {outline:0; box-shadow:none;}
 .container.top {padding-top:15px;}
+.card {margin-bottom:15px;}
+.container > div {padding:0;}
 
 /* === === === */
 /* === Material icons === */
@@ -109,6 +111,19 @@ header::after {content:''; display:block; height:70px;}
 
 .remove-post {float:right; cursor:pointer; transition:0.35s;}
 .remove-post:hover {color:red;}
+.the-posts div > img {max-width:100%;}
+.nav.posts li {width:50%; margin:0;}
+.nav.posts li a {border-radius:0;}
+.nav.posts li:first-of-type a {border-top-left-radius:3px;}
+.nav.posts li:last-of-type a {border-top-right-radius:3px;}
+.post-title {
+    font-size: 25px;
+    font-weight: 500;
+}
+.post-content {}
+.post-footer > span {display:block;}
+.post-footer > span:last-of-type {margin-top:5px; margin-bottom:15px;}
+.post-footer > span:first-of-type {margin-top:15px;}
 
 /* === === === */
 /* === Custom form colors === */

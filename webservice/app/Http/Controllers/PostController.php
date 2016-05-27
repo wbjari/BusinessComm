@@ -6,6 +6,7 @@ use DB;
 use Response;
 use App\User;
 use App\Company;
+use App\CompanyUser;
 use App\Post;
 use App\Auth;
 use App\Http\Requests;
@@ -55,18 +56,24 @@ class PostController extends Controller
   public function remove()
   {
 
+    $role = CompanyUser::where('user_id', \Auth::id())->pluck('role')[0];
+
     $post_id = Input::get('data');
     $query = Post::where('id', $post_id);
 
-    $image_url = $query->first(['image'])['image'];
+    if ($role == 2 || $role == 3 || $query->where('user_id', \Auth::id())->exists()) {
 
-    $query->delete();
+      $image_url = $query->first(['image'])['image'];
 
-    if ($image_url) {
-      $image_path = public_path() . '' . parse_url($image_url)['path'];
-      if (file_exists($image_path)) {
-        unlink($image_path);
+      $query->delete();
+
+      if ($image_url) {
+        $image_path = public_path() . '' . parse_url($image_url)['path'];
+        if (file_exists($image_path)) {
+          unlink($image_path);
+        }
       }
+
     }
 
     return Response::json(true);
