@@ -11,6 +11,7 @@ var site_url = $('meta[name=url]').attr('content');
 var lastInput;
 var lastText;
 var data = [];
+var testdata = [];
 
 $(document).on('click', '*[data-profile]', function(){
 	if(!$(this).hasClass('form-control')){
@@ -65,21 +66,8 @@ $(document).on('click', '[data-toggle="modal"]', function(){
 
 
 	$(submit).click(function() {
-		if( $(form).attr('data-name') == 'skills' )
-		{
-			dataLength = $("[data-card=" + $(form).attr('data-name') + "]").find('span').length + 1;
-			addHtml = ' <span class="label label-primary" data-profile="skill-'+ dataLength +'" data-color="#000">'+ $(form).serializeArray()[0]['value'] +'</span>';
-		}
-		else if ($(form).attr('data-name') == 'experience')
-		{
-			dataLength = $("[data-card=" + $(form).attr('data-name') + "]").find('li').length + 1;
-			addHtml = '<li><h3 data-profile="function">'+ $(form).serializeArray()[0]['value'] +'</h3><h4 data-profile="name">'+ $(form).serializeArray()[1]['value'] +'</h4><p><small><span data-profile="startdate">'+ $(form).serializeArray()[2]['value']+'</span> - <span data-profile="enddate">'+ $(form).serializeArray()[3]['value'] +'</span></small></p><p data-profile="description">'+ $(form).serializeArray()[4]['value']+'</p>';
-		}
-		else if ($(form).attr('data-name') == 'education')
-		{
-			dataLength = $("[data-card=" + $(form).attr('data-name') + "]").find('li').length + 1;
-			addHtml = '<li><h3 data-profile="name">'+ $(form).serializeArray()[0]['value'] +'</h3><h4 data-profile="function">'+ $(form).serializeArray()[1]['value'] +'</h4><p><small><span data-profile="startdate">'+ $(form).serializeArray()[2]['value']+'</span> - <span data-profile="enddate">'+ $(form).serializeArray()[3]['value'] +'</span></small></p>';
-		}
+		dataLength = $("[data-card=" + $(form).attr('data-name') + "]").find('span').length + 1;
+		addHtml = ' <span class="label label-primary" data-profile="skill-'+ dataLength +'" data-profile-array="skill" data-color="#000">'+ $(form).serializeArray()[0]['value'] +'</span>';
 
 		$("[data-card=" + $(form).attr('data-name') + "]").append( addHtml );
 
@@ -108,40 +96,41 @@ $('.btn-profile-save').click(function(){
 
 	var thisdata = $('*[data-profile]');
 
+	var i= 0;
 	$.each(thisdata, function(index, value){
+
 		if ( $(this).attr('data-profile-array') !== undefined ) {
 
-			thisarray = $(this).attr('data-profile-array').split('-');
+			// thisarray = $(this).attr('data-profile-array').split('-');
+
+			// console.log(thisarray)
 
 
-			// data[ thisarray[0] ] = [];
 
-			// data[ thisarray[0] ][ thisarray[1] ] = [];
+			// console.log($(this).attr('data-profile-array'))
+			// data.push([ thisarray[0] ][ thisarray[1] ][ $(this).attr('data-profile') ] = $(value).text())
+			// data[$(this).attr('data-profile-array-array')].push({
+			// 	name: $(this).attr('data-profile'),
+			// 	variable:  $(value).text()
+			// })
 
-			data[ thisarray[0] ][ thisarray[1] ][ $(this).attr('data-profile') ] = $(value).text()
 
-
+			data[$(this).attr('data-profile-array')][i] = $(value).text();
 			
 
 		} else {
-
 			data[$(this).attr('data-profile')] = $(value).text();
-
 		}
-		
+		i++;
 	})
 
-	console.log(data);
-
-
-	// console.log( thisdata );
+	console.log( data );
 
 	// for (i = 0; i < thisdata.length; i++) {
 	// 	data.push({
 	// 		name: $(thisdata[i]).attr('data-profile'),
 	// 		variable:  $(thisdata[i]).text()
 	// 	});
-
 	// }
 
 	$.ajax({
