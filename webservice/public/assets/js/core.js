@@ -104,8 +104,6 @@ $('.btn-profile-save').click(function(){
 
 	data['skill'] = testdata;
 
-	data = JSON.stringify(data);
-
 	$.ajax({
 		url: "/user/edit",
 		type: "POST",
