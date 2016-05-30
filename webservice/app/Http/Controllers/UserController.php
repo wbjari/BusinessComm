@@ -39,15 +39,15 @@ class UserController extends Controller
       //   ]);
     }
 
-    public function edit(Request $request)
+    public function edit()
     {
 
       $userid = \Auth::User()->id;
 
       $data = Input::get('data');
-      var_dump($data);
+      dd($data);
 
-      // for ($i=0; $i < count($input); $i++) { 
+      // for ($i=0; $i < count($input); $i++) {
       //   $data[$input[$i]['name']] = $input[$i]['variable'];
       // }
 

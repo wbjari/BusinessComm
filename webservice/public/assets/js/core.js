@@ -10,7 +10,7 @@ var site_url = $('meta[name=url]').attr('content');
 
 var lastInput;
 var lastText;
-var data = [];
+var data = {};
 var testdata = [];
 
 $(document).on('click', '*[data-profile]', function(){
@@ -104,13 +104,13 @@ $('.btn-profile-save').click(function(){
 
 	data['skill'] = testdata;
 
-	console.log(data)
-	var dataJson = JSON.stringify(data);
+	data = JSON.stringify(data);
 
 	$.ajax({
 		url: "/user/edit",
 		type: "POST",
-		data: { data: dataJson },
+		dataType: "JSON",
+		data: { data: data },
 		beforeSend: function (xhr) {
 	        var token = $('meta[name="_token"]').attr('content');
 
@@ -125,9 +125,6 @@ $('.btn-profile-save').click(function(){
 			} else {
 				alert('Er is iets fout gegaan. Probeer het later opnieuw.');
 			}
-		},
-		error: function(jqXHR, textStatus, errorThrown) {
-		   console.log(textStatus, errorThrown);
 		}
 	})
 
