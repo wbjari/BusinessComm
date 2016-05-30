@@ -11,13 +11,15 @@
 			<img src="{{ url('assets/img/avatar.png') }}" alt="">
 			<i class="material-icons profile-picture-edit">camera_alt</i>
 			<h1><span data-profile="firstname">{{ $user->firstname }}</span>&nbsp;<span data-profile="lastname">{{ $user->lastname }}</span></h1>
-			<h2 data-profile="function">{{ $user->category_id }}Functie</h2>
+			<h2 data-profile="function">{{ $user->category_id }}</h2>
 			<h5>
 		        @if ($user->location)
 		        	<span data-profile="location">{{ $user->location }}</span>,
 		        @endif
 		        @if ($user->province)
 		        	<span data-profile="province">{{ $user->province }}</span>,
+		        @else
+		        	<span data-profile="province">test</span>,
 		        @endif
 		        @if ($user->country)
 		        	<span data-profile="country">{{ $user->country }}</span>
@@ -44,7 +46,7 @@
 				<div data-card="skills">
 					<?php $i = 1 ?>
 					@foreach ($user_skills as $skill)
-						<span class="label label-primary" data-profile="skill-{{ $i }}" data-color="#000">{{ $skill }}</span>
+						<span class="label label-primary" data-profile="{{ $i }}" data-profile-array="skill-{{ $i }}" data-color="#000">{{ $skill }}</span>
 
 						<?php $i++ ?>
 					@endforeach
@@ -61,9 +63,20 @@
 			<div class="col-md-12">
 				<h2>Ervaring</h2>
 
-				<div data-card="experience">
-					
-				</div>
+				<ul data-card="experience" class="list-experiences">
+					<li data-card="experiences">
+						<h3 data-profile="function" data-profile-array="experience-1">Webdeveloper</h3>
+						<h4 data-profile="name" data-profile-array="experience-1">BusinessComm</h4>
+						<p><small><span data-profile="startdate" data-profile-array="experience-1">April 2016</span> - <span data-profile="enddate" data-profile-array="experience-1">heden</span></small></p>
+						<p data-profile="info" data-profile-array="experience-1">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quibusdam, maiores, non? Ea dolor quos sint rerum obcaecati ullam deserunt illum atque rem nisi, eligendi saepe. Ad dolore quibusdam rem ipsa!</p>
+					</li>
+					<li>
+						<h3 data-profile="function" data-profile-array="experience-2">Functie</h3>
+						<h4 data-profile="name" data-profile-array="experience-2">Bedrijfsnaam</h4>
+						<p><small><span data-profile="startdate" data-profile-array="experience-2">Begindatum</span> - <span data-profile="enddate" data-profile-array="experience-2">einddatum</span></small></p>
+						<p data-profile="info" data-profile-array="experience-2">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quibusdam, maiores, non? Ea dolor quos sint rerum obcaecati ullam deserunt illum atque rem nisi, eligendi saepe. Ad dolore quibusdam rem ipsa!</p>
+					</li>
+				</ul>
 			</div>
 			<div class="col-md-12 text-right">
 				<button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#add_experience">Ervaring toevoegen<div class="ripple-container"></div></button>
@@ -76,9 +89,18 @@
 			<div class="col-md-12">
 				<h2>Opleiding</h2>
 
-				<div data-card="education">
-					
-				</div>
+				<ul data-card="education" class="list-experiences">
+					<li>
+						<h3 data-profile="name" data-profile-array="education-1">Radius College, Breda</h3>
+						<h4 data-profile="function" data-profile-array="education-1">Niveau 4 BOL, Mediadeveloper</h4>
+						<p><small><span data-profile="startdate" data-profile-array="education-1">2013</span> - <span data-profile="enddate" data-profile-array="education-1">2016</span></small></p>
+					</li>
+					<li>
+						<h3 data-profile="name" data-profile-array="education-2">Dongemond College, Raamsdonksveer</h3>
+						<h4 data-profile="function" data-profile-array="education-2">Niveau 4 gemengd theoretisch, Techniek</h4>
+						<p><small><span data-profile="startdate" data-profile-array="education-2">2009</span> - <span data-profile="enddate" data-profile-array="education-2">2013</span></small></p>
+					</li>
+				</ul>
 			</div>
 			<div class="col-md-12 text-right">
 				<button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#add_education">Opleiding toevoegen<div class="ripple-container"></div></button>
@@ -174,10 +196,11 @@
 				</div>
 				<div class="modal-body">
 					<form data-name="experience">
-						<input type="text" class="form-control" name="name" placeholder="Naam">
-						<input type="date" class="form-control" name="start_date" placeholder="begindatum">
-						<input type="date" class="form-control" name="end_date" placeholder="einddatum">
-						<input type="text" class="form-control" name="description" placeholder="beschrijving">
+						<input type="text" class="form-control" name="function" placeholder="Functie">
+						<input type="text" class="form-control" name="name" placeholder="Bedrijfsnaam">
+						<input type="date" class="form-control" name="start_date" placeholder="Begindatum">
+						<input type="date" class="form-control" name="end_date" placeholder="Einddatum">
+						<input type="text" class="form-control" name="description" placeholder="Beschrijving">
 					</form>
 				</div>
 				<div class="modal-footer">
@@ -198,10 +221,10 @@
 				</div>
 				<div class="modal-body">
 					<form data-name="education">
-						<input type="text" class="form-control" name="name" placeholder="Naam">
-						<input type="date" class="form-control" name="start_date" placeholder="begindatum">
-						<input type="date" class="form-control" name="end_date" placeholder="einddatum">
-						<input type="text" class="form-control" name="description" placeholder="beschrijving">
+						<input type="text" class="form-control" name="name" placeholder="School, plaats">
+						<input type="text" class="form-control" name="function" placeholder="Functie">
+						<input type="date" class="form-control" name="start_date" placeholder="Begindatum">
+						<input type="date" class="form-control" name="end_date" placeholder="Einddatum">
 					</form>
 				</div>
 				<div class="modal-footer">

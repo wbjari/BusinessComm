@@ -68,38 +68,23 @@ $(document).on('click', '[data-toggle="modal"]', function(){
 		if( $(form).attr('data-name') == 'skills' )
 		{
 			dataLength = $("[data-card=" + $(form).attr('data-name') + "]").find('span').length + 1;
-			$("[data-card=" + $(form).attr('data-name') + "]").append('<span class="label label-primary" data-profile="skill-'+ dataLength +'" data-color="#000">'+ $(form).serializeArray()[0]['value'] +'</span>');
+			addHtml = ' <span class="label label-primary" data-profile="skill-'+ dataLength +'" data-color="#000">'+ $(form).serializeArray()[0]['value'] +'</span>';
 		}
 		else if ($(form).attr('data-name') == 'experience')
 		{
-
+			dataLength = $("[data-card=" + $(form).attr('data-name') + "]").find('li').length + 1;
+			addHtml = '<li><h3 data-profile="function">'+ $(form).serializeArray()[0]['value'] +'</h3><h4 data-profile="name">'+ $(form).serializeArray()[1]['value'] +'</h4><p><small><span data-profile="startdate">'+ $(form).serializeArray()[2]['value']+'</span> - <span data-profile="enddate">'+ $(form).serializeArray()[3]['value'] +'</span></small></p><p data-profile="description">'+ $(form).serializeArray()[4]['value']+'</p>';
 		}
 		else if ($(form).attr('data-name') == 'education')
 		{
-
-		} else {
-			console.log('werkt niet');
+			dataLength = $("[data-card=" + $(form).attr('data-name') + "]").find('li').length + 1;
+			addHtml = '<li><h3 data-profile="name">'+ $(form).serializeArray()[0]['value'] +'</h3><h4 data-profile="function">'+ $(form).serializeArray()[1]['value'] +'</h4><p><small><span data-profile="startdate">'+ $(form).serializeArray()[2]['value']+'</span> - <span data-profile="enddate">'+ $(form).serializeArray()[3]['value'] +'</span></small></p>';
 		}
+
+		$("[data-card=" + $(form).attr('data-name') + "]").append( addHtml );
 
 		$(form)[0].reset().unbind();
 	})
-
-
-
-	//// vaardigheid
-	// naam
-
-	//// ervaring
-	// naam
-	// begindatum
-	// einddatum
-	// info
-
-	//// opleiding
-	// naam
-	// begindatum
-	// einddatum
-	// info
 })
 
 $('.nav.posts a').click(function() {
@@ -123,14 +108,41 @@ $('.btn-profile-save').click(function(){
 
 	var thisdata = $('*[data-profile]');
 
+	$.each(thisdata, function(index, value){
+		if ( $(this).attr('data-profile-array') !== undefined ) {
 
-	for (i = 0; i < thisdata.length; i++) {
-		data.push({
-			name: $(thisdata[i]).attr('data-profile'),
-			variable:  $(thisdata[i]).text()
-		});
+			thisarray = $(this).attr('data-profile-array').split('-');
 
-	}
+
+			// data[ thisarray[0] ] = [];
+
+			// data[ thisarray[0] ][ thisarray[1] ] = [];
+
+			data[ thisarray[0] ][ thisarray[1] ][ $(this).attr('data-profile') ] = $(value).text()
+
+
+			
+
+		} else {
+
+			data[$(this).attr('data-profile')] = $(value).text();
+
+		}
+		
+	})
+
+	console.log(data);
+
+
+	// console.log( thisdata );
+
+	// for (i = 0; i < thisdata.length; i++) {
+	// 	data.push({
+	// 		name: $(thisdata[i]).attr('data-profile'),
+	// 		variable:  $(thisdata[i]).text()
+	// 	});
+
+	// }
 
 	$.ajax({
 		url: "/user/edit",
