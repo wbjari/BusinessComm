@@ -44,6 +44,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/remove-post', 'PostController@remove');
 
 
-    Route::get('/user/edit', 'UserController@edit');
+    Route::post('/user/edit', 'UserController@edit');
     Route::get('/user/{user_id}', 'UserController@index');
 });

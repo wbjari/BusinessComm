@@ -30,8 +30,6 @@ $(document).on('click', '*[data-profile]', function(){
 		lastColor = $(this).css('color');
 		thisHeight = parseInt($(this).css('height'), 10);
 
-		console.log( $(this).attr('data-colors') )
-
 		if( $(this).attr('data-color') !== "" ) {
 			$(this).css('color', $(this).attr('data-color'))
 		}
@@ -96,47 +94,30 @@ $('.btn-profile-save').click(function(){
 
 	var thisdata = $('*[data-profile]');
 
-	var i= 0;
 	$.each(thisdata, function(index, value){
-
 		if ( $(this).attr('data-profile-array') !== undefined ) {
-
-			// thisarray = $(this).attr('data-profile-array').split('-');
-
-			// console.log(thisarray)
-
-
-
-			// console.log($(this).attr('data-profile-array'))
-			// data.push([ thisarray[0] ][ thisarray[1] ][ $(this).attr('data-profile') ] = $(value).text())
-			// data[$(this).attr('data-profile-array-array')].push({
-			// 	name: $(this).attr('data-profile'),
-			// 	variable:  $(value).text()
-			// })
-
-
-			data[$(this).attr('data-profile-array')][i] = $(value).text();
-			
-
+			testdata.push($(value).text());
 		} else {
 			data[$(this).attr('data-profile')] = $(value).text();
 		}
-		i++;
 	})
 
-	console.log( data );
+	data['skill'] = testdata;
 
-	// for (i = 0; i < thisdata.length; i++) {
-	// 	data.push({
-	// 		name: $(thisdata[i]).attr('data-profile'),
-	// 		variable:  $(thisdata[i]).text()
-	// 	});
-	// }
+	console.log(data)
+	var dataJson = JSON.stringify(data);
 
 	$.ajax({
 		url: "/user/edit",
-		type: "get",
-		data: { data },
+		type: "POST",
+		data: { data: dataJson },
+		beforeSend: function (xhr) {
+	        var token = $('meta[name="_token"]').attr('content');
+
+	        if (token) {
+	              return xhr.setRequestHeader('X-CSRF-TOKEN', token);
+	        }
+	    },
 		success: function (response) {
 			response = JSON.parse(response);
 			if(response.code == 200){

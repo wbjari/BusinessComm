@@ -8,6 +8,7 @@ use App\Auth;
 use App\Http\Requests;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Routing\Controller;
 
 class UserController extends Controller
 {
@@ -38,30 +39,31 @@ class UserController extends Controller
       //   ]);
     }
 
-    public function edit()
+    public function edit(Request $request)
     {
 
       $userid = \Auth::User()->id;
 
-      $input = Input::get('data');
+      $data = Input::get('data');
+      var_dump($data);
 
-      for ($i=0; $i < count($input); $i++) { 
-        $data[$input[$i]['name']] = $input[$i]['variable'];
-      }
+      // for ($i=0; $i < count($input); $i++) { 
+      //   $data[$input[$i]['name']] = $input[$i]['variable'];
+      // }
 
       // dd($data);
 
-      unset($data['skill']);
+      // unset($data['skill']);
 
-      if( User::where('id', $userid)->update($data) ){
-        $result['code'] = '200';
-        $result['status'] = 'Uw account is successvol bijgewerkt.';
-      } else {
-        $result['code'] = '500';
-        $result['status'] = 'Oops! Er is iets fout gegaan.';
-      }
+      // if( User::where('id', $userid)->update($data) ){
+      //   $result['code'] = '200';
+      //   $result['status'] = 'Uw account is successvol bijgewerkt.';
+      // } else {
+      //   $result['code'] = '500';
+      //   $result['status'] = 'Oops! Er is iets fout gegaan.';
+      // }
 
-      return json_encode($result);
+      // return json_encode($result);
     }
 
 }
