@@ -27,6 +27,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/dashboard', 'DashboardController@index');
 
     Route::get('/admin', 'AdminController@index');
+    Route::get('/admin/confirm-report/{report_id}', 'AdminController@confirm_report');
+    Route::get('/admin/delete-report/{report_id}', 'AdminController@delete_report');
 
     Route::get('/company/{company_id}', 'CompanyController@index');
 
@@ -44,6 +46,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/remove-post', 'PostController@remove');
 
 
-    Route::post('/user/edit', 'UserController@edit');
+    Route::any('/user/edit', 'UserController@edit');
     Route::get('/user/{user_id}', 'UserController@index');
 });

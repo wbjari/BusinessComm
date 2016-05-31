@@ -120,6 +120,7 @@ $('.btn-profile-save').click(function(){
 			response = JSON.parse(response);
 			if(response.code == 200){
 				$('.btn-profile-save').css('background-color', '#419745').fadeIn();
+				console.log(response)
 			} else {
 				alert('Er is iets fout gegaan. Probeer het later opnieuw.');
 			}
@@ -206,3 +207,23 @@ function prepareRemovePost(post_id)
 	});
 
 }
+
+
+// === === === //
+// == Confirm boxes === //
+// === === === //
+
+$('*[danger-action]').click(function(e){
+	e.preventDefault();
+
+	var r = confirm("Are you sure you want to "+$(this).attr('danger-action')+" this?");
+
+	console.log(r);
+	if (r == true) {
+		window.location.href = $(this).attr('href');
+	} else {
+		alert('not deleted')
+	}
+
+
+})

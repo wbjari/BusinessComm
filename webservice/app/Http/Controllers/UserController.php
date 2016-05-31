@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\User;
 use App\Company;
 use App\Auth;
+use App\Skills;
 use App\Http\Requests;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
@@ -42,18 +43,62 @@ class UserController extends Controller
     public function edit()
     {
 
-      $userid = \Auth::User()->id;
+      // $userid = \Auth::User()->id;
 
-      $data = Input::get('data');
-      dd($data);
+      // $data = Input::get('data');
 
-      // for ($i=0; $i < count($input); $i++) {
-      //   $data[$input[$i]['name']] = $input[$i]['variable'];
-      // }
+      $data = [
+        "firstname" => "Koen",
+        "lastname" => "de Bont",
+        "function" => "",
+        "location" => "Wagenberg",
+        "province" => "Noord-Brabant",
+        "country" => "Nederland",
+        "address" => "Heemraadsingel 34",
+        "zipcode" => "4944VD",
+        "telephone" => "0162 518143",
+        "mobile" => "0681705516",
+        "skill" => [
+          0 => "html",
+          1 => "css",
+          2 => "php",
+          3 => "javascript"
+        ]
+      ];
+      
+
+      $skillData = $data['skill'];
+      unset($data['skill']);
+
+
+      // Skills::update($skillData);
+
+      // $skills = new Skills;
+
+      // $skills->name = 
+
+      // $skills->save();
+
+      // $dbskills = Skills::where('name', 'html')->get();
+      $dbSkills = Skills::where(function($query) use ($skillData) {
+        collect($skillData)->each(function($skill) use ($query) {
+          $query->orWhere('name', '!=', $skill);
+        });
+      });
+
+      // $dbSkills->get()
+
+
+
+      for ($i=0; $i < count($dbSkills->get()); $i++) {
+        $test[$i] = $dbSkills->get(['id', 'name'])[$i];
+      }
+
+      dd($test);
+
+      // dd($dbskills);
 
       // dd($data);
-
-      // unset($data['skill']);
 
       // if( User::where('id', $userid)->update($data) ){
       //   $result['code'] = '200';
@@ -63,7 +108,9 @@ class UserController extends Controller
       //   $result['status'] = 'Oops! Er is iets fout gegaan.';
       // }
 
-      // return json_encode($result);
+
+      $data = 'test';
+      return json_encode($data);
     }
 
 }

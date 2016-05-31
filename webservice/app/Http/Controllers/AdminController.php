@@ -6,10 +6,7 @@ use DB;
 use Response;
 
 use App\User;
-use App\Company;
-use App\CompanyUser;
-use App\Post;
-use App\Inquiry;
+use App\Reports;
 
 use App\Auth;
 use App\Http\Requests;
@@ -19,21 +16,49 @@ use Illuminate\Support\Facades\Input;
 class AdminController extends Controller
 {
 
-    public function index()
-    {
+	//!!!!!!!! Gebruiker rapporteren
+	// $report = \Auth::user()->reports()->create([
+	// 	'user_id' => 1,
+	// 	'reason' => 'He did something I didn\'t like!!!'
+	// ]);
 
-      $role = User::where('id', \Auth::id())->pluck('role')[0];
+	public function index()
+	{
 
-      if($role == 1) {
+		$role = User::where('id', \Auth::id())->pluck('role')[0];
 
-      } else {
+		if($role == 1) {
 
-        abort(404);
+			$reports = Reports::where('id', '!=', 0)->with('reporter', 'reported')->orderBy('created_at', 'asc')->take(30)->get();
 
-      }
+			return view('admin', [
+				'reports' => $reports
+			]);
+		} else {
+			abort(404);
+		}
+	}
 
-      return view('admin');
-      
-    }
+	public function confirm_report()
+	{
+		$role = User::where('id', \Auth::id())->pluck('role')[0];
+
+		if($role == 1) {
+			echo 'yse';
+		} else {
+			abort(404);
+		}
+	}
+
+	public function delete_report()
+	{
+		$role = User::where('id', \Auth::id())->pluck('role')[0];
+
+		if($role == 1) {
+			echo 'yse';
+		} else {
+			abort(404);
+		}
+	}
 
 }

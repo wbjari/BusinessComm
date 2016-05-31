@@ -13,7 +13,7 @@ class CreateUserSkillsTable extends Migration
      public function up()
      {
        Schema::create('user_skills', function (Blueprint $table) {
-           $table->increments('id', 11);
+           $table->increments('id');
            $table->integer('user_id')->unsigned();
            $table->integer('skills_id')->unsigned();
            $table->timestamps();

@@ -15,8 +15,12 @@ class CreateReportsTable extends Migration
        Schema::create('reports', function (Blueprint $table) {
            $table->increments('id', 11);
            $table->integer('user_id')->unsigned();
+
            $table->string('reason', 255);
+
            $table->integer('reported_by')->unsigned();
+           $table->foreign('reported_by')->references('id')->on('users');
+           
            $table->timestamps();
        });
      }
