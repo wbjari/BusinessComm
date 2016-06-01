@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use App\UserReports;
 use App\Company;
 use App\Auth;
 use App\Skills;
@@ -111,6 +112,19 @@ class UserController extends Controller
 
       $data = 'test';
       return json_encode($data);
+    }
+
+    public function report_user()
+    {
+      $data = Input::get();
+
+      if((int)$data['user'] === \Auth::User()->id){
+        return redirect()->route('user', $data['user'])->with('notification', 'Je kan jezelf niet rapporteren.');
+      } elseif(!userReports::insert(['user_id' => $data['user'], 'reason' => $data['reason'], 'reported_by' => \Auth::User()->id])){
+        die('Er ging iets fout met het rapporteren van het bedrijf.');
+      }
+      
+      return redirect()->route('user', $data['user'])->with('notification', 'De gebruiker is successvol gerapporteerd');
     }
 
 }

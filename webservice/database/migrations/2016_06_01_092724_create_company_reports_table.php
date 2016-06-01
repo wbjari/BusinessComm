@@ -3,18 +3,18 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateReportsTable extends Migration
+class CreateCompanyReportsTable extends Migration
 {
     /**
      * Run the migrations.
      *
      * @return void
      */
-     public function up()
-     {
-       Schema::create('user_reports', function (Blueprint $table) {
+    public function up()
+    {
+       Schema::create('company_reports', function (Blueprint $table) {
            $table->increments('id', 11);
-           $table->integer('user_id')->unsigned();
+           $table->integer('company_id')->unsigned();
 
            $table->string('reason', 255);
 
@@ -23,15 +23,15 @@ class CreateReportsTable extends Migration
            
            $table->timestamps();
        });
-     }
+    }
 
-     /**
-      * Reverse the migrations.
-      *
-      * @return void
-      */
-     public function down()
-     {
-         Schema::drop('user_reports');
-     }
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::drop('company_reports');
+    }
 }

@@ -50,27 +50,40 @@
 
 	<div class="container">
 
-    @if ($role == 2 || $role == 3)
-    <?php $count = count($requests); ?>
-      @if ($count != 0)
-        <div class="card requests">
-          <div class="col-md-12">
-            <h2>Verzoeken</h2>
-            <ul>
-              @foreach ($requests as $request)
-
-                <li data-id="{{ $request['user_id'] }}">
-                  <a href="{{ url('/user/' . $request['user_id']) }}">{{ $request['firstname'] }} {{ $request['lastname'] }}</a>
-                  <br />
-                  <button type="button" class="btn btn-success btn-sm btn-raised" data-type="accept" name="button">Accepteren</button>
-                  <button type="button" class="btn btn-danger btn-sm btn-raised" data-type="accept" name="button">Weigeren</button>
-                </li>
-
-              @endforeach
-            </ul>
+    @if (session('notification'))
+    <div class="timeline col-xs-12 col-md-6 col-md-offset-3">
+      <div class="alert alert-info">
+        <div class="container-fluid">
+          <div class="alert-icon">
+            <i class="material-icons">info_outline</i>
           </div>
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true"><i class="material-icons">clear</i></span>
+          </button>
+          <b>Info:</b> {{ session('notification') }}
         </div>
-      @endif
+      </div>
+    </div>
+    @endif
+
+    @if ($role == 2 || $role == 3 && $requests->count())
+      <div class="card requests">
+        <div class="col-md-12">
+          <h2>Verzoeken</h2>
+          <ul>
+            @foreach ($requests as $request)
+
+              <li data-id="{{ $request['user_id'] }}">
+                <a href="{{ url('/user/' . $request['user_id']) }}">{{ $request['firstname'] }} {{ $request['lastname'] }}</a>
+                <br />
+                <button type="button" class="btn btn-success btn-sm btn-raised" data-type="accept" name="button">Accepteren</button>
+                <button type="button" class="btn btn-danger btn-sm btn-raised" data-type="accept" name="button">Weigeren</button>
+              </li>
+
+            @endforeach
+          </ul>
+        </div>
+      </div>
     @endif
 
     @if ($company['biography'])
@@ -137,7 +150,7 @@
                   <div class="col-md-12">
 
                     @if ($post['user_id'] == \Auth::id() || $role == 2 || $role == 3)
-                      <span class="remove-post" danger-action="delete" data-id="{{ $post->id }}" data-toggle="modal" data-target="#removePostModal"><i class="material-icons">delete_forever</i></span>
+                      <span class="remove-post" data-id="{{ $post->id }}" data-toggle="modal" data-target="#removePostModal"><i class="material-icons">delete_forever</i></span>
                     @endif
 
                     <h4 class="post-title">{{ $post->title }}</h4>
@@ -231,7 +244,7 @@
   </div>
 </div>
 
-  <div class="modal fade" id="changeLogoModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="changeLogoModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -253,6 +266,31 @@
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Sluiten</button>
           <button type="submit" class="btn btn-info">Opslaan</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="reportCompany" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">{{ $company->name }} rapporteren</h4>
+      </div>
+      <form id="reportCompanyForm" method="POST" enctype="multipart/form-data" action="/company/report">
+        {!! csrf_field() !!}
+        <input type="hidden" name="company" value="{{ $company->id }}">
+
+        <div class="modal-body">
+
+          <input type="text" name="reason" placeholder="Reden" class="form-control">
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Annuleren</button>
+          <button type="submit" class="btn btn-danger">Rapporteren</button>
         </div>
       </form>
     </div>

@@ -27,11 +27,15 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/dashboard', 'DashboardController@index');
 
     Route::get('/admin', 'AdminController@index');
-    Route::get('/admin/confirm-report/{report_id}', 'AdminController@confirm_report');
-    Route::get('/admin/delete-report/{report_id}', 'AdminController@delete_report');
-    Route::get('/admin/set-active/{user_id}', 'AdminController@set_active');
+    Route::get('/admin/company/report/confirm/{report_id}', 'AdminController@company_confirm_report');
+    Route::get('/admin/company/report/delete/{report_id}', 'AdminController@company_delete_report');
+    Route::get('/admin/company/activate/{company_id}', 'AdminController@company_activate');
+    Route::get('/admin/user/report/confirm/{report_id}', 'AdminController@user_confirm_report');
+    Route::get('/admin/user/report/delete/{report_id}', 'AdminController@user_delete_report');
+    Route::get('/admin/user/activate/{user_id}', 'AdminController@user_activate');
 
-    Route::get('/company/{company_id}', 'CompanyController@index');
+    Route::post('/company/report', 'CompanyController@report_company');
+    Route::get('/company/{company_id}', [ 'as' => 'company', 'uses' => 'CompanyController@index']);
 
     Route::get('/create-company', 'CompanyController@index_create');
     Route::post('/create-company', 'CompanyController@create');
@@ -48,5 +52,6 @@ Route::group(['middleware' => 'auth'], function () {
 
 
     Route::any('/user/edit', 'UserController@edit');
-    Route::get('/user/{user_id}', 'UserController@index');
+    Route::post('/user/report', 'UserController@report_user');
+    Route::get('/user/{user_id}', [ 'as' => 'user', 'uses' => 'UserController@index']);
 });

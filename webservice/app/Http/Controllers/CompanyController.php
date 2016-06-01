@@ -10,6 +10,7 @@ use App\Company;
 use App\CompanyUser;
 use App\Post;
 use App\Inquiry;
+use App\CompanyReports;
 
 use App\Auth;
 use App\Http\Requests;
@@ -258,6 +259,17 @@ class CompanyController extends Controller
 
       }
 
+    }
+
+    public function report_company()
+    {
+      $data = Input::get();
+
+      if(!CompanyReports::insert(['company_id' => $data['company'], 'reason' => $data['reason'], 'reported_by' => \Auth::User()->id])){
+        die('Er ging iets fout met het rapporteren van het bedrijf.');
+      }
+      
+      return redirect()->route('company', $data['company'])->with('notification', 'Het bedrijf is successvol gerapporteerd');
     }
 
 }

@@ -43,7 +43,7 @@
                   <i class="material-icons">more_vert</i>
                 </a>
                 <ul class="dropdown-menu">
-                  <li><a href="#">Report user</a></li>
+                  <li><a href="#" data-toggle="modal" data-target="#reportUser">Gebruiker rapporteren</a></li>
                 </ul>
               </li>
               @elseif ($currUrl[0] == 'company')
@@ -52,7 +52,7 @@
                   <i class="material-icons">more_vert</i>
                 </a>
                 <ul class="dropdown-menu">
-                  <li><a href="#">Report company</a></li>
+                  <li><a href="#" data-toggle="modal" data-target="#reportCompany">Bedrijf rapporteren</a></li>
                 </ul>
               </li>
               @endif

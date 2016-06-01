@@ -4,11 +4,11 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Reports extends Model
+class CompanyReports extends Model
 {
-    protected $table = 'reports';
+    protected $table = 'company_reports';
 
-    protected $fillable = ['user_id', 'reason'];
+    protected $fillable = ['company_id', 'reason'];
 
     public function reporter()
     {
@@ -17,7 +17,6 @@ class Reports extends Model
 
     public function reported()
     {
-    	return $this->hasOne(User::class, 'id', 'user_id');
+    	return $this->hasOne(Company::class, 'id', 'company_id');
     }
 }
-	
