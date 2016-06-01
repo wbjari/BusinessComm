@@ -10,49 +10,53 @@
       <div class="row">
         <div class="col-md-7">
             <div class="card">
-                <h2>Mijn bedrijven</h2>
-                <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-                <p><a href="{{ url('/create-company') }}"><button class="btn btn-raised btn-primary btn-sm pull-right">Bedrijf aanmaken</button></a></p>
+                <div class="col-md-12">
+                    <h2>Mijn bedrijven</h2>
+                    <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+                    <p><a href="{{ url('/create-company') }}"><button class="btn btn-raised btn-primary btn-sm pull-right">Bedrijf aanmaken</button></a></p>
+                </div>
             </div>
 
             <div class="card">
-                <h2>In de buurt</h2>
+                <div class="col-md-12">
+                    <h2>In de buurt</h2>
 
-                <ul class="businesses">
-                    @if (count($companies) < 1)
-                        <li>
-                            <h4 class="no-result">Geen resultaten gevonden...</h4>
-                        </li>
-                    @else
-                        @foreach ($companies as $company)
-                            <a href="company/{{ $company->id }}">
-                                <li>
-                                    <div class="img-container">
-                                        @if (is_file(public_path().$company->logo))
-                                            <img src="{{ url($company->logo) }}" alt="{{ $company->name }}">
-                                        @else
-                                            <i class="material-icons">business</i>
-                                        @endif
-                                    </div>
-                                    <div class="info-container">
-                                        <h3>{{ $company->name }}</h3>
-                                        <p>{{ $company->slogan }}</p>
-                                    </div>
-                                </li>
-                            </a>
-                        @endforeach
-                    @endif
-                </ul>
+                    <ul class="businesses">
+                        @if (count($companies) < 1)
+                            <li>
+                                <h4 class="no-result">Geen resultaten gevonden...</h4>
+                            </li>
+                        @else
+                            @foreach ($companies as $company)
+                                <a href="company/{{ $company->id }}">
+                                    <li>
+                                        <div class="img-container">
+                                            @if (is_file(public_path().$company->logo))
+                                                <img src="{{ url($company->logo) }}" alt="{{ $company->name }}">
+                                            @else
+                                                <i class="material-icons">business</i>
+                                            @endif
+                                        </div>
+                                        <div class="info-container">
+                                            <h3>{{ $company->name }}</h3>
+                                            <p>{{ $company->slogan }}</p>
+                                        </div>
+                                    </li>
+                                </a>
+                            @endforeach
+                        @endif
+                    </ul>
+                </div>
             </div>
         </div>
         
         <div class="col-md-4 col-md-offset-1">
             <div class="card">
-
+                <a href="{{ url('user/'.\Auth::User()->id) }}" class="dashboard-link">
                     <img src="assets/img/avatar.png" alt="" class="img-rounded img-responsive dashboard-profile">
                     <p class="dashboard-name">{{ $user->firstname .' '. $user->lastname}}</p>
                     <p class="dashboard-function">Mediadeveloper</p>
-
+                </a>
 
                 <ul class="dashboard-profile-list">
                     <li>

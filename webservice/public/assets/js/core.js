@@ -215,15 +215,9 @@ function prepareRemovePost(post_id)
 
 $('*[danger-action]').click(function(e){
 	e.preventDefault();
+	var r = confirm("Weet u zeker dat u deze melding wil "+$(this).attr('danger-action')+"?");
 
-	var r = confirm("Are you sure you want to "+$(this).attr('danger-action')+" this?");
-
-	console.log(r);
 	if (r == true) {
 		window.location.href = $(this).attr('href');
-	} else {
-		alert('not deleted')
 	}
-
-
 })

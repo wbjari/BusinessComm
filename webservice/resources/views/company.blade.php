@@ -137,7 +137,7 @@
                   <div class="col-md-12">
 
                     @if ($post['user_id'] == \Auth::id() || $role == 2 || $role == 3)
-                      <span class="remove-post" data-id="{{ $post->id }}" data-toggle="modal" data-target="#removePostModal"><i class="material-icons">delete_forever</i></span>
+                      <span class="remove-post" danger-action="delete" data-id="{{ $post->id }}" data-toggle="modal" data-target="#removePostModal"><i class="material-icons">delete_forever</i></span>
                     @endif
 
                     <h4 class="post-title">{{ $post->title }}</h4>

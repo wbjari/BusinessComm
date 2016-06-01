@@ -1,3 +1,7 @@
+<?php
+  $currUrl = explode('/', Request::path())
+?>
+
 <header>
   <div id="navbar">
     <?php if (\Auth::check()): ?>
@@ -21,6 +25,7 @@
           <ul class="nav navbar-nav navbar-right">
             <?php if (\Auth::check()): ?>
               <?php $userid = \Auth::User()->id; ?>
+              
               <li class="dropdown">
         	       <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="material-icons">account_circle</i>Profiel</a>
         			   <ul class="dropdown-menu">
@@ -29,7 +34,29 @@
             					  <li><a href="{{ url('/logout') }}">Uitloggen</a></li>
                   </ul>
               </li>
+      
               <li><a href="{{ url('/logout') }}">Uitloggen<div class="ripple-container"></div></a></li>
+
+              @if ($currUrl[0] == 'user')
+              <li>
+                <a href="#" class="btn btn-simple dropdown-toggle" data-toggle="dropdown">
+                  <i class="material-icons">more_vert</i>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a href="#">Report user</a></li>
+                </ul>
+              </li>
+              @elseif ($currUrl[0] == 'company')
+              <li>
+                <a href="#" class="btn btn-simple dropdown-toggle" data-toggle="dropdown">
+                  <i class="material-icons">more_vert</i>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a href="#">Report company</a></li>
+                </ul>
+              </li>
+              @endif
+
             <?php else: ?>
               <li><a href="{{ url('/register') }}">Registreren<div class="ripple-container"></div></a></li>
               <li><a href="{{ url('/login') }}">Inloggen<div class="ripple-container"></div></a></li>

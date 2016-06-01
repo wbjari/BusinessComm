@@ -29,6 +29,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/admin', 'AdminController@index');
     Route::get('/admin/confirm-report/{report_id}', 'AdminController@confirm_report');
     Route::get('/admin/delete-report/{report_id}', 'AdminController@delete_report');
+    Route::get('/admin/set-active/{user_id}', 'AdminController@set_active');
 
     Route::get('/company/{company_id}', 'CompanyController@index');
 

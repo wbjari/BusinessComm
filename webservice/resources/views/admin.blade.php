@@ -33,12 +33,12 @@
                                 <td>{{ $report->created_at }}</td>
                                 <td>{{ $report->reported->email }}</td>
                                 <td class="td-actions text-right">
-                                    <a href="{{ url('admin/confirm-report/'.$report->id) }}" danger-action="confirm">
+                                    <a href="{{ url('admin/confirm-report/'.$report->id) }}" danger-action="goedkeuren">
                                     <button type="button" rel="tooltip" title="Gebruiker deactiveren" class="btn btn-danger btn-simple btn-sm">
                                         <i class="material-icons">visibility_off</i>
                                     </button>
                                     </a>
-                                    <a href="{{ url('admin/delete-report/'.$report->id) }}" danger-action="delete">
+                                    <a href="{{ url('admin/delete-report/'.$report->id) }}" danger-action="verwijderen">
                                     <button type="button" rel="tooltip" title="Rapport verwijderen" class="btn btn-danger btn-simple btn-sm">
                                         <i class="material-icons">clear</i>
                                     </button>
@@ -49,7 +49,41 @@
                         </tbody>
                     </table>
                 @endif
-            </div>     
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="col-md-12">
+                <h2>Geblokkeerde gebruikers</h2>
+                @if (count($blocked_users) < 1)
+                    <h4 class="no-result">Geen resultaten gevonden...</h4>
+                @else
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th class="text-center">#</th>
+                                <th>Naam</th>
+                                <th class="text-right">Actie</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($blocked_users as $user)
+                            <tr>
+                                <td class="text-center">{{ $user->id }}</td>
+                                <td>{{ $user->email }}</td>
+                                <td class="td-actions text-right">
+                                    <a href="{{ url('admin/set-active/'.$user->id) }}">
+                                    <button type="button" rel="tooltip" title="Gebruiker activeren" class="btn btn-danger btn-simple btn-sm">
+                                        <i class="material-icons">visibility_on</i>
+                                    </button>
+                                    </a>
+                                </td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                @endif
+            </div>
         </div>
     </div>
 
