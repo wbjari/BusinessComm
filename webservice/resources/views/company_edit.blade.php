@@ -129,8 +129,6 @@
       </div>
 
       <div class="posts">
-
-
             @if (count($posts) < 1)
             <div class="card">
               <div class="col-md-12">
@@ -171,7 +169,6 @@
                   </div>
                 </div>
                 @endforeach
-
               </div>
 
               <div class="the-posts" style="display:none;" data-id="2">
@@ -203,22 +200,14 @@
                     </div>
                   @endif
                 @endforeach
-
                 </div>
               </div>
-
-
             @endif
-
           </div>
         </div>
-
         @endif
-
       </div>
-
     </div>
-
 	</div>
 
   <div class="modal fade" id="removePostModal" tabindex="-1" role="dialog" aria-labelledby="removePost" aria-hidden="true">
@@ -298,8 +287,12 @@
   </div>
 </div>
 
+<button class="btn-profile-save btn btn-primary btn-raised btn-fab btn-round">
+  <i class="material-icons">save</i>
+</button>
+
 <script>
-  var currPage = 'company';
+  var currPage = "company/{{ $company->id }}/edit";
 </script>
 
   @include('includes.footer')

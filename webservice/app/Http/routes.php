@@ -35,6 +35,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/admin/user/activate/{user_id}', 'AdminController@user_activate');
 
     Route::post('/company/report', 'CompanyController@report_company');
+    Route::any('/company/{company_id}/edit', 'CompanyController@edit');
     Route::get('/company/{company_id}', [ 'as' => 'company', 'uses' => 'CompanyController@index']);
 
     Route::get('/create-company', 'CompanyController@index_create');
@@ -51,7 +52,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/remove-post', 'PostController@remove');
 
 
-    Route::any('/user/{user_id}/edit', 'UserController@edit');
     Route::post('/user/report', 'UserController@report_user');
+    Route::any('/user/{user_id}/edit', 'UserController@edit');
     Route::get('/user/{user_id}', [ 'as' => 'user', 'uses' => 'UserController@index']);
 });

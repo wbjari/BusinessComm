@@ -281,4 +281,27 @@ class CompanyController extends Controller
       return redirect()->route('company', $data['company'])->with('notification', 'Het bedrijf is successvol gerapporteerd');
     }
 
+    public function edit($company_id)
+    {
+
+      $confirm_admin = CompanyUser::where('company_id', $company_id)
+      ->where('user_id', \Auth::User()->id)
+      ->where('role', 3)
+      ->first();
+
+      if(count($confirm_admin) > 0){
+        $data = Input::get('data');
+
+
+        if(Company::where('id', $company_id)->update($data)){
+          $result['code'] = '200';
+          $result['status'] = 'Het bedrijf is successvol bijgewerkt.';
+        } else {
+          $result['code'] = '500';
+          $result['status'] = 'Oops! Er is iets fout gegaan.';
+        }
+      }
+
+      return json_encode($result);
+    }
 }

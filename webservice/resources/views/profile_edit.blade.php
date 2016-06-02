@@ -12,7 +12,7 @@
 			<i class="material-icons profile-picture-edit">camera_alt</i>
 			<h1><span data-profile="firstname">{{ $user->firstname }}</span>&nbsp;<span data-profile="lastname">{{ $user->lastname }}</span></h1>
 			<h2 data-profile="function">{{ $user->category_id }}</h2>
-			<h5 class="text-muted">
+			<h5>
 		        @if ($user->location)
 		        	<span data-profile="location">{{ $user->location }}</span>,
 		        @else

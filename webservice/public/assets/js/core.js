@@ -53,7 +53,7 @@ $(document).on('click', '*[data-profile]', function(){
 			lastText = $(this).val();
 		});
 
-		if( $(input).hasClass('text-muted') ){
+		if($(input).hasClass('text-muted')){
 			$(input).val('');
 		}
 
@@ -109,9 +109,9 @@ $('.btn-profile-save').click(function(){
 		}
 	})
 
-	data['skill'] = testdata;
-
-	console.log(data);
+	if(currPage == "user/{{ $user->id }}/edit") {
+		data['skill'] = testdata;
+	}
 
 	if(currPage !== undefined){
 		$.ajax({
@@ -127,6 +127,8 @@ $('.btn-profile-save').click(function(){
 		        }
 		    },
 			success: function (response) {
+				console.log(response);
+
 				response = JSON.parse(response);
 				if(response.code == 200){
 					$('.btn-profile-save').css('background-color', '#419745').fadeIn();
