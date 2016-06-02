@@ -82,14 +82,23 @@ class CompanyController extends Controller
         abort(404);
       }
 
-      return view('company', [
-        'company' => $company,
-        'posts' => $posts,
-        'requested' => $requested,
-        'role' => $role,
-        'requests' => $requests
-      ]);
-
+      if($is_member && $role == 3){
+        return view('company_edit', [
+          'company' => $company,
+          'posts' => $posts,
+          'requested' => $requested,
+          'role' => $role,
+          'requests' => $requests
+        ]);
+      } else {
+        return view('company', [
+          'company' => $company,
+          'posts' => $posts,
+          'requested' => $requested,
+          'role' => $role,
+          'requests' => $requests
+        ]);
+      }
     }
 
     public function index_create()

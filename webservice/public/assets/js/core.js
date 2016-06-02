@@ -20,6 +20,7 @@ $(document).on('click', '*[data-profile]', function(){
 		$('*[data-profile="reset"]').replaceWith(lastInput);
 
 		if( lastText !== undefined ){
+			$(lastInput).removeClass('text-muted');
 			inputName = $(lastInput).attr('data-profile');
 			$('*[data-profile="'+inputName+'"]').text(lastText);
 			lastText = undefined;
@@ -40,7 +41,6 @@ $(document).on('click', '*[data-profile]', function(){
 
 		// Verander text met een data-profile naar een input
 		var input = $('<input type="text" data-profile="reset" class="form-control" autocomplete="off" autofocus />')
-		.val( $(this).text() )
 		.attr('name', $(this).attr('data-profile') )
 		.attr('placeholder', $(this).attr('data-profile') )
 		.css({
@@ -52,6 +52,10 @@ $(document).on('click', '*[data-profile]', function(){
 			$('.btn-profile-save').css('background-color', '#ff0000').fadeIn();
 			lastText = $(this).val();
 		});
+
+		if( $(input).hasClass('text-muted') ){
+			$(input).val('');
+		}
 
 		$(lastInput).replaceWith(input);
 		$(lastInput).css('color', lastColor);
@@ -90,43 +94,49 @@ $('.btn-profile-save').click(function(){
 		inputName = $(lastInput).attr('data-profile');
 		$('*[data-profile="'+inputName+'"]').text(lastText);
 		lastText = undefined;
+		$(lastInput).removeClass('text-muted');
 	}
 
 	var thisdata = $('*[data-profile]');
 
 	$.each(thisdata, function(index, value){
-		if ( $(this).attr('data-profile-array') !== undefined ) {
-			testdata.push($(value).text());
-		} else {
-			data[$(this).attr('data-profile')] = $(value).text();
+		if(!$(this).hasClass('text-muted')){
+			if ( $(this).attr('data-profile-array') !== undefined ) {
+				testdata.push($(value).text());
+			} else {
+				data[$(this).attr('data-profile')] = $(value).text();
+			}
 		}
 	})
 
 	data['skill'] = testdata;
 
-	$.ajax({
-		url: "/user/edit",
-		type: "POST",
-		dataType: "JSON",
-		data: { data: data },
-		beforeSend: function (xhr) {
-	        var token = $('meta[name="_token"]').attr('content');
+	console.log(data);
 
-	        if (token) {
-	              return xhr.setRequestHeader('X-CSRF-TOKEN', token);
-	        }
-	    },
-		success: function (response) {
-			response = JSON.parse(response);
-			if(response.code == 200){
-				$('.btn-profile-save').css('background-color', '#419745').fadeIn();
-				console.log(response)
-			} else {
-				alert('Er is iets fout gegaan. Probeer het later opnieuw.');
+	if(currPage !== undefined){
+		$.ajax({
+			url: site_url +'/'+ currPage,
+			type: "POST",
+			dataType: "JSON",
+			data: { data: data },
+			beforeSend: function (xhr) {
+		        var token = $('meta[name="_token"]').attr('content');
+
+		        if (token) {
+		              return xhr.setRequestHeader('X-CSRF-TOKEN', token);
+		        }
+		    },
+			success: function (response) {
+				response = JSON.parse(response);
+				if(response.code == 200){
+					$('.btn-profile-save').css('background-color', '#419745').fadeIn();
+					console.log(response)
+				} else {
+					alert('Er is iets fout gegaan. Probeer het later opnieuw.');
+				}
 			}
-		}
-	})
-
+		})
+	}
 });
 
 $('.remove-post').click(function() {

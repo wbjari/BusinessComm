@@ -8,32 +8,43 @@
 
 	<div class="profile-header">
 		<div class="container company-profile">
-      <div class="img-container" data-toggle="modal">
+      <div class="img-container" data-toggle="modal" data-target="#changeLogoModal">
         @if($company->logo)
           <img src="{{ url($company['logo']) }}" alt="{{ $company['name'] }}">
         @else
           <img src="{{ url('assets/img/company.png') }}" alt="{{ $company['name'] }}">
         @endif
+        <i class="material-icons profile-picture-edit">camera_alt</i>
       </div>
 
-			<h1>{{ $company['name'] }}</h1>
-			<h2>{{ $company['slogan'] }}</h2>
+			<h1 data-profile="name">{{ $company['name'] }}</h1>
+      @if($company['slogan'])
+        <h2 data-profile="slogan">{{ $company['slogan'] }}</h2>
+      @else
+        <h2 data-profile="slogan" class="text-muted">Vul hier jouw bedrijfs slogan in.</h2>
+      @endif
 			<h5>
         @if ($company['location'])
-          <span>{{ $company['location'] }}</span>,
+          <span data-profile="location">{{ $company['location'] }}</span>,
+        @else
+          <span data-profile="location" class="text-muted">Vul hier de locatie in.</span>,
         @endif
         @if ($company['province'])
-          <span>{{ $company['province'] }}</span>,
+          <span data-profile="province">{{ $company['province'] }}</span>,
+        @else
+          <span data-profile="province" class="text-muted">Vul hier de provincie in.</span>,
         @endif
         @if ($company['country'])
-          <span>{{ $company['country'] }}</span>
+          <span data-profile="country">{{ $company['country'] }}</span>
+        @else
+          <span data-profile="country" class="text-muted">Vul hier het land in.</span>
         @endif
       </h5>
 		</div>
 
     @if ($role == 0 && $requested == false)
       <button type="button" id="requestCompany" class="btn btn-primary btn-raised requester">Aansluiten</button>
-     @elseif ($requested == true)
+    @elseif($requested == true)
       <button type="button" id="cancelRequestCompany" class="btn btn-danger btn-raised requester">Annuleren</button>
     @endif
 	</div>
@@ -118,6 +129,8 @@
       </div>
 
       <div class="posts">
+
+
             @if (count($posts) < 1)
             <div class="card">
               <div class="col-md-12">
@@ -284,6 +297,10 @@
     </div>
   </div>
 </div>
+
+<script>
+  var currPage = 'company';
+</script>
 
   @include('includes.footer')
 

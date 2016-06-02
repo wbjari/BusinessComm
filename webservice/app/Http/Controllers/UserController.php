@@ -17,28 +17,38 @@ class UserController extends Controller
 
     public function index($user_id)
     {
-    	$userid = \Auth::User()->id;
+
       $user = User::where('id', $user_id)->first();
-      // echo '<pre>';
-      // echo $user;
-      // echo '</pre>';
 
-      $user_skills = ['html', 'css', 'php', 'javascript'];
+      if($user->status === 1){
 
-      return view('profile', [
-        'user' => $user,
-        'user_skills' => $user_skills
-        ]);
+        $user_skills = ['html', 'css', 'php', 'javascript'];
 
-      //   $notifications = '';
-      //
-    	// $companies = Company::all(['name','slogan','logo']);
-      //
-      //   return view('dashboard', [
-      //   	'user' => $user,
-      //   	'notifications' => $notifications,
-    	// 	'companies' => $companies
-      //   ]);
+        if(\Auth::User()->id === (int)$user_id){
+          return view('profile_edit', [
+            'user' => $user,
+            'user_skills' => $user_skills
+          ]);
+        } else {
+          return view('profile', [
+            'user' => $user,
+            'user_skills' => $user_skills
+          ]);
+        }
+
+          //   $notifications = '';
+          //
+          // $companies = Company::all(['name','slogan','logo']);
+          //
+          //   return view('dashboard', [
+          //    'user' => $user,
+          //    'notifications' => $notifications,
+          //  'companies' => $companies
+          //   ]);
+      } else {
+        abort(404);
+      }
+        
     }
 
     public function edit()
