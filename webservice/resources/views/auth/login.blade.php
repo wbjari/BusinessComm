@@ -48,7 +48,7 @@
           </div>
         </div>
 
-        <a class="btn btn-danger col-sm-12" href="{{ url('/password/reset') }}">Wachtwoord vergeten?</a>
+        <!-- <a class="btn btn-danger col-sm-12" href="{{ url('/password/reset') }}">Wachtwoord vergeten?</a> -->
 
         <button type="submit" class="btn btn-success btn-raised btn-fab btn-round form-submit btn-lr">
           <i class="material-icons">forward</i>

@@ -48,7 +48,7 @@
 	      </div>
 	    @endif
 
-		
+
 		<div class="card">
 			<div class="col-md-12">
 				<h2>Over mij</h2>
@@ -61,7 +61,7 @@
 		</div>
 
 
-		
+
 
 		@if (count($user_skills) > 0)
 			<div class="card">
@@ -86,40 +86,40 @@
 			<div class="card">
 				<div class="col-md-12">
 					<h2>Aanvullende informatie</h2>
-					
+
 					<table class="table">
 						<tbody>
 
 								<tr><th>Adres</th></tr>
-						    @if ($user->address !== '')
+						    @if ($user->address)
 							    <tr><td data-profile="address">{{ $user->address }}</td></tr>
 							@else
 								<tr><td data-profile="address" class="text-muted">Vul hier jouw adres in.</td></tr>
 							@endif
 
 							    <tr><th>Postcode</th></tr>
-							@if ($user->zipcode !== '')
+							@if ($user->zipcode)
 							    <tr><td data-profile="zipcode">{{ $user->zipcode }}</td></tr>
 							@else
 								<tr><td data-profile="zipcode" class="text-muted">Vul hier jouw postcode in.</td></tr>
 							@endif
 
 								<tr><th>Plaats</th></tr>
-							@if ($user->location !== '')
+							@if ($user->location)
 							    <tr><td data-profile="location">{{ $user->location }}</td></tr>
 							@else
 								<tr><td data-profile="location" class="text-muted">Vul hier jouw woonplaats in.</td></tr>
 							@endif
 
 							    <tr><th>Provincie</th></tr>
-							@if ($user->province !== '')
+							@if ($user->province)
 							    <tr><td data-profile="province">{{ $user->province }}</td></tr>
 							@else
 								<tr><td data-profile="province" class="text-muted">Vul hier jouw provincie in.</td></tr>
 							@endif
 
 							    <tr><th>Land</th></tr>
-							@if ($user->country !== '')
+							@if ($user->country)
 							    <tr><td data-profile="country">{{ $user->country }}</td></tr>
 							@else
 								<tr><td data-profile="province" class="text-muted">Vul hier jouw land in.</td></tr>
@@ -129,17 +129,17 @@
 							<tr><td>{{ $user->email }}</td></tr>
 
 							    <tr><th>Telefoonnummer</th></tr>
-							@if ($user->telephone !== '')
+							@if ($user->telephone)
 							    <tr><td data-profile="telephone">{{ $user->telephone }}</td></tr>
 							@else
-								<tr><td data-profile="telephone" class="text-muted">Vul hier jouw huisnummer in.</td></tr>
+								<tr><td data-profile="telephone" class="text-muted">Vul hier jouw telefoonnummer in.</td></tr>
 							@endif
 
 							    <tr><th>Mobiel</th></tr>
-							@if ($user->mobile !== '')
+							@if ($user->mobile)
 							    <tr><td data-profile="mobile">{{ $user->mobile }}</td></tr>
 							@else
-								<tr><td data-profile="mobile" class="text-muted">Vul hier jouw telefoonnummer in.</td></tr>
+								<tr><td data-profile="mobile" class="text-muted">Vul hier jouw mobiele nummer in.</td></tr>
 							@endif
 						</tbody>
 					</table>
@@ -205,4 +205,3 @@
   @include('includes.footer')
 
 @endsection
-

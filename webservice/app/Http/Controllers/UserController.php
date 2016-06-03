@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use DB;
+use Response;
+
 use App\User;
+use App\UserSkill;
 use App\UserReports;
 use App\Company;
 use App\Auth;
-use App\Skills;
+use App\Skill;
 use App\Http\Requests;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
@@ -47,80 +51,72 @@ class UserController extends Controller
       } else {
         abort(404);
       }
-        
+
     }
 
     public function edit()
     {
 
-      // $userid = \Auth::User()->id;
+      $user_id = \Auth::User()->id;
 
-      // $data = Input::get('data');
+      $data = Input::get('data');
 
-      $data = [
-        "firstname" => "Koen",
-        "lastname" => "de Bont",
-        "function" => "",
-        "location" => "Wagenberg",
-        "province" => "Noord-Brabant",
-        "country" => "Nederland",
-        "address" => "Heemraadsingel 34",
-        "zipcode" => "4944VD",
-        "telephone" => "0162 518143",
-        "mobile" => "0681705516",
-        "skill" => [
-          0 => "html",
-          1 => "css",
-          2 => "php",
-          3 => "javascript"
-        ]
-      ];
-      
+      if (array_key_exists('skill', $data)) {
+        $skill_data = $data['skill'];
+        $skill_ids = [];
 
-      $skillData = $data['skill'];
-      unset($data['skill']);
+        foreach ($skill_data as $skill) {
 
+          $query = Skill::where('name', $skill);
 
-      // Skills::update($skillData);
+          if ($query->exists()) {
 
-      // $skills = new Skills;
+            $id = $query->pluck('id')[0];
 
-      // $skills->name = 
+          } else {
 
-      // $skills->save();
+            $new_skill = new Skill;
 
-      // $dbskills = Skills::where('name', 'html')->get();
-      $dbSkills = Skills::where(function($query) use ($skillData) {
-        collect($skillData)->each(function($skill) use ($query) {
-          $query->orWhere('name', '!=', $skill);
-        });
-      });
+            $new_skill->name = $skill;
+            $new_skill->description = 'Geen beschrijving';
 
-      // $dbSkills->get()
+            $new_skill->save();
 
+            $id = DB::getPdo()->lastInsertId();
 
+          }
 
-      for ($i=0; $i < count($dbSkills->get()); $i++) {
-        $test[$i] = $dbSkills->get(['id', 'name'])[$i];
+          if (!UserSkill::where('user_id', $user_id)->where('skills_id', $id)->exists()) {
+
+            $user_skill = new UserSkill;
+
+            $user_skill->user_id = $user_id;
+            $user_skill->skills_id = $id;
+
+            $user_skill->save();
+
+          }
+
+        }
+
       }
 
-      dd($test);
+      User::where('id', $user_id)->update([
+        'firstname' => $data['firstname'],
+        'lastname' => $data['lastname'],
+        'email' => $data['email'],
+        'address' => $data['address'],
+        'zipcode' => $data['zipcode'],
+        'location' => $data['location'],
+        'province' => $data['province'],
+        'country' => $data['country'],
+        'telephone' => $data['telephone'],
+        'mobile' => $data['mobile'],
+        'biography' => $data['biography']
+      ]);
 
-      // dd($dbskills);
+      return Response::json(true);
 
-      // dd($data);
-
-      // if( User::where('id', $userid)->update($data) ){
-      //   $result['code'] = '200';
-      //   $result['status'] = 'Uw account is successvol bijgewerkt.';
-      // } else {
-      //   $result['code'] = '500';
-      //   $result['status'] = 'Oops! Er is iets fout gegaan.';
-      // }
-
-
-      $data = 'test';
-      return json_encode($data);
     }
 
     public function report_user()
@@ -132,7 +128,7 @@ class UserController extends Controller
       } elseif(!userReports::insert(['user_id' => $data['user'], 'reason' => $data['reason'], 'reported_by' => \Auth::User()->id])){
         die('Er ging iets fout met het rapporteren van het bedrijf.');
       }
-      
+
       return redirect()->route('user', $data['user'])->with('notification', 'De gebruiker is successvol gerapporteerd');
     }
 
