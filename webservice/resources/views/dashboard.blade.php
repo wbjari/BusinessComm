@@ -53,12 +53,22 @@
         <div class="col-md-4 col-md-offset-1">
             <div class="card">
                 <a href="{{ url('user/'.\Auth::User()->id) }}" class="dashboard-link">
-                    <img src="assets/img/avatar.png" alt="" class="img-rounded img-responsive dashboard-profile">
+                    <img src="{{ url('assets/img/avatar.png') }}" alt="{{ $user->firstname }}&nbsp;{{ $user->lastname }}" class="img-rounded img-responsive dashboard-profile">
                     <p class="dashboard-name">{{ $user->firstname .' '. $user->lastname}}</p>
                     <p class="dashboard-function">Mediadeveloper</p>
                 </a>
 
                 <ul class="dashboard-profile-list">
+                    <li>
+                        <i class="material-icons text-info">info</i>
+                        <p>Vul je profiel verder in. ({{ $profileProgress }}%)</p>
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" aria-valuenow="{{ $profileProgress }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ $profileProgress }}%;">
+                            <span class="sr-only">{{ $profileProgress }}% Complete</span>
+                            </div>
+                        </div>
+                        <a href=""><button class="btn btn-primary btn-xs">Bekijken</button></a>
+                    </li>
                     <li>
                         <i class="material-icons text-danger">error</i>
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit., beatae rem, voluptas. Consequatur.</p>
@@ -76,16 +86,6 @@
                     <li>
                         <i class="material-icons text-info">info</i>
                         <p>Saepe nobis labore, asperiores repudiandae laudantium voluptas.</p>
-                        <a href=""><button class="btn btn-primary btn-xs">Bekijken</button></a>
-                    </li>
-                    <li>
-                        <img src="assets/img/avatar.png" alt="">
-                        <p>Vul je profiel verder in.</p>
-                        <div class="progress">
-                            <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 30%;">
-                            <span class="sr-only">30% Complete</span>
-                            </div>
-                        </div>
                         <a href=""><button class="btn btn-primary btn-xs">Bekijken</button></a>
                     </li>
                 </ul>

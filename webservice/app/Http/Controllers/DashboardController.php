@@ -19,7 +19,22 @@ class DashboardController extends Controller
     public function index()
     {
     	$userid = \Auth::User()->id;
-        $user = User::where('id', $userid)->first(['firstname','lastname','profilepicture']);
+        $user = User::where('id', $userid)->first();
+
+        // Percentage gevulde tabellen berekenen
+        $rowCount = 0;
+        $rowFilledCount = 0;
+        $user = json_decode($user, true);
+
+        foreach ($user as $key => $value) {
+            if($value !== '' || $value === null){
+                $rowFilledCount++;
+            }
+            $rowCount++;
+        }
+
+        $profileProgress = $rowFilledCount / $rowCount * 100;
+
 
         $notifications = '';
 
@@ -27,7 +42,8 @@ class DashboardController extends Controller
 
         return view('dashboard', [
         	'id' => $userid,
-        	'user' => $user,
+        	'user' => json_decode(json_encode($user, true)),
+            'profileProgress' => (int)$profileProgress,
         	'notifications' => $notifications,
     		'companies' => $companies
         ]);

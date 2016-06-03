@@ -21,7 +21,6 @@ class UserController extends Controller
       $user = User::where('id', $user_id)->first();
 
       if($user->status === 1){
-
         $user_skills = ['html', 'css', 'php', 'javascript'];
 
         if(\Auth::User()->id === (int)$user_id){
