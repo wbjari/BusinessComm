@@ -82,13 +82,34 @@ class CompanyController extends Controller
         abort(404);
       }
 
+      $members = CompanyUser::where('company_id', $company_id)->join('users', 'users.id', '=', 'company_users.company_id')->get(['users.firstname', 'users.lastname', 'users.email', 'company_users.role']);
+
+      foreach ($members as $member) {
+        switch ($member->role) {
+          case 1:
+            $member->role = 'Lid';
+            break;
+          case 2:
+            $member->role = 'Mede-beheerder';
+            break;
+          case 3:
+            $member->role = 'Beheerder';
+            break;
+          
+          default:
+            $member->role = NULL;
+            break;
+        }
+      }
+
       if($is_member && $role == 3){
         return view('company_edit', [
           'company' => $company,
           'posts' => $posts,
           'requested' => $requested,
           'role' => $role,
-          'requests' => $requests
+          'requests' => $requests,
+          'members' => $members
         ]);
       } else {
         return view('company', [
@@ -96,7 +117,8 @@ class CompanyController extends Controller
           'posts' => $posts,
           'requested' => $requested,
           'role' => $role,
-          'requests' => $requests
+          'requests' => $requests,
+          'members' => $members
         ]);
       }
     }

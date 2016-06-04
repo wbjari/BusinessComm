@@ -50,6 +50,57 @@
 	</div>
 
 	<div class="container">
+    <div class="timeline col-xs-12 col-md-6 col-md-offset-3">
+
+      <div class="card">
+        <div class="col-md-12">
+          <h2>Leden</h2>
+          @if (count($members) < 1)
+            <h4 class="no-result">Geen leden gevonden...</h4>
+          @else
+            <table class="table">
+                <thead>
+                  <tr>
+                    <th>Naam</th>
+                    <th>Email</th>
+                    <th>Rechten</th>
+                    <th class="text-right">Acties</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  @foreach ($members as $member)
+                  <tr>
+                      <td>{{ $member->firstname.' '.$member->lastname }}</td>
+                      <td>{{ $member->email }}</td>
+                      <td>
+                        <select>
+                          <option value="{{ $member->role }}">{{ $member->role }}</option>
+                          @if ($member->role !== 'Beheerder')
+                            <option value="Beheerder">Beheerder</option>
+                          @endif
+                          @if ($member->role !== 'Mede-beheerder')
+                            <option value="Mede-beheerder">Mede-beheerder</option>
+                          @endif
+                          @if ($member->role !== 'Lid')
+                            <option value="Lid">Lid</option>
+                          @endif
+                        </select>
+                      </td>
+                      <td class="text-right">
+                        <a href="{{ url('admin/user/report/delete/') }}" danger-action="verwijderen">
+                          <button type="button" rel="tooltip" title="Gebruiker verwijderen" class="btn btn-danger btn-simple btn-sm">
+                              <i class="material-icons">clear</i>
+                          </button>
+                          </a>
+                      </td>
+                  </tr>
+                  @endforeach
+                </tbody>
+              </table>
+            @endif
+        </div>
+      </div>
+    </div>
 
     @if (session('notification'))
     <div class="timeline col-xs-12 col-md-6 col-md-offset-3">

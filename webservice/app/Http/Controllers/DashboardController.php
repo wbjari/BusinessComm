@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\User;
 use App\Company;
+use App\CompanyUser;
 use App\Auth;
 use App\Http\Requests;
 use Illuminate\Http\Request;
@@ -32,17 +33,17 @@ class DashboardController extends Controller
             }
             $rowCount++;
         }
-
         $profileProgress = $rowFilledCount / $rowCount * 100;
 
+        $myCompanies = CompanyUser::where('user_id', $userid)->where('role', 3)->join('companies', 'company_users.company_id', '=', 'companies.id')->get(['company_id', 'name', 'slogan', 'logo']);
+    	$companies = Company::all(['id','name','slogan','logo']);
 
         $notifications = '';
-
-    	$companies = Company::all(['id','name','slogan','logo']);
 
         return view('dashboard', [
         	'id' => $userid,
         	'user' => json_decode(json_encode($user, true)),
+            'myCompanies' => $myCompanies,
             'profileProgress' => (int)$profileProgress,
         	'notifications' => $notifications,
     		'companies' => $companies

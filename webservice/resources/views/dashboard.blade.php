@@ -12,7 +12,29 @@
             <div class="card">
                 <div class="col-md-12">
                     <h2>Mijn bedrijven</h2>
-                    <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+                    @if(count($myCompanies) > 0)
+                        <ul class="businesses">
+                        @foreach ($myCompanies as $company)
+                            <a href="company/{{ $company->company_id }}">
+                                    <li>
+                                        <div class="img-container">
+                                            @if (is_file(public_path().$company->logo))
+                                                <img src="{{ url($company->logo) }}" alt="{{ $company->name }}">
+                                            @else
+                                                <i class="material-icons">business</i>
+                                            @endif
+                                        </div>
+                                        <div class="info-container">
+                                            <h3>{{ $company->name }}</h3>
+                                            <p>{{ $company->slogan }}</p>
+                                        </div>
+                                    </li>
+                                </a>
+                        @endforeach
+                        </ul>
+                    @else
+                        <h4 class="no-result">Geen resultaten gevonden...</h4>
+                    @endif
                     <p><a href="{{ url('/create-company') }}"><button class="btn btn-raised btn-primary btn-sm pull-right">Bedrijf aanmaken</button></a></p>
                 </div>
             </div>
@@ -59,6 +81,7 @@
                 </a>
 
                 <ul class="dashboard-profile-list">
+                    @if($profileProgress < 100)
                     <li>
                         <i class="material-icons text-info">info</i>
                         <p>Vul je profiel verder in. ({{ $profileProgress }}%)</p>
@@ -67,8 +90,9 @@
                             <span class="sr-only">{{ $profileProgress }}% Complete</span>
                             </div>
                         </div>
-                        <a href=""><button class="btn btn-primary btn-xs">Bekijken</button></a>
+                        <a href="{{ url('user/'.\Auth::User()->id) }}"><button class="btn btn-primary btn-xs">Bekijken</button></a>
                     </li>
+                    @endif
                     <li>
                         <i class="material-icons text-danger">error</i>
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit., beatae rem, voluptas. Consequatur.</p>

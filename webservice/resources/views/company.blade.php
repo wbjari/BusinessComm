@@ -76,6 +76,34 @@
       </div>
     @endif
 
+  <div class="timeline col-xs-12 col-md-6 col-md-offset-3">
+
+    <div class="card">
+      <div class="col-md-12">
+        <h2>Leden</h2>
+        @if (count($members) < 1)
+          <h4 class="no-result">Geen leden gevonden...</h4>
+        @else
+          <table class="table">
+              <thead>
+                  <tr>
+                      <th>Naam</th>
+                      <th>Rechten</th>
+                  </tr>
+              </thead>
+              <tbody>
+                @foreach ($members as $member)
+                <tr>
+                    <td>{{ $member->firstname.' '.$member->lastname }}</td>
+                    <td>{{ $member->role }}</td>
+                </tr>
+                @endforeach
+              </tbody>
+            </table>
+          @endif
+      </div>
+    </div>
+
     @if ($company['biography'])
 		<div class="card">
       <div class="col-md-12">
@@ -86,8 +114,6 @@
     @endif
 
     @if ($role != 0)
-
-    <div class="timeline col-xs-12 col-md-6 col-md-offset-3">
 
       <div class="new-post">
         <div class="card">
@@ -193,19 +219,12 @@
 
                 </div>
               </div>
-
-
             @endif
-
           </div>
-        </div>
-
         @endif
-
+        </div>
       </div>
-
     </div>
-
 	</div>
 
   <div class="modal fade" id="removePostModal" tabindex="-1" role="dialog" aria-labelledby="removePost" aria-hidden="true">
