@@ -8,8 +8,14 @@
 
 	<div class="profile-header">
 		<div class="container">
-			<img src="{{ url('assets/img/avatar.png') }}" alt="{{ $user->firstname }}&nbsp;{{ $user->lastname }}">
-			<i class="material-icons profile-picture-edit">camera_alt</i>
+      <div class="profileimg-container" data-toggle="modal" data-target="#changeProfilePictureModal">
+        @if($user->profilepicture)
+          <img src="{{ url($user->profilepicture) }}" alt="{{ $user->firstname }}&nbsp;{{ $user->lastname }}">
+        @else
+          <img src="{{ url('assets/img/avatar.png') }}" id="profile" alt="{{ $user->firstname }}&nbsp;{{ $user->lastname }}">
+        @endif
+			   <i class="material-icons profile-picture-edit">camera_alt</i>
+      </div>
 			<h1><span data-profile="firstname">{{ $user->firstname }}</span>&nbsp;<span data-profile="lastname">{{ $user->lastname }}</span></h1>
 			<h2 data-profile="function">{{ $user->category_id }}</h2>
 			<h5>
@@ -197,6 +203,33 @@
 	    </div>
 	  </div>
 	</div>
+
+  <div class="modal fade" id="changeProfilePictureModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title" id="myModalLabel">Foto aanpassen</h4>
+        </div>
+        <form id="changeLogoForm" method="POST" enctype="multipart/form-data" action="/change-profile-picture">
+          {!! csrf_field() !!}
+
+          <div class="modal-body">
+
+            <div class="col-sm-6">
+             <label class="control-label">Afbeelding</label>
+             <input type="file" id="changePic" name="changePic">
+            </div>
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Sluiten</button>
+            <button type="submit" class="btn btn-info">Opslaan</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
 
 <script>
   var currPage = "user/{{ $user->id }}/edit";

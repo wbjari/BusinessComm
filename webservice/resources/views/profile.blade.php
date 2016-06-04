@@ -8,8 +8,11 @@
 
 	<div class="profile-header">
 		<div class="container">
-			<img src="{{ url('assets/img/avatar.png') }}" alt="{{ $user->firstname }}&nbsp;{{ $user->lastname }}">
-			<i class="material-icons profile-picture-edit">camera_alt</i>
+      @if($user->profilepicture)
+        <img src="{{ url($user->profilepicture) }}" alt="{{ $user->firstname }}&nbsp;{{ $user->lastname }}">
+      @else
+        <img src="{{ url('assets/img/avatar.png') }}" id="profile" alt="{{ $user->firstname }}&nbsp;{{ $user->lastname }}">
+      @endif
 			<h1>{{ $user->firstname }}&nbsp;{{ $user->lastname }}</h1>
 			<h2>{{ $user->category_id }}</h2>
 			<h5>
@@ -71,50 +74,50 @@
 			<div class="card">
 				<div class="col-md-12">
 					<h2>Aanvullende informatie</h2>
-					
+
 					<table class="table">
 						<tbody>
-						    @if ($user->address !== '')
+						    @if ($user->address)
 								<tr><th>Adres</th></tr>
 							    <tr><td>{{ $user->address }}</td></tr>
 							@endif
-							    
-							@if ($user->zipcode !== '')
+
+							@if ($user->zipcode)
 							    <tr><th>Postcode</th></tr>
 							    <tr><td>{{ $user->zipcode }}</td></tr>
 							@endif
 
-							@if ($user->location !== '')
+							@if ($user->location)
 							    <tr><th>Plaats</th></tr>
 							    <tr><td>{{ $user->location }}</td></tr>
 							@endif
 
-							@if ($user->province !== '')
+							@if ($user->province)
 							    <tr><th>Provincie</th></tr>
 							    <tr><td>{{ $user->province }}</td></tr>
 							@endif
 
-							@if ($user->country !== '')
+							@if ($user->country)
 							    <tr><th>Land</th></tr>
 							    <tr><td>{{ $user->country }}</td></tr>
 							@endif
 
-							@if ($user->email !== '')
+							@if ($user->email)
 							    <tr><th>E-mailadres</th></tr>
 							    <tr><td>{{ $user->email }}</td></tr>
 							@endif
 
-							@if ($user->telephone !== '')
+							@if ($user->telephone)
 							    <tr><th>Telefoonnummer</th></tr>
 							    <tr><td>{{ $user->telephone }}</td></tr>
 							@endif
 
-							@if ($user->mobile !== '')
+							@if ($user->mobile)
 							    <tr><th>Mobiel</th></tr>
 							    <tr><td>{{ $user->mobile }}</td></tr>
 							@endif
 
-							@if ($user->languages !== '')
+							@if ($user->languages)
 							    <tr><th>Talen</th></tr>
 							    <tr><td>{{ $user->languages }}</td></tr>
 							@endif
@@ -153,4 +156,3 @@
   @include('includes.footer')
 
 @endsection
-

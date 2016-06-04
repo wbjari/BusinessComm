@@ -112,17 +112,28 @@ class CompanyController extends Controller
     {
 
       $input = Input::all();
-
       if (Input::hasFile('logo')) {
 
         $file = Input::file('logo');
-        $original_name = $file->getClientOriginalName();
 
-        $filename = date('d_m_Y_h_i_s') . '_' . rand(1000, 9999) . '_' . $original_name;
-        $file_path = public_path() . '/storage/companies';
-        $database_path = '/storage/companies';
+        $type = $file->getclientoriginalextension();
 
-        $file->move($file_path, $filename);
+        $file_status = false;
+
+        if($type == 'jpg' || $type == 'jpeg' || $type == 'png') {
+
+          $file_status = true;
+
+          $original_name = $file->getClientOriginalName();
+
+          $filename = date('d_m_Y_h_i_s') . '_' . rand(1000, 9999) . '_' . $original_name;
+          $file_path = public_path() . '/storage/companies';
+          $database_path = '/storage/companies';
+
+          $file->move($file_path, $filename);
+
+        }
+
 
       }
 
@@ -140,7 +151,7 @@ class CompanyController extends Controller
       $company->province    =   $input["province"];
       $company->country     =   $input["country"];
 
-      if (Input::hasFile('logo')) {
+      if (Input::hasFile('logo') && $file_status == true) {
         $company->logo        =   $database_path.'/'.$filename;
       }
 
@@ -168,23 +179,36 @@ class CompanyController extends Controller
 
       if (Input::hasFile('changeLogo')) {
 
-        $old_logo = Company::where('id', $company_id)->pluck('logo')[0];
-        $image_path = public_path() . '' . $old_logo;
-        if (file_exists($image_path)) {
-          unlink($image_path);
-        }
-
         $file = Input::file('changeLogo');
-        $original_name = $file->getClientOriginalName();
 
-        $filename = date('d_m_Y_h_i_s') . '_' . rand(1000, 9999) . '_' . $original_name;
-        $file_path = public_path() . '/storage/companies';
-        $database_path = '/storage/companies';
-        $database_path = $database_path.'/'.$filename;
+        $type = $file->getclientoriginalextension();
 
-        $file->move($file_path, $filename);
+        $file_status = false;
 
-        Company::where('id', $company_id)->update(['logo' => $database_path]);
+        if($type == 'jpg' || $type == 'jpeg' || $type == 'png') {
+
+          $file_status = true;
+
+          $old_logo = Company::where('id', $company_id)->pluck('logo')[0];
+          if ($old_logo) {
+            $image_path = public_path() . '' . $old_logo;
+            if (file_exists($image_path)) {
+              unlink($image_path);
+            }
+          }
+
+          $original_name = $file->getClientOriginalName();
+
+          $filename = date('d_m_Y_h_i_s') . '_' . rand(1000, 9999) . '_' . $original_name;
+          $file_path = public_path() . '/storage/companies';
+          $database_path = '/storage/companies';
+          $database_path = $database_path.'/'.$filename;
+
+          $file->move($file_path, $filename);
+
+          Company::where('id', $company_id)->update(['logo' => $database_path]);
+
+        }
 
       }
 
@@ -277,7 +301,7 @@ class CompanyController extends Controller
       if(!CompanyReports::insert(['company_id' => $data['company'], 'reason' => $data['reason'], 'reported_by' => \Auth::User()->id])){
         die('Er ging iets fout met het rapporteren van het bedrijf.');
       }
-      
+
       return redirect()->route('company', $data['company'])->with('notification', 'Het bedrijf is successvol gerapporteerd');
     }
 

@@ -41,8 +41,7 @@ Route::group(['middleware' => 'web'], function () {
 
       Route::get('/create-company', 'CompanyController@index_create');
       Route::post('/create-company', 'CompanyController@create');
-
-      Route::any('/change-logo', 'CompanyController@change_logo');
+      Route::post('/change-logo', 'CompanyController@change_logo');
 
       Route::post('/request', 'CompanyController@request');
       Route::post('/cancel-request', 'CompanyController@cancel_request');
@@ -52,7 +51,7 @@ Route::group(['middleware' => 'web'], function () {
       Route::post('/create-post', 'PostController@create');
       Route::post('/remove-post', 'PostController@remove');
 
-
+      Route::post('/change-profile-picture', 'UserController@change_profile_picture');
       Route::post('/user/report', 'UserController@report_user');
       Route::any('/user/{user_id}/edit', 'UserController@edit');
       Route::get('/user/{user_id}', [ 'as' => 'user', 'uses' => 'UserController@index']);

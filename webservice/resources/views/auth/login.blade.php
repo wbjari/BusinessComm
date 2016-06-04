@@ -11,6 +11,7 @@
     <form role="form" method="POST" action="{{ url('/login') }}">
         {!! csrf_field() !!}
 
+
         <div class="col-sm-12">
   	       <div class="form-group info label-floating {{ $errors->has('email') ? ' has-error' : '' }}">
             <label class="control-label">E-mailadres</label>

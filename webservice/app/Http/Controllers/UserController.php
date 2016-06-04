@@ -132,4 +132,48 @@ class UserController extends Controller
       return redirect()->route('user', $data['user'])->with('notification', 'De gebruiker is successvol gerapporteerd');
     }
 
+    public function change_profile_picture()
+    {
+
+      $user_id = \Auth::id();
+
+      if (Input::hasFile('changePic')) {
+
+        $file = Input::file('changePic');
+
+        $type = $file->getclientoriginalextension();
+
+        $file_status = false;
+
+        if($type == 'jpg' || $type == 'jpeg' || $type == 'png') {
+
+          $file_status = true;
+
+          $old_logo = User::where('id', $user_id)->pluck('profilepicture')[0];
+          if ($old_logo) {
+            $image_path = public_path() . '' . $old_logo;
+            if (file_exists($image_path)) {
+              unlink($image_path);
+            }
+          }
+
+          $original_name = $file->getClientOriginalName();
+
+          $filename = date('d_m_Y_h_i_s') . '_' . rand(1000, 9999) . '_' . $original_name;
+          $file_path = public_path() . '/storage/users';
+          $database_path = '/storage/users';
+          $database_path = $database_path.'/'.$filename;
+
+          $file->move($file_path, $filename);
+
+          User::where('id', $user_id)->update(['profilepicture' => $database_path]);
+
+        }
+
+      }
+
+      $url = '/user/' . $user_id;
+      return redirect(url($url));
+
+    }
 }
