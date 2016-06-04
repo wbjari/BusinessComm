@@ -11,35 +11,32 @@ var site_url = $('meta[name=url]').attr('content');
 var lastInput;
 var lastText;
 var data = {};
-var testdata = [];
+var dataSkills = [];
 
+// Reageert als je op een element met data-profile="" klikt.
 $(document).on('click', '*[data-profile]', function(){
+
+	// Checkt of het geen input is.
 	if(!$(this).hasClass('form-control')){
 
-		// Verander de laatst opgeslagen input naar de hiervoor staande tekst
-		$('*[data-profile="reset"]').replaceWith(lastInput);
+		InputToText();
 
-		if( lastText !== undefined ){
-			$(lastInput).removeClass('text-muted');
-			inputName = $(lastInput).attr('data-profile');
-			$('*[data-profile="'+inputName+'"]').text(lastText);
-			lastText = undefined;
-		}
-
-		// Sla de aangeklikte input op
+		// Sla de aangeklikte input op en neem styling mee
 		lastInput = this;
 		lastColor = $(this).css('color');
 		thisHeight = parseInt($(this).css('height'), 10);
 
+		// Als het element de attribute data-color bevat geef de input een color styling met de waarde binnen de data-color.
 		if( $(this).attr('data-color') !== "" ) {
 			$(this).css('color', $(this).attr('data-color'))
 		}
 
+		// Als de hoogte kleiner is dan 24 pixels maak de input minimaal 24 pixels hoog.
 		if( thisHeight < 24 ) {
 			thisHeight = 24;
 		}
 
-		// Verander text met een data-profile naar een input
+		// Creëert de input met styling en name en placeholder attributen.
 		var input = $('<input type="text" data-profile="reset" class="form-control" autocomplete="off" autofocus />')
 		.attr('name', $(this).attr('data-profile') )
 		.attr('placeholder', $(this).attr('data-profile') )
@@ -48,70 +45,76 @@ $(document).on('click', '*[data-profile]', function(){
 			'margin': $(this).css('margin'),
 			'color': $(this).css('color')
 		})
+		// Als tekst in input aangepast wordt toon opslaan knop en sla de aangepaste tekst op.
 		.keyup(function(){
-			$('.btn-profile-save').css('background-color', '#ff0000').fadeIn();
+			showSaveButton();
 			lastText = $(this).val();
 		});
 
+		// Als de kolom in database leeg is krijgt deze een text-muted class mee. Dit voorkomt dat lege data wordt meegestuurd naar de API.
 		if($(input).hasClass('text-muted')){
 			$(input).val('');
 		}
 
+		// Verandert de aangeklikte tekst met een data-profile attribute naar een input inclusief styling en name en placeholder attributen.
 		$(lastInput).replaceWith(input);
 		$(lastInput).css('color', lastColor);
 	}
 })
 
+// Als je op een knop drukt met de data-toggle attribute.
 $(document).on('click', '[data-toggle="modal"]', function(){
+
+	// Vind de form binnen de modal.
 	form = $( $(this).attr('data-target') ).find('form')[0];
+
+	// Vind de submit button binnen de modal.
 	submit = $( $(this).attr('data-target') ).find('[data-profile-add]');
 
-
+	// Als je op de submit button klikt.
 	$(submit).click(function() {
+
+		// Telt het huidige aantal vaardigheden en voegt daar 1 toe.
 		dataLength = $("[data-card=" + $(form).attr('data-name') + "]").find('span').length + 1;
-		addHtml = ' <span class="label label-primary" data-profile="skill-'+ dataLength +'" data-profile-array="skill" data-color="#000">'+ $(form).serializeArray()[0]['value'] +'</span>';
 
-		$("[data-card=" + $(form).attr('data-name') + "]").append( addHtml );
+		// Voeg de vaardigheid toe aan het profiel
+		$("[data-card=" + $(form).attr('data-name') + "]").append(' <span class="label label-primary" data-profile="skill-'+ dataLength +'" data-profile-array="skill" data-color="#000">'+ $(form).serializeArray()[0]['value'] +'</span>');
 
+		// Voorkomt dat het formulier meerdere keren wordt toegevoegd.
 		$(form)[0].reset().unbind();
 	})
 })
 
-$('.nav.posts a').click(function() {
-	var id = $(this).data('id');
-	$('.the-posts').hide();
-	$('.the-posts[data-id="' + id + '"]').show();
-});
-
+// Als je op de opslaan knop klikt.
 $('.btn-profile-save').click(function(){
-	$('*[data-profile="reset"]').replaceWith(lastInput);
 
-	if(lastInput !== undefined){
-		$(lastInput).text(lastText);
-	}
+	InputToText();
 
-	if( lastText !== undefined ){
-		inputName = $(lastInput).attr('data-profile');
-		$('*[data-profile="'+inputName+'"]').text(lastText);
-		lastText = undefined;
-		$(lastInput).removeClass('text-muted');
-	}
+	// Voor elk element met data-profile attribute.
+	$.each( $('*[data-profile]') , function(index, value){
 
-	var thisdata = $('*[data-profile]');
-
-	$.each(thisdata, function(index, value){
+		// Als de kolom in database leeg is krijgt deze een text-muted class mee. Dit voorkomt dat lege data wordt meegestuurd naar de API.
 		if(!$(this).hasClass('text-muted')){
+
+			// Als het element een data-profile-array attribute bevat is het een array en moet het in een 2 dimensionale array geplaatst worden.
 			if ( $(this).attr('data-profile-array') !== undefined ) {
-				testdata.push($(value).text());
+
+				// Voeg alle vaardigheden aan een array toe.
+				dataSkills.push($(value).text());
 			} else {
+
+				// Voeg alles met een data-profile attribute toe aan de data array.
 				data[$(this).attr('data-profile')] = $(value).text();
 			}
 		}
 	})
 
-	data['skill'] = testdata;
+	// Voeg de vaardigheden array toe aan de data array.
+	data['skill'] = dataSkills;
 
+	// Als de gebruiker zickh op een gebruikers of bedrijfspagina bevindt.
 	if(currPage !== undefined){
+
 		$.ajax({
 			url: site_url +'/'+ currPage,
 			type: "POST",
@@ -126,24 +129,27 @@ $('.btn-profile-save').click(function(){
 		    },
 			success: function (response) {
 				console.log(response);
-
-				response = JSON.parse(response);
-				if(response.code == 200){
-					$('.btn-profile-save').css('background-color', '#419745').fadeIn();
-					console.log(response)
-				} else {
-					alert('Er is iets fout gegaan. Probeer het later opnieuw.');
-				}
+				showSaveButton();
 			}
 		})
 	}
 });
+
+
+
+
 
 $('.remove-post').click(function() {
 	var title = $(this).parent().find('h4').html();
 	var post_id = $(this).data('id');
 	$('#removePostModal').find('.modal-message span').html(title);
 	prepareRemovePost(post_id);
+});
+
+$('.nav.posts a').click(function() {
+	var id = $(this).data('id');
+	$('.the-posts').hide();
+	$('.the-posts[data-id="' + id + '"]').show();
 });
 
 // === === === //
@@ -216,6 +222,33 @@ function prepareRemovePost(post_id)
 
 	});
 
+}
+
+function showSaveButton()
+{
+	$('.btn-profile-save').css('background-color', '#ff0000').fadeIn();
+}
+
+function InputToText()
+{
+	// Verander de input terug naar tekst
+	$('*[data-profile="reset"]').replaceWith(lastInput);
+
+	// Als er een verandering in de input is gemaakt.
+	if( lastText !== undefined ){
+
+		// verwijder text-muted class waardoor tekst meegestuurd wordt naar API.
+		$(lastInput).removeClass('text-muted');
+
+		// Geef de value een name attribute mee
+		inputName = $(lastInput).attr('data-profile');
+
+		// Alles met dezelfde name attribute krijgt dezelfde tekst
+		$('*[data-profile="'+inputName+'"]').text(lastText);
+
+		// Voorkom herhaling van aanpassing (wat hierboven staat) zonder dat er iets aangepast is.
+		lastText = undefined;
+	}
 }
 
 
