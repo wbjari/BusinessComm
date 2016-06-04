@@ -17,7 +17,7 @@
 			   <i class="material-icons profile-picture-edit">camera_alt</i>
       </div>
 			<h1><span data-profile="firstname">{{ $user->firstname }}</span>&nbsp;<span data-profile="lastname">{{ $user->lastname }}</span></h1>
-			<h2 data-profile="function">{{ $user->category_id }}</h2>
+			<h2>{{ $user->category_id }}</h2>
 			<h5>
 		        @if ($user->location)
 		        	<span data-profile="location">{{ $user->location }}</span>,
@@ -65,9 +65,6 @@
 				@endif
 			</div>
 		</div>
-
-
-
 
 		@if (count($user_skills) > 0)
 			<div class="card">

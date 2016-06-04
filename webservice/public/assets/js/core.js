@@ -109,9 +109,7 @@ $('.btn-profile-save').click(function(){
 		}
 	})
 
-	if(currPage == "user/{{ $user->id }}/edit") {
-		data['skill'] = testdata;
-	}
+	data['skill'] = testdata;
 
 	if(currPage !== undefined){
 		$.ajax({

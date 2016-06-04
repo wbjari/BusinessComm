@@ -61,6 +61,8 @@ class UserController extends Controller
 
       $data = Input::get('data');
 
+      dd($data);
+
       if (array_key_exists('skill', $data)) {
         $skill_data = $data['skill'];
         $skill_ids = [];
@@ -101,19 +103,7 @@ class UserController extends Controller
 
       }
 
-      User::where('id', $user_id)->update([
-        'firstname' => $data['firstname'],
-        'lastname' => $data['lastname'],
-        'email' => $data['email'],
-        'address' => $data['address'],
-        'zipcode' => $data['zipcode'],
-        'location' => $data['location'],
-        'province' => $data['province'],
-        'country' => $data['country'],
-        'telephone' => $data['telephone'],
-        'mobile' => $data['mobile'],
-        'biography' => $data['biography']
-      ]);
+      User::where('id', $user_id)->update($data);
 
       return Response::json(true);
 
