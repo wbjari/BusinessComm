@@ -25,7 +25,8 @@ class UserController extends Controller
       $user = User::where('id', $user_id)->first();
 
       if($user->status === 1){
-        $user_skills = ['html', 'css', 'php', 'javascript'];
+
+        $user_skills = UserSkill::where('user_id', $user_id)->join('skills', 'user_skills.skills_id', '=', 'skills.id')->get(['skills.name']);
 
         if(\Auth::User()->id === (int)$user_id){
           return view('profile_edit', [
@@ -61,13 +62,10 @@ class UserController extends Controller
 
       $data = Input::get('data');
 
-      dd($data);
-
       if (array_key_exists('skill', $data)) {
-        $skill_data = $data['skill'];
         $skill_ids = [];
 
-        foreach ($skill_data as $skill) {
+        foreach ($data['skill'] as $skill) {
 
           $query = Skill::where('name', $skill);
 
@@ -101,6 +99,10 @@ class UserController extends Controller
 
         }
 
+      }
+
+      if($data['skill']){
+        unset($data['skill']);
       }
 
       User::where('id', $user_id)->update($data);

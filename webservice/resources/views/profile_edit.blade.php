@@ -74,7 +74,8 @@
 					<div data-card="skills">
 						<?php $i = 1 ?>
 						@foreach ($user_skills as $skill)
-							<span class="label label-primary" data-profile="skill-{{ $i }}" data-profile-array="skill" data-color="#000">{{ $skill }}</span>
+
+							<span class="label label-primary skill-delete" data-profile="{{ $skill->name }}" data-profile-array="skill" data-color="#000">{{ $skill->name }}</span>
 
 							<?php $i++ ?>
 						@endforeach

@@ -171,3 +171,4 @@ header::after {content:''; display:block; height:70px;}
 /* === === === */
 
 .no-result { color: #BDBDBD; }
+[data-card="skills"] .label { cursor: pointer; }
