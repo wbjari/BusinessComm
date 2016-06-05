@@ -39,7 +39,7 @@ $(document).on('click', '*[data-profile]', function(){
 		// Creëert de input met styling en name en placeholder attributen.
 		var input = $('<input type="text" data-profile="reset" class="form-control" autocomplete="off" autofocus />')
 		.attr('name', $(this).attr('data-profile') )
-		.attr('placeholder', $(this).attr('data-profile') )
+		.attr('value', $(this).text() )
 		.css({
 			'height': thisHeight,
 			'margin': $(this).css('margin'),

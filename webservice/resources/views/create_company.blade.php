@@ -6,7 +6,7 @@
 
   @include('includes.header')
 
-  <div class="container">
+  <div class="container" style="margin-top:50px;">
     <form role="form" method="POST" enctype="multipart/form-data" action="{{ url('/create-company') }}">
       <div class="card">
 
@@ -15,7 +15,7 @@
         <div class="col-sm-6">
           <div class="form-group label-floating">
             <label class="control-label">Naam *</label>
-            <input type="text" class="form-control" name="name">
+            <input type="text" class="form-control" name="name" required>
           </div>
         </div>
 
@@ -54,43 +54,43 @@
 
         <div class="col-sm-6">
           <div class="form-group label-floating">
-            <label class="control-label">Adres</label>
-            <input type="text" class="form-control" name="address">
+            <label class="control-label">Adres *</label>
+            <input type="text" class="form-control" name="address" required>
           </div>
         </div>
 
         <div class="col-sm-6">
           <div class="form-group label-floating">
-            <label class="control-label">Postcode</label>
-            <input type="text" class="form-control" name="zipcode">
+            <label class="control-label">Postcode *</label>
+            <input type="text" class="form-control" name="zipcode" required>
           </div>
         </div>
 
         <div class="col-sm-6">
           <div class="form-group label-floating">
-            <label class="control-label">Plaats</label>
-            <input type="text" class="form-control" name="location">
+            <label class="control-label">Plaats *</label>
+            <input type="text" class="form-control" name="location" required>
           </div>
         </div>
 
         <div class="col-sm-6">
           <div class="form-group label-floating">
-            <label class="control-label">Provincie</label>
-            <input type="text" class="form-control" name="province">
+            <label class="control-label">Provincie *</label>
+            <input type="text" class="form-control" name="province" required>
           </div>
         </div>
 
         <div class="col-sm-6">
           <div class="form-group label-floating">
-            <label class="control-label">Land</label>
-            <input type="text" class="form-control" name="country">
+            <label class="control-label">Land *</label>
+            <input type="text" class="form-control" name="country" required>
           </div>
         </div>
 
         <button type="submit" class="btn btn-success btn-raised form-submit">
           Aanmaken
         </button>
-        
+
       </div>
     </form>
   </div>
