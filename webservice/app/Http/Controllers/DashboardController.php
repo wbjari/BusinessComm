@@ -35,7 +35,7 @@ class DashboardController extends Controller
         }
         $profileProgress = $rowFilledCount / $rowCount * 100;
 
-        $myCompanies = CompanyUser::where('user_id', $userid)->where('role', 3)->join('companies', 'company_users.company_id', '=', 'companies.id')->get(['company_id', 'name', 'slogan', 'logo']);
+        $myCompanies = CompanyUser::where('user_id', $userid)->join('companies', 'company_users.company_id', '=', 'companies.id')->get(['company_id', 'name', 'slogan', 'logo']);
     	  $companies = Company::all(['id','name','slogan','logo']);
 
         $notifications = '';

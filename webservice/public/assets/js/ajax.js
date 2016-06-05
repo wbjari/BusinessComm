@@ -47,6 +47,7 @@ function ajax_requestCompany(data)
       .html('Annuleren')
       .removeClass('btn-primary')
       .addClass('btn-danger');
+
     }
   });
 
@@ -81,26 +82,6 @@ function ajax_cancelRequestCompany(data)
 function ajax_removePost(post_id)
 {
 
-  // function ajax_newPost(data)
-  // {
-  //
-  //   $.ajax({
-  //     url: "/new-post",
-  //     type: "POST",
-  //     data: { data: data },
-  //     dataType: 'json',
-  //     processData: false,
-  //     beforeSend: function (xhr) {
-  //       var token = $('meta[name="_token"]').attr('content');
-  //
-  //       if (token) {
-  //         return xhr.setRequestHeader('X-CSRF-TOKEN', token);
-  //       }
-  //     }
-  //   });
-  //
-  // }
-
   $.ajax({
     url: "/remove-post",
     type: "POST",
@@ -121,17 +102,6 @@ function ajax_removePost(post_id)
       });
 
       $('#removePostModal').modal('hide');
-
-      if($('.posts > .card').length < 1) {
-        $('.the-posts').append('\
-        <div class="card">\
-          <div class="col-md-12">\
-            <h4>Er zijn nog geen berichten</h4>\
-          </div>\
-        </div>\
-        ')
-        $('.nav.posts').remove();
-      }
 
     },
     error: function(response) {
@@ -158,6 +128,11 @@ function ajax_acceptRequest(data)
     },
     success: function(response) {
       $('.requests').find('li[data-id="' + data['user'] + '"]').remove();
+
+      console.log($('.requests').find('ul li').length);
+      if ($('.requests').find('ul li').length < 1) {
+        $('.requests').remove();
+      }
     }
   });
 
@@ -180,6 +155,11 @@ function ajax_denyRequest(data)
     },
     success: function(response) {
       $('.requests').find('li[data-id="' + data['user'] + '"]').remove();
+
+      console.log($('.requests').find('ul li').length);
+      if ($('.requests').find('ul li').length < 1) {
+        $('.requests').remove();
+      }
     }
   });
 

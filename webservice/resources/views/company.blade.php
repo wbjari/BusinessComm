@@ -29,13 +29,14 @@
           <span>{{ $company['country'] }}</span>
         @endif
       </h5>
+      @if ($role == 0 && $requested == false)
+      <button type="button" id="requestCompany" class="btn btn-primary btn-raised requester" style="float:right;">Aansluiten</button>
+      @elseif ($requested == true)
+      <button type="button" id="cancelRequestCompany" class="btn btn-danger btn-raised requester" style="float:right;">Annuleren</button>
+      @endif
+      <div class="clearfix"> </div>
 		</div>
 
-    @if ($role == 0 && $requested == false)
-      <button type="button" id="requestCompany" class="btn btn-primary btn-raised requester">Aansluiten</button>
-     @elseif ($requested == true)
-      <button type="button" id="cancelRequestCompany" class="btn btn-danger btn-raised requester">Annuleren</button>
-    @endif
 	</div>
 
 	<div class="container">
@@ -56,7 +57,8 @@
     </div>
     @endif
 
-    @if ($role == 2 || $role == 3 && $requests->count())
+    @if ($role == 2 || $role == 3)
+      @if ($requests->count() != 0)
       <div class="card requests">
         <div class="col-md-12">
           <h2>Verzoeken</h2>
@@ -74,44 +76,45 @@
           </ul>
         </div>
       </div>
+      @endif
     @endif
-
-  <div class="timeline col-xs-12 col-md-6 col-md-offset-3">
 
     <div class="card">
       <div class="col-md-12">
         <h2>Leden</h2>
         @if (count($members) < 1)
-          <h4 class="no-result">Geen leden gevonden...</h4>
+        <h4 class="no-result">Geen leden gevonden...</h4>
         @else
-          <table class="table">
-              <thead>
-                  <tr>
-                      <th>Naam</th>
-                      <th>Rechten</th>
-                  </tr>
-              </thead>
-              <tbody>
-                @foreach ($members as $member)
-                <tr>
-                    <td>{{ $member->firstname.' '.$member->lastname }}</td>
-                    <td>{{ $member->role }}</td>
-                </tr>
-                @endforeach
-              </tbody>
-            </table>
-          @endif
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Naam</th>
+              <th>Rechten</th>
+            </tr>
+          </thead>
+          <tbody>
+            @foreach ($members as $member)
+            <tr>
+              <td>{{ $member->firstname.' '.$member->lastname }}</td>
+              <td>{{ $member->role }}</td>
+            </tr>
+            @endforeach
+          </tbody>
+        </table>
+        @endif
       </div>
     </div>
 
     @if ($company['biography'])
-		<div class="card">
+    <div class="card">
       <div class="col-md-12">
         <h2>Biografie</h2>
         <p> {{ $company['biography'] }} </p>
       </div>
-		</div>
+    </div>
     @endif
+  <div class="timeline col-xs-12 col-md-6 col-md-offset-3">
+
 
     @if ($role != 0)
 
@@ -190,14 +193,14 @@
               <div class="the-posts" style="display:none;" data-id="2">
 
                 @foreach ($posts as $post)
-                  @if ($post['role'] == 3)
+                  @if ($post['role'] == 2 || $post['role'] == 3)
                     <div class="card">
                       <div class="col-md-12">
 
                         @if ($post['user_id'] == \Auth::id() || $role == 2 || $role == 3)
                           <span class="remove-post" data-id="{{ $post->id }}" data-toggle="modal" data-target="#removePostModal"><i class="material-icons">delete_forever</i></span>
                         @endif
-                        
+
                         <h4 class="post-title">{{ $post->title }}</h4>
                         <p class="post-content">{{ $post->content }}</p>
                         @if ($post->image)

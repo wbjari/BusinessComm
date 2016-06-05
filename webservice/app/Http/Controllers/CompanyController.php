@@ -252,7 +252,7 @@ class CompanyController extends Controller
 
       $data = Input::get('data');
 
-      if (!Inquiry::where('user_id', '=', \Auth::id())->where('company_id', '=', $data)->exists()) {
+      if (!Inquiry::where('user_id', \Auth::id())->where('company_id', $data)->exists() && !CompanyUser::where('user_id', \Auth::id())->where('company_id', $data)->exists()) {
 
         $inquiry = new Inquiry;
 
@@ -384,13 +384,13 @@ class CompanyController extends Controller
           }
           return redirect(url('/company/'.$company_id));
           break;
-        
+
         default:
           die('onbekende fout');
           break;
       }
 
-      
+
 
     }
 }

@@ -94,7 +94,7 @@ header::after {content:''; display:block; height:70px;}
 /* === Profile === */
 /* === === === */
 .profile-header {margin-bottom: 20px; width: 100%; height: 240px; background-color: #65ce68; }
-.profile-header .container {position: relative; padding: 60px 10px 60px 140px; height: 120px; color: #fff; }
+.profile-header .container {position: relative;padding: 60px 10px 60px 140px;color: #fff;}
 .profile-header .company-profile { padding: 60px 10px 60px 220px; }
 .profile-header .container img {position: absolute; top: 60px; left: 10px; height: 120px; width: 120px; border-radius: 100%; }
 .profile-header .container .img-container {cursor:pointer; position: absolute; top: 60px; left: 10px; height: 120px; width: 200px; text-align: center; }
