@@ -36,17 +36,39 @@ class DashboardController extends Controller
         $profileProgress = $rowFilledCount / $rowCount * 100;
 
         $myCompanies = CompanyUser::where('user_id', $userid)->where('role', 3)->join('companies', 'company_users.company_id', '=', 'companies.id')->get(['company_id', 'name', 'slogan', 'logo']);
-    	$companies = Company::all(['id','name','slogan','logo']);
+    	  $companies = Company::all(['id','name','slogan','logo']);
 
         $notifications = '';
+
+
+        // Companies close to you
+        $user_location = User::where('id', $userid)->pluck('location')[0];
+        if ($user_location) {
+          $user_haslocation = true;
+        } else {
+          $user_haslocation = false;
+        }
+
+        $query = Company::where('location', $user_location);
+
+        if ($query->exists()) {
+          $nearby_companies = $query->get();
+          $is_nearby = true;
+        } else {
+          $nearby_companies = Company::all()->random(5);
+          $is_nearby = false;
+        }
+
+        $nearby = ['user_haslocation' => $user_haslocation, 'nearby' => $is_nearby, 'companies' => $nearby_companies];
 
         return view('dashboard', [
         	'id' => $userid,
         	'user' => json_decode(json_encode($user, true)),
-            'myCompanies' => $myCompanies,
-            'profileProgress' => (int)$profileProgress,
+          'myCompanies' => $myCompanies,
+          'profileProgress' => (int)$profileProgress,
         	'notifications' => $notifications,
-    		'companies' => $companies
+    		  'companies' => $companies,
+          'nearby' => $nearby
         ]);
     }
 

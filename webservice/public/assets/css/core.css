@@ -8,6 +8,7 @@ input, .form-control:focus {outline:0; box-shadow:none;}
 .container.top {padding-top:15px;}
 .card {margin-bottom:15px;}
 .container > div {padding:0;}
+.text-right {float:right; display:inline-block;}
 
 /* === === === */
 /* === Material icons === */
@@ -58,11 +59,12 @@ header::after {content:''; display:block; height:70px;}
 /* Businesses */
 
 .businesses {list-style: none; margin: 0; padding: 0; font-weight: 300; }
-.businesses li::after {z-index: 99; position: absolute; content: ""; left: 0; right: 0; bottom: -11px; width: 0; height: 2px; background-color: #9C27B0; -webkit-transition: width 1s; transition: width 1s; }
-.businesses li:hover::after {width: 100%; }
-.businesses a {text-decoration: none; color: inherit; }
+.businesses li {margin:0; padding:0;}
+.businesses a {text-decoration: none;color: inherit;transition:0.35s;display:block;height: 78px;}
+.businesses a:last-of-type {margin-bottom:15px;}
+.businesses a:hover {background-color:#ccc;}
 .businesses li:hover h3 {font-weight: 400; }
-.businesses li {position: relative; border-top: 1px solid #ccc; min-height: 67px; }
+.businesses li {position: relative;border-top: 1px solid #ccc;min-height: 67px;padding: 0 15px 0 0;}
 .businesses .img-container {position: absolute; top: 10px; left: 0px; width: 110px; height: 55px; text-align: center; overflow: hidden; }
 .businesses .img-container img {position: relative; top: 50%; transform: translateY(-50%); max-width: 110px; max-height: 55px; }
 .businesses .img-container i {line-height: 55px; text-overflow: ellipsis; font-size: 36px; color: #A40000; }
@@ -84,7 +86,7 @@ header::after {content:''; display:block; height:70px;}
 .dashboard-profile-list li p {position: relative; padding: 5px 0px 0 34px; min-height: 34px; }
 .dashboard-profile-list li a button {margin: -15px 0 0 0; text-align: right; }
 .dashboard-profile-list li a { display: inline-block; width: 100%; text-align: right;}
-.dashboard-profile-list li::after {z-index: 99; position: absolute; content: ""; left: 0; right: 0; bottom: -1px; width: 0; height: 2px; background-color: #9C27B0; -webkit-transition: width 1s; transition: width 1s; }
+.dashboard-profile-list li::after {z-index: 99; position: absolute; content: ""; left: 0; right: 0; bottom: -1px; width: 0; height: 2px; background-color: #9C27B0; -webkit-transition: width 0.35s; transition: width 0.35s; }
 .dashboard-profile-list li:hover::after {width: 100%; }
 
 /* === === === */

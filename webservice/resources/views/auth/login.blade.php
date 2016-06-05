@@ -15,7 +15,7 @@
         <div class="col-sm-12">
   	       <div class="form-group info label-floating {{ $errors->has('email') ? ' has-error' : '' }}">
             <label class="control-label">E-mailadres</label>
-            <input type="email" class="form-control" name="email" value="{{ old('email') }}">
+            <input type="email" class="form-control" name="email" value="{{ old('email') }}" required>
 
             @if ($errors->has('email'))
                 <span class="help-block">
@@ -26,7 +26,7 @@
         </div>
 
         <div class="col-sm-6">
-          <div class="form-group info label-floating {{ $errors->has('password') ? ' has-error' : '' }}">
+          <div class="form-group info label-floating {{ $errors->has('password') ? ' has-error' : '' }}" required>
             <label class="control-label">Wachtwoord</label>
             <input type="password" class="form-control" name="password">
 

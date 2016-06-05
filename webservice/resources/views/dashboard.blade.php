@@ -26,7 +26,7 @@
                                         </div>
                                         <div class="info-container">
                                             <h3>{{ $company->name }}</h3>
-                                            <p>{{ $company->slogan }}</p>
+                                            <p>{{ $company->slogan }} <span class="text-right">{{ $company->location }}, {{ $company->country }}</span></p>
                                         </div>
                                     </li>
                                 </a>
@@ -41,15 +41,22 @@
 
             <div class="card">
                 <div class="col-md-12">
+                  @if ($nearby['nearby'] == true)
                     <h2>In de buurt</h2>
+                  @else
+                    <h2>Willekeurige bedrijven</h2>
+                    @if ($nearby['user_haslocation'] == false)
+                      <a href="{{ url('/user/' . \Auth::id()) }}">Vul eerst je woonplaats in om te kijken welke bedrijven zich in de buurt bevinden.</a>
+                    @endif
+                  @endif
 
                     <ul class="businesses">
-                        @if (count($companies) < 1)
+                        @if (count($nearby['companies']) < 1)
                             <li>
                                 <h4 class="no-result">Geen resultaten gevonden...</h4>
                             </li>
                         @else
-                            @foreach ($companies as $company)
+                            @foreach ($nearby['companies'] as $company)
                                 <a href="company/{{ $company->id }}">
                                     <li>
                                         <div class="img-container">
@@ -61,7 +68,7 @@
                                         </div>
                                         <div class="info-container">
                                             <h3>{{ $company->name }}</h3>
-                                            <p>{{ $company->slogan }}</p>
+                                            <p>{{ $company->slogan }} <span class="text-right">{{ $company->location }}, {{ $company->country }}</span></p>
                                         </div>
                                     </li>
                                 </a>
@@ -71,7 +78,7 @@
                 </div>
             </div>
         </div>
-        
+
         <div class="col-md-4 col-md-offset-1">
             <div class="card">
                 <a href="{{ url('user/'.\Auth::User()->id) }}" class="dashboard-link">
@@ -92,26 +99,12 @@
                         </div>
                         <a href="{{ url('user/'.\Auth::User()->id) }}"><button class="btn btn-primary btn-xs">Bekijken</button></a>
                     </li>
-                    @endif
-                    <li>
-                        <i class="material-icons text-danger">error</i>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit., beatae rem, voluptas. Consequatur.</p>
-                        <a href=""><button class="btn btn-primary btn-xs">Bekijken</button></a>
-                    </li>
-                    <li>
-                        <i class="material-icons text-warning">warning</i>
-                        <p>Quas quidem, ratione. In pariatur porro saepe nemo non, facere deserunt, dignissimos reprehenderit tempore omnis atque nisi corporis.</p>
-                        <div class="progress">
-                            <div class="progress-bar" aria-valuemin="0" aria-valuemax="100" style="width: 30%;">
-                            </div>
-                        </div>
-                        <a href=""><button class="btn btn-primary btn-xs">Bekijken</button></a>
-                    </li>
+                    @else
                     <li>
                         <i class="material-icons text-info">info</i>
-                        <p>Saepe nobis labore, asperiores repudiandae laudantium voluptas.</p>
-                        <a href=""><button class="btn btn-primary btn-xs">Bekijken</button></a>
+                        <p>Gefeliciteerd, uw profiel is volledig ingevuld!</p>
                     </li>
+                    @endif
                 </ul>
             </div>
         </div>

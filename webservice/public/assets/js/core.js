@@ -41,6 +41,7 @@ $(document).on('click', '*[data-profile]', function(){
 		.attr('name', $(this).attr('data-profile') )
 		.attr('placeholder', $(this).attr('data-profile') )
 		.val( $(this).text() )
+		.attr('value', $(this).text() )
 		.css({
 			'height': thisHeight,
 			'margin': $(this).css('margin'),

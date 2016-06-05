@@ -95,7 +95,7 @@ class CompanyController extends Controller
           case 3:
             $member->role = 'Beheerder';
             break;
-          
+
           default:
             $member->role = NULL;
             break;
@@ -130,13 +130,21 @@ class CompanyController extends Controller
 
     }
 
-    public function create()
+    public function create(Request $request)
     {
 
-      $input = Input::all();
-      if (Input::hasFile('logo')) {
+      $this->validate($request, [
+        'name' => 'required',
+        'address' => 'required',
+        'zipcode' => 'required',
+        'location' => 'required',
+        'province' => 'required',
+        'country' => 'required'
+      ]);
 
-        $file = Input::file('logo');
+      if ($request->hasFile('logo')) {
+
+        $file = $request->file('logo');
 
         $type = $file->getclientoriginalextension();
 
@@ -162,16 +170,16 @@ class CompanyController extends Controller
 
       $company = new Company;
 
-      $company->name        =   $input["name"];
-      $company->slogan      =   $input["slogan"];
-      $company->email       =   $input["email"];
-      $company->telephone   =   $input["telephone"];
-      $company->biography   =   $input["biography"];
-      $company->address     =   $input["address"];
-      $company->zipcode     =   $input["zipcode"];
-      $company->location    =   $input["location"];
-      $company->province    =   $input["province"];
-      $company->country     =   $input["country"];
+      $company->name        =   $request["name"];
+      $company->slogan      =   $request["slogan"];
+      $company->email       =   $request["email"];
+      $company->telephone   =   $request["telephone"];
+      $company->biography   =   $request["biography"];
+      $company->address     =   $request["address"];
+      $company->zipcode     =   $request["zipcode"];
+      $company->location    =   $request["location"];
+      $company->province    =   $request["province"];
+      $company->country     =   $request["country"];
 
       if (Input::hasFile('logo') && $file_status == true) {
         $company->logo        =   $database_path.'/'.$filename;

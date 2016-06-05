@@ -126,7 +126,7 @@
 							@if ($user->country)
 							    <tr><td data-profile="country">{{ $user->country }}</td></tr>
 							@else
-								<tr><td data-profile="province" class="text-muted">Vul hier jouw land in.</td></tr>
+								<tr><td data-profile="country" class="text-muted">Vul hier jouw land in.</td></tr>
 							@endif
 
 							<tr><th>E-mailadres</th></tr>
