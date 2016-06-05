@@ -55,6 +55,7 @@ $(document).on('click', '*[data-profile]', function(){
 		.keyup(function(){
 			showSaveButton('save');
 			lastText = $(this).val();
+			$(this).removeClass('text-muted');
 		});
 
 		// Als de kolom in database leeg is krijgt deze een text-muted class mee. Dit voorkomt dat lege data wordt meegestuurd naar de API.
@@ -117,6 +118,8 @@ $('.btn-profile-save').click(function(){
 				// Voeg alles met een data-profile attribute toe aan de data array.
 				data[$(this).attr('data-profile')] = $(value).text();
 			}
+		} else if ($(this).text() === 'leeg') {
+			data[$(this).attr('data-profile')] = '';
 		}
 	})
 
@@ -287,7 +290,19 @@ function InputToText()
 	$('*[data-profile="reset"]').replaceWith(lastInput);
 
 	// Als er een verandering in de input is gemaakt.
-	if( lastText !== undefined ){
+	if( lastText === '' ){
+
+		// Voeg text-muted class toe waardoor tekst niet meegestuurd wordt naar API.
+
+		// Geef de value een name attribute mee
+		inputName = $(lastInput).attr('data-profile');
+
+		// Alles met dezelfde name attribute krijgt dezelfde tekst
+		$('*[data-profile="'+inputName+'"]').text('leeg').addClass('text-muted');
+
+		// Voorkom herhaling van aanpassing (wat hierboven staat) zonder dat er iets aangepast is.
+		lastText = undefined;
+	} else if( lastText !== undefined ){
 
 		// verwijder text-muted class waardoor tekst meegestuurd wordt naar API.
 		$(lastInput).removeClass('text-muted');
@@ -302,7 +317,6 @@ function InputToText()
 		lastText = undefined;
 	}
 }
-
 
 // === === === //
 // == Confirm boxes === //
