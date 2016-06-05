@@ -58,46 +58,48 @@
           @if (count($members) < 1)
             <h4 class="no-result">Geen leden gevonden...</h4>
           @else
-            <table class="table">
-                <thead>
-                  <tr>
-                    <th>Naam</th>
-                    <th>Email</th>
-                    <th>Rechten</th>
-                    <th class="text-right">Acties</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  @foreach ($members as $member)
-                  <tr>
-                      <td>{{ $member->firstname.' '.$member->lastname }}</td>
-                      <td>{{ $member->email }}</td>
-                      <td>
-                        <select>
-                          <option value="{{ $member->role }}">{{ $member->role }}</option>
-                          @if ($member->role !== 'Beheerder')
-                            <option value="Beheerder">Beheerder</option>
-                          @endif
-                          @if ($member->role !== 'Mede-beheerder')
-                            <option value="Mede-beheerder">Mede-beheerder</option>
-                          @endif
-                          @if ($member->role !== 'Lid')
-                            <option value="Lid">Lid</option>
-                          @endif
-                        </select>
+          <table class="table">
+              <thead>
+                <tr>
+                  <th>Naam</th>
+                  <th>Email</th>
+                  <th>Rechten</th>
+                  <th class="text-right">Acties</th>
+                </tr>
+              </thead>
+              <tbody>
+                @foreach ($members as $member)
+                <tr>
+                    <td>{{ $member->firstname.' '.$member->lastname }}</td>
+                    <td>{{ $member->email }}</td>
+                    <td>
+                    @if($member->role === 'Beheerder')
+                      {{ $member->role }}
+                    @else
+                    <form action="{{ url('/company/'.$company->id.'/users/edit') }}" enctype="multipart/form-data" method="POST">
+                      {!! csrf_field() !!}
+                      <input type="hidden" name="id" value="{{ $member->id }}">
+                      <select name="userRole">
+                        <option value="{{ $member->role }}">{{ $member->role }}</option>
+                        @if ($member->role !== 'Mede-beheerder')
+                          <option value="Mede-beheerder">Mede-beheerder</option>
+                        @endif
+                        @if ($member->role !== 'Lid')
+                          <option value="Lid">Lid</option>
+                        @endif
+                        <option value="Verwijderen">Verwijderen</option>
+                      </select>
+                      <td class="td-actions text-right">
+                        <button type="submit" class="btn btn-info btn-simple btn-xs"><i class="material-icons">save</i></button>
                       </td>
-                      <td class="text-right">
-                        <a href="{{ url('admin/user/report/delete/') }}" danger-action="verwijderen">
-                          <button type="button" rel="tooltip" title="Gebruiker verwijderen" class="btn btn-danger btn-simple btn-sm">
-                              <i class="material-icons">clear</i>
-                          </button>
-                          </a>
-                      </td>
-                  </tr>
-                  @endforeach
-                </tbody>
-              </table>
-            @endif
+                    @endif
+                    </td>
+                </tr>
+                @endforeach
+              </tbody>
+            </table>
+          </form>
+        @endif
         </div>
       </div>
     </div>

@@ -75,7 +75,6 @@
 						<?php $i = 1 ?>
 						@foreach ($user_skills as $skill)
 							<span class="label label-primary" data-profile="skill-{{ $i }}" data-id="{{ $skill['id'] }}" data-profile-array="skill" data-color="#000">{{ $skill['name'] }} <i class="material-icons">delete_forever</i></span>
-
 							<?php $i++ ?>
 						@endforeach
 					</div>

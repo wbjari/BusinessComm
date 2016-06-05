@@ -53,7 +53,7 @@ $(document).on('click', '*[data-profile]', function(){
 		})
 		// Als tekst in input aangepast wordt toon opslaan knop en sla de aangepaste tekst op.
 		.keyup(function(){
-			showSaveButton();
+			showSaveButton('save');
 			lastText = $(this).val();
 		});
 
@@ -86,6 +86,8 @@ $(document).on('click', '[data-toggle="modal"]', function(){
 		// Voeg de vaardigheid toe aan het profiel
 		$("[data-card=" + $(form).attr('data-name') + "]").append(' <span class="label label-primary" data-profile="skill-'+ dataLength +'" data-profile-array="skill" data-color="#000">'+ $(form).serializeArray()[0]['value'] +'</span>');
 
+		showSaveButton('save');
+
 		// Voorkomt dat het formulier meerdere keren wordt toegevoegd.
 		$(form)[0].reset();
 	})
@@ -95,6 +97,9 @@ $(document).on('click', '[data-toggle="modal"]', function(){
 $('.btn-profile-save').click(function(){
 
 	InputToText();
+
+	// Reset de vaardigheden array
+	dataSkills = [];
 
 	// Voor elk element met data-profile attribute.
 	$.each( $('*[data-profile]') , function(index, value){
@@ -106,7 +111,7 @@ $('.btn-profile-save').click(function(){
 			if ( $(this).attr('data-profile-array') !== undefined ) {
 
 				// Voeg alle vaardigheden aan een array toe.
-				dataSkills.push($(value).text());
+				dataSkills.push( $(value).text() );
 			} else {
 
 				// Voeg alles met een data-profile attribute toe aan de data array.
@@ -130,17 +135,35 @@ $('.btn-profile-save').click(function(){
 		        var token = $('meta[name="_token"]').attr('content');
 
 		        if (token) {
-		              return xhr.setRequestHeader('X-CSRF-TOKEN', token);
+		            return xhr.setRequestHeader('X-CSRF-TOKEN', token);
 		        }
 		    },
 			success: function (response) {
-				console.log(response);
-				showSaveButton();
+				showSaveButton('saved');
+			},
+			error: function (response) {
+				showSaveButton('error');
 			}
 		})
 	}
 });
 
+// === === === //
+// === Skills verwijderen (profielpagina) === //
+// === === === //
+
+
+// $(document).on({
+//     mouseenter: function() {
+//         $(this).css('background-color', '#ff0000').find('span').html('<i class="material-icons">clear</i>');
+//     },
+//     mouseleave: function() {
+//         $(this).css('background-color', '#9C27B0').find('span').html('');
+//     },
+//     click: function() {
+//         $(this).css('background-color', '#9C27B0').find('span').html('');
+//     }
+// }, '.skill-delete');
 
 
 
@@ -156,6 +179,14 @@ $('.nav.posts a').click(function() {
 	var id = $(this).data('id');
 	$('.the-posts').hide();
 	$('.the-posts[data-id="' + id + '"]').show();
+});
+
+// === === === //
+// === Company edit members and roles === //
+// === === === //
+
+$('#companyRoles').change(function(){
+	console.log( $(this).val() );
 });
 
 // === === === //
@@ -239,9 +270,15 @@ function prepareRemovePost(post_id)
 
 }
 
-function showSaveButton()
+function showSaveButton(state)
 {
-	$('.btn-profile-save').css('background-color', '#ff0000').fadeIn();
+	if(state === 'saved'){
+		$('.btn-profile-save').css('background-color', '#4CAF50').delay(2000).fadeOut(350);
+	} else if(state === 'error'){
+		$('.btn-profile-save').css('background-color', '#ff0000').delay(3000).fadeOut(350);
+	} else {
+		$('.btn-profile-save').css('background-color', '#0AB1FC').fadeIn(350);
+	}
 }
 
 function InputToText()

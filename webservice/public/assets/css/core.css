@@ -179,3 +179,4 @@ div[data-card="skills"] span:hover i {opacity:1;}
 /* === === === */
 
 .no-result { color: #BDBDBD; }
+[data-card="skills"] .label { cursor: pointer; }

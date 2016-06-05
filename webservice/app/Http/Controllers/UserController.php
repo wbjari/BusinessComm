@@ -25,8 +25,6 @@ class UserController extends Controller
       $user = User::where('id', $user_id)->first();
 
       if($user->status === 1){
-        $user_skills = ['html', 'css', 'php', 'javascript'];
-        // dd($user_skills);
 
         $user_skills = UserSkill::
         where('user_skills.user_id', \Auth::id())
@@ -71,10 +69,9 @@ class UserController extends Controller
       $data = Input::get('data');
 
       if (array_key_exists('skill', $data)) {
-        $skill_data = $data['skill'];
         $skill_ids = [];
 
-        foreach ($skill_data as $skill) {
+        foreach ($data['skill'] as $skill) {
 
           $query = Skill::where('name', $skill);
 
@@ -110,18 +107,11 @@ class UserController extends Controller
 
       }
 
-      User::where('id', $user_id)->update([
-        'firstname' => $data['firstname'],
-        'lastname' => $data['lastname'],
-        'address' => $data['address'],
-        'zipcode' => $data['zipcode'],
-        'location' => $data['location'],
-        'province' => $data['province'],
-        'country' => $data['country'],
-        'telephone' => $data['telephone'],
-        'mobile' => $data['mobile'],
-        'biography' => $data['biography']
-      ]);
+      if($data['skill']){
+        unset($data['skill']);
+      }
+
+      User::where('id', $user_id)->update($data);
 
       return Response::json(true);
 
