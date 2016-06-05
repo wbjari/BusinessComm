@@ -167,6 +167,7 @@
                   <div class="col-md-12">
 
                     @if ($post['user_id'] == \Auth::id() || $role == 2 || $role == 3)
+                      <span class="edit-post" data-id="{{ $post->id }}" data-toggle="modal" data-target="#editPostModal"><i class="material-icons">edit</i></span>
                       <span class="remove-post" data-id="{{ $post->id }}" data-toggle="modal" data-target="#removePostModal"><i class="material-icons">delete_forever</i></span>
                     @endif
 
@@ -180,7 +181,7 @@
                     <div class="post-footer">
                       <span class="post-author"><b><a href="{{ url('/user/' . $post->user_id) }}">{{ $post->firstname }} {{ $post->lastname }}</a> plaatste dit bericht op: <span style="float:right;">{{ $post->created_at }}</span></b></span>
                       @if ($post->created_at != $post->updated_at)
-                        <span class="post-editor"><b><a href="{{ url('/user/' . $post->edited_by) }}">{{ $post->edited_by }}</a> bewerkte dit bericht op: <span style="float:right;">{{ $post->updated_at }}</span></b></span>
+                        <!-- <span class="post-editor"><b><a href="{{ url('/user/' . $post->edited_by) }}">{{ $post->edited_by }}</a> bewerkte dit bericht op: <span style="float:right;">{{ $post->updated_at }}</span></b></span> -->
                       @endif
                     </div>
 
@@ -301,6 +302,40 @@
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Annuleren</button>
           <button type="submit" class="btn btn-danger">Rapporteren</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="editPostModal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Bericht bewerken</h4>
+      </div>
+      <form id="editPostForm" method="POST" enctype="multipart/form-data" action="/edit-post">
+        {!! csrf_field() !!}
+        <input type="hidden" name="company" value="{{ $company->id }}">
+        <input type="hidden" name="post_id" value="">
+
+        <div class="modal-body">
+
+          <div class="form-group">
+            <label class="control-label" for="title">Titel *</label>
+            <input type="text" name="title" class="form-control" value="" autocomplete="off">
+          </div>
+
+          <div class="form-group">
+            <label class="control-label" for="message">Bericht *</label>
+            <textarea name="message" class="form-control" autocomplete="off"></textarea>
+          </div>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Annuleren</button>
+          <button type="submit" class="btn btn-success">Opslaan</button>
         </div>
       </form>
     </div>

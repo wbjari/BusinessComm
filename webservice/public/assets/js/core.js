@@ -180,11 +180,23 @@ $('#companyRoles').change(function(){
 	console.log( $(this).val() );
 });
 
+// Edit post
+$('.edit-post').click(function() {
+	var post = $(this).data('id');
+	var title = $(this).siblings('.post-title').text();
+	var content = $(this).siblings('.post-content').text();
+
+	$('#editPostModal').find('input[name="post_id"]').val(post);
+	$('#editPostModal').find('input[name="title"]').val(title);
+	$('#editPostModal').find('textarea[name="message"]').text(content);
+});
+
 // === === === //
 // === Click -> ajax.js === //
 // === === === //
 
-// Verwijder vaardigheid
+
+// Delete skill
 $('div[data-card="skills"] span i').click(function(e) {
 	e.stopPropagation();
 

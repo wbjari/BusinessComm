@@ -135,7 +135,8 @@ div[data-card="skills"] span:hover i {opacity:1;}
 /* === Company === */
 /* === === === */
 
-.remove-post {float:right; cursor:pointer; transition:0.35s;}
+.remove-post, .edit-post {float:right; cursor:pointer; transition:0.35s;}
+.edit-post:hover {color:green;}
 .remove-post:hover {color:red;}
 .the-posts div > img {max-width:100%;}
 .nav.posts li {width:50%; margin:0;}

@@ -64,7 +64,9 @@ class CompanyController extends Controller
       // Get posts that are placed on the timeline of the company.
       $posts = Post::where('posts.company_id', $company_id)
                     ->orderBy('created_at', 'DESC')
-                    ->join('users', 'posts.user_id', '=', 'users.id')
+                    ->join('users', function($join) {
+                      $join->on('posts.user_id', '=', 'users.id');
+                    })
                     ->join('company_users', function($join) {
                       $join->on('posts.user_id', '=', 'company_users.user_id')
                       ->on('posts.company_id', '=', 'company_users.company_id');

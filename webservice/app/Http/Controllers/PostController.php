@@ -80,4 +80,29 @@ class PostController extends Controller
 
   }
 
+  public function edit()
+  {
+
+    $role = CompanyUser::where('user_id', \Auth::id())->pluck('role')[0];
+
+    $data = Input::get();
+    $post_id = $data['post_id'];
+    $company_id = $data['company'];
+    $user_id = \Auth::id();
+    $query = Post::where('id', $post_id)->where('company_id', $company_id);
+
+    if ($role == 2 || $role == 3 || $query->where('user_id', \Auth::id())->exists()) {
+
+        $query->update([
+          'title' => $data['title'],
+          'content' => $data['message'],
+          'edited_by' => $user_id
+        ]);
+
+      }
+
+    return redirect('/company/' . $company_id);
+
+  }
+
 }
