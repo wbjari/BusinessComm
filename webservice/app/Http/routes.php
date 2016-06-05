@@ -37,6 +37,7 @@ Route::group(['middleware' => 'web'], function () {
 
       Route::post('/company/report', 'CompanyController@report_company');
       Route::any('/company/{company_id}/edit', 'CompanyController@edit');
+      Route::post('/company/{company_id}/users/edit', 'CompanyController@users_edit');
       Route::get('/company/{company_id}', [ 'as' => 'company', 'uses' => 'CompanyController@index']);
 
       Route::get('/create-company', 'CompanyController@index_create');

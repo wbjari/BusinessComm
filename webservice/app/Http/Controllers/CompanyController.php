@@ -82,7 +82,7 @@ class CompanyController extends Controller
         abort(404);
       }
 
-      $members = CompanyUser::where('company_id', $company_id)->join('users', 'users.id', '=', 'company_users.company_id')->get(['users.firstname', 'users.lastname', 'users.email', 'company_users.role']);
+      $members = CompanyUser::where('company_id', $company_id)->join('users', 'users.id', '=', 'company_users.user_id')->get(['users.id', 'users.firstname', 'users.lastname', 'users.email', 'company_users.role']);
 
       foreach ($members as $member) {
         switch ($member->role) {
@@ -349,5 +349,40 @@ class CompanyController extends Controller
       }
 
       return json_encode($result);
+    }
+
+    public function users_edit($company_id) {
+
+      $data = Input::get();
+
+      switch ($data['userRole']) {
+        case 'Mede-beheerder':
+          if(!CompanyUser::where('user_id', $data['id'])->where('company_id', $company_id)->update(['role' => 2])){
+            die('Er is een fout opgetreden. Er zijn niet de juiste waardes meegegeven.');
+          }
+          return redirect(url('/company/'.$company_id));
+          break;
+
+        case 'Lid':
+          if(!CompanyUser::where('user_id', $data['id'])->where('company_id', $company_id)->update(['role' => 1])){
+            die('Er is een fout opgetreden. Er zijn niet de juiste waardes meegegeven.');
+          }
+          return redirect(url('/company/'.$company_id));
+          break;
+
+        case 'Verwijderen':
+          if(!CompanyUser::where('user_id', $data['id'])->where('company_id', $company_id)->delete()){
+            die('Er is een fout opgetreden. Er zijn niet de juiste waardes meegegeven.');
+          }
+          return redirect(url('/company/'.$company_id));
+          break;
+        
+        default:
+          die('onbekende fout');
+          break;
+      }
+
+      
+
     }
 }

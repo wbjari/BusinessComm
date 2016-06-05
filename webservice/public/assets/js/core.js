@@ -130,7 +130,7 @@ $('.btn-profile-save').click(function(){
 		        var token = $('meta[name="_token"]').attr('content');
 
 		        if (token) {
-		              return xhr.setRequestHeader('X-CSRF-TOKEN', token);
+		            return xhr.setRequestHeader('X-CSRF-TOKEN', token);
 		        }
 		    },
 			success: function (response) {
@@ -174,6 +174,14 @@ $('.nav.posts a').click(function() {
 	var id = $(this).data('id');
 	$('.the-posts').hide();
 	$('.the-posts[data-id="' + id + '"]').show();
+});
+
+// === === === //
+// === Company edit members and roles === //
+// === === === //
+
+$('#companyRoles').change(function(){
+	console.log( $(this).val() );
 });
 
 // === === === //
