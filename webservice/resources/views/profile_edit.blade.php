@@ -66,24 +66,24 @@
 			</div>
 		</div>
 
-		@if (count($user_skills) > 0)
-			<div class="card">
-				<div class="col-md-12">
-					<h2>Vaardigheden</h2>
+		<div class="card">
+			<div class="col-md-12">
+				<h2>Vaardigheden</h2>
 
-					<div data-card="skills">
-						<?php $i = 1 ?>
-						@foreach ($user_skills as $skill)
-							<span class="label label-primary" data-profile="skill-{{ $i }}" data-id="{{ $skill['id'] }}" data-profile-array="skill" data-color="#000">{{ $skill['name'] }} <i class="material-icons">delete_forever</i></span>
-							<?php $i++ ?>
-						@endforeach
-					</div>
-				</div>
-				<div class="col-md-12 text-right">
-					<button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#add_skill">Vaardigheid toevoegen<div class="ripple-container"></div></button>
+				<div data-card="skills">
+				@if (count($user_skills) > 0)
+					<?php $i = 1 ?>
+					@foreach ($user_skills as $skill)
+						<span class="label label-primary" data-profile="skill-{{ $i }}" data-id="{{ $skill['id'] }}" data-profile-array="skill" data-color="#000">{{ $skill['name'] }} <i class="material-icons">delete_forever</i></span>
+						<?php $i++ ?>
+					@endforeach
+				@endif
 				</div>
 			</div>
-		@endif
+			<div class="col-md-12 text-right">
+				<button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#add_skill">Vaardigheid toevoegen<div class="ripple-container"></div></button>
+			</div>
+		</div>
 
 			<div class="card">
 				<div class="col-md-12">

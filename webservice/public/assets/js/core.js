@@ -111,8 +111,15 @@ $('.btn-profile-save').click(function(){
 			// Als het element een data-profile-array attribute bevat is het een array en moet het in een 2 dimensionale array geplaatst worden.
 			if ( $(this).attr('data-profile-array') !== undefined ) {
 
-				// Voeg alle vaardigheden aan een array toe.
-				dataSkills.push( $(value).text() );
+				// Verwijder het icoontje zodat deze niet opgeslagen wordt
+				$(value).children('i').remove();
+
+				// Als de vaardigheid niet leeg is
+				if($(value).text() !== ''){
+
+					// Voeg alle vaardigheden aan een array toe.
+					dataSkills.push( $(value).text() );
+				}
 			} else {
 
 				// Voeg alles met een data-profile attribute toe aan de data array.
@@ -150,25 +157,6 @@ $('.btn-profile-save').click(function(){
 		})
 	}
 });
-
-// === === === //
-// === Skills verwijderen (profielpagina) === //
-// === === === //
-
-
-// $(document).on({
-//     mouseenter: function() {
-//         $(this).css('background-color', '#ff0000').find('span').html('<i class="material-icons">clear</i>');
-//     },
-//     mouseleave: function() {
-//         $(this).css('background-color', '#9C27B0').find('span').html('');
-//     },
-//     click: function() {
-//         $(this).css('background-color', '#9C27B0').find('span').html('');
-//     }
-// }, '.skill-delete');
-
-
 
 
 $('.remove-post').click(function() {
