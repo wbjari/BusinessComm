@@ -37,13 +37,19 @@ $(document).on('click', '*[data-profile]', function(){
 		}
 
 		// Creëert de input met styling en name en placeholder attributen.
+		if (!$(this).hasClass('text-muted')) {
+			var inputValue = $(this).clone().children().remove().end().text();
+		} else {
+			var inputValue = '';
+		}
+
 		var input = $('<input type="text" data-profile="reset" class="form-control" autocomplete="off" autofocus />')
 		.attr('name', $(this).attr('data-profile') )
-		.attr('value', $(this).text() )
+		.attr('value', inputValue )
 		.css({
 			'height': thisHeight,
 			'margin': $(this).css('margin'),
-			'color': $(this).css('color')
+			'color': $(this).css('#000')
 		})
 		// Als tekst in input aangepast wordt toon opslaan knop en sla de aangepaste tekst op.
 		.keyup(function(){
@@ -81,7 +87,7 @@ $(document).on('click', '[data-toggle="modal"]', function(){
 		$("[data-card=" + $(form).attr('data-name') + "]").append(' <span class="label label-primary" data-profile="skill-'+ dataLength +'" data-profile-array="skill" data-color="#000">'+ $(form).serializeArray()[0]['value'] +'</span>');
 
 		// Voorkomt dat het formulier meerdere keren wordt toegevoegd.
-		$(form)[0].reset().unbind();
+		$(form)[0].reset();
 	})
 })
 
@@ -155,6 +161,15 @@ $('.nav.posts a').click(function() {
 // === === === //
 // === Click -> ajax.js === //
 // === === === //
+
+// Verwijder vaardigheid
+$('div[data-card="skills"] span i').click(function(e) {
+	e.stopPropagation();
+
+	var id = $(this).parent().data('id');
+	ajax_removeSkill(id);
+
+});
 
 $('.requests button').click(function() {
 

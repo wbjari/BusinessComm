@@ -51,6 +51,7 @@ Route::group(['middleware' => 'web'], function () {
       Route::post('/create-post', 'PostController@create');
       Route::post('/remove-post', 'PostController@remove');
 
+      Route::post('/remove-skill', 'UserController@remove_skill');
       Route::post('/change-profile-picture', 'UserController@change_profile_picture');
       Route::post('/user/report', 'UserController@report_user');
       Route::any('/user/{user_id}/edit', 'UserController@edit');

@@ -184,3 +184,25 @@ function ajax_denyRequest(data)
   });
 
 }
+
+function ajax_removeSkill(data)
+{
+
+  $.ajax({
+    url: "/remove-skill",
+    type: "POST",
+    data: { data: data },
+    dataType: 'json',
+    beforeSend: function (xhr) {
+        var token = $('meta[name="_token"]').attr('content');
+
+        if (token) {
+              return xhr.setRequestHeader('X-CSRF-TOKEN', token);
+        }
+    },
+    success: function(response) {
+      $('div[data-card="skills"] span[data-id="' + data + '"]').remove();
+    }
+  });
+
+}

@@ -55,7 +55,7 @@ class DashboardController extends Controller
           $nearby_companies = $query->get();
           $is_nearby = true;
         } else {
-          $nearby_companies = Company::all()->random(5);
+          $nearby_companies = Company::orderByRaw('RAND()')->take(5)->get();
           $is_nearby = false;
         }
 

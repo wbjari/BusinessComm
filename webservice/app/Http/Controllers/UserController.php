@@ -26,6 +26,15 @@ class UserController extends Controller
 
       if($user->status === 1){
         $user_skills = ['html', 'css', 'php', 'javascript'];
+        // dd($user_skills);
+
+        $user_skills = UserSkill::
+        where('user_skills.user_id', \Auth::id())
+        ->join('skills', 'skills.id', '=', 'user_skills.skills_id')
+        ->get([
+          'skills.id',
+          'skills.name'
+        ]);
 
         if(\Auth::User()->id === (int)$user_id){
           return view('profile_edit', [
@@ -173,6 +182,18 @@ class UserController extends Controller
 
       $url = '/user/' . $user_id;
       return redirect(url($url));
+
+    }
+
+    public function remove_skill() {
+      $skill_id = Input::get('data');
+      $query = UserSkill::where('user_id', \Auth::id())->where('skills_id', $skill_id);
+
+      if ($query->exists()) {
+        $query->delete();
+        return Response::json(true);
+      }
+
 
     }
 }
