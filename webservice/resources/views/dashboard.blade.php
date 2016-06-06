@@ -33,7 +33,7 @@
                         @endforeach
                         </ul>
                     @else
-                        <h4 class="no-result">Geen resultaten gevonden...</h4>
+                        <h4 class="no-result">U heeft nog geen bedrijf.</h4>
                     @endif
                     <p><a href="{{ url('/create-company') }}"><button class="btn btn-raised btn-primary btn-sm pull-right">Bedrijf aanmaken</button></a></p>
                 </div>

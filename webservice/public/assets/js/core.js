@@ -328,6 +328,23 @@ function InputToText()
 }
 
 // === === === //
+// == search skills table === //
+// === === === //
+ $('#skillSearch').keyup(function(){
+ 	if($(this).val().length > 3){
+ 		searchSkillsTable($(this).val(), 3, 'skillResult');
+ 	}
+ });
+
+// === === === //
+// == Replace input value with search result === //
+// === === === //
+ $(document).on('click', '.skillResultButton', function(){
+ 	$('#skillSearch').val($(this).text());
+ 	searchSkillsTable($(this).text(), 3, 'skillResult');
+ })
+
+// === === === //
 // == Confirm boxes === //
 // === === === //
 

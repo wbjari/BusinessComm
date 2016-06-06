@@ -186,4 +186,15 @@ class UserController extends Controller
 
 
     }
+
+    public function search_skill()
+    {
+
+      $text = Input::get('text');
+      $limit = Input::get('limit');
+
+      $query = Skill::where('name', 'LIKE', '%'.$text.'%')->take($limit)->get(['name']);
+
+      return $query;
+    }
 }

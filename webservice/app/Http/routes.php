@@ -59,6 +59,8 @@ Route::group(['middleware' => 'web'], function () {
       Route::any('/user/{user_id}/edit', 'UserController@edit');
       Route::get('/user/{user_id}', [ 'as' => 'user', 'uses' => 'UserController@index']);
 
+      Route::post('/skill/search', 'UserController@search_skill');
+
   });
 
 });

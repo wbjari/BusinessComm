@@ -160,8 +160,10 @@
 				</div>
 				<div class="modal-body">
 					<form data-name="skills">
-						<input type="text" class="form-control" name="skill" placeholder="Vaardigheid">
+						<input type="text" class="form-control" name="skill" id="skillSearch" placeholder="Vaardigheid">
 					</form>
+
+					<div id="skillResult"></div>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Annuleren</button>

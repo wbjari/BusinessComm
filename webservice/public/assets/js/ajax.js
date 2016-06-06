@@ -186,3 +186,30 @@ function ajax_removeSkill(data)
   });
 
 }
+
+function searchSkillsTable(text, limit, idName)
+{
+
+  $.ajax({
+    url: "/skill/search",
+    type: "POST",
+    data: { text: text, limit: limit },
+    dataType: 'json',
+    beforeSend: function (xhr) {
+        var token = $('meta[name="_token"]').attr('content');
+
+        if (token) {
+              return xhr.setRequestHeader('X-CSRF-TOKEN', token);
+        }
+    },
+    success: function(response) {
+       $('#'+idName).html('');
+      if(response.length >= 1){
+        for (i = 0; i < response.length; i++) {
+           $('#'+idName).append('<button class="btn btn-simple btn-primary btn-xs skillResultButton" style="width:100%;">'+response[i].name+'<div class="ripple-container"></div></button>')
+        }
+      }
+    }
+  });
+
+}
