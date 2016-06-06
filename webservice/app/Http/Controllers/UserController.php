@@ -27,7 +27,7 @@ class UserController extends Controller
       if($user->status === 1){
 
         $user_skills = UserSkill::
-        where('user_skills.user_id', \Auth::id())
+        where('user_skills.user_id', $user_id)
         ->join('skills', 'skills.id', '=', 'user_skills.skills_id')
         ->get([
           'skills.id',

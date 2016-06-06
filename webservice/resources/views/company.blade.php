@@ -95,7 +95,7 @@
           <tbody>
             @foreach ($members as $member)
             <tr>
-              <td>{{ $member->firstname.' '.$member->lastname }}</td>
+              <td><a href="{{ url('/user/' . $member->id) }}">{{ $member->firstname.' '.$member->lastname }}</a></td>
               <td>{{ $member->role }}</td>
             </tr>
             @endforeach

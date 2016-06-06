@@ -13,6 +13,10 @@ var lastText;
 var data = {};
 var dataSkills = [];
 
+$(document).ready(function() {
+	removeSkill();
+})
+
 // Reageert als je op een element met data-profile="" klikt.
 $(document).on('click', '*[data-profile]', function(){
 
@@ -87,6 +91,7 @@ $(document).on('click', '[data-toggle="modal"]', function(){
 		// Voeg de vaardigheid toe aan het profiel
 		$("[data-card=" + $(form).attr('data-name') + "]").append(' <span class="label label-primary" data-profile="skill-'+ dataLength +'" data-profile-array="skill" data-color="#000">'+ $(form).serializeArray()[0]['value'] +'<i class="material-icons">delete_forever</i></span>');
 
+		removeSkill();
 		showSaveButton('save');
 
 		// Voorkomt dat het formulier meerdere keren wordt toegevoegd.
@@ -197,12 +202,17 @@ $('.edit-post').click(function() {
 
 
 // Delete skill
-$('div[data-card="skills"] span').on('click', 'i', function(){
-	e.stopPropagation();
+function removeSkill() {
 
-	var id = $(this).parent().data('id');
-	ajax_removeSkill(id);
-});
+	$('div[data-card="skills"] span').on('click', 'i', function(e){
+		$(this).parent().remove();
+		e.stopPropagation();
+
+		var id = $(this).parent().data('id');
+		ajax_removeSkill(id);
+	});
+
+}
 
 $('.requests button').click(function() {
 

@@ -140,7 +140,7 @@
 		<div class="card">
       <div class="col-md-12">
         <h2>Biografie</h2>
-        <p> {{ $company['biography'] }} </p>
+        <p data-profile="biography"> {{ $company['biography'] }} </p>
       </div>
 		</div>
     @endif

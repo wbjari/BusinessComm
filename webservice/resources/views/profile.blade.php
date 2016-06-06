@@ -62,7 +62,7 @@
 					<p data-card="skills">
 						<?php $i = 1 ?>
 						@foreach ($user_skills as $skill)
-							<span class="label label-primary">{{ $skill }}</span>
+							<span class="label label-primary">{{ $skill['name'] }}</span>
 
 							<?php $i++ ?>
 						@endforeach
