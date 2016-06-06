@@ -197,12 +197,11 @@ $('.edit-post').click(function() {
 
 
 // Delete skill
-$('div[data-card="skills"] span i').click(function(e) {
+$('div[data-card="skills"] span').on('click', 'i', function(){
 	e.stopPropagation();
 
 	var id = $(this).parent().data('id');
 	ajax_removeSkill(id);
-
 });
 
 $('.requests button').click(function() {
