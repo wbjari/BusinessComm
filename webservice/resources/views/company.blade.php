@@ -79,6 +79,7 @@
       @endif
     @endif
 
+  <div class="timeline col-xs-12 col-md-6 col-md-offset-3">
     <div class="card">
       <div class="col-md-12">
         <h2>Leden</h2>
@@ -105,6 +106,41 @@
       </div>
     </div>
 
+    <div class="card">
+        <div class="col-md-12">
+          <h2>Aanvullende informatie</h2>
+
+          <table class="table">
+            <tbody>
+                @if ($company->email)
+                <tr><th>Adres</th></tr>
+                  <tr><td>{{ $company->email }}</td></tr>
+              @endif
+
+              @if ($company->telephone)
+                  <tr><th>Postcode</th></tr>
+                  <tr><td>{{ $company->telephone }}</td></tr>
+              @endif
+
+              @if ($company->address)
+                  <tr><th>Plaats</th></tr>
+                  <tr><td>{{ $company->address }}</td></tr>
+              @endif
+
+              @if ($company->zipcode)
+                  <tr><th>Provincie</th></tr>
+                  <tr><td>{{ $company->zipcode }}</td></tr>
+              @endif
+
+              @if ($company->location)
+                  <tr><th>Land</th></tr>
+                  <tr><td>{{ $company->location }}</td></tr>
+              @endif
+            </tbody>
+          </table>
+        </div>
+      </div>
+
     @if ($company['biography'])
     <div class="card">
       <div class="col-md-12">
@@ -113,8 +149,6 @@
       </div>
     </div>
     @endif
-  <div class="timeline col-xs-12 col-md-6 col-md-offset-3">
-
 
     @if ($role != 0)
 

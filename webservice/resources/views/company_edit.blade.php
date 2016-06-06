@@ -68,6 +68,7 @@
       @endif
     @endif
 
+  <div class="timeline col-xs-12 col-md-6 col-md-offset-3">
     <div class="card">
       <div class="col-md-12">
         <h2>Leden</h2>
@@ -120,6 +121,56 @@
       </div>
     </div>
 
+    <div class="card">
+        <div class="col-md-12">
+          <h2>Aanvullende informatie</h2>
+
+          <table class="table">
+            <tbody>
+              @if ($company->email)
+                <tr><th>Adres</th></tr>
+                <tr><td>{{ $company->email }}</td></tr>
+              @endif
+
+              <tr><th>Telefoon</th></tr>
+              @if ($company->telephone)
+                <tr><td data-profile="telephone">{{ $company->telephone }}</td></tr>
+              @else
+                <tr><td data-profile="telephone" class="text-muted">Vul hier uw telefoonnummer in.</td></tr>
+              @endif
+
+              <tr><th>Adres</th></tr>
+              @if ($company->address)
+                <tr><td data-profile="address">{{ $company->address }}</td></tr>
+              @else
+                <tr><td data-profile="address" class="text-muted">Vul hier uw adres in.</td></tr>
+              @endif
+
+              <tr><th>Postcode</th></tr>
+              @if ($company->zipcode)
+                <tr><td data-profile="zipcode">{{ $company->zipcode }}</td></tr>
+              @else
+                <tr><td data-profile="zipcode" class="text-muted">Vul hier uw postcode in.</td></tr>
+              @endif
+
+              <tr><th>Plaats</th></tr>
+              @if ($company->location)
+                <tr><td data-profile="location">{{ $company->location }}</td></tr>
+              @else
+                <tr><td data-profile="location" class="text-muted">Vul hier de plaats in.</td></tr>
+              @endif
+
+              <tr><th>Land</th></tr>
+              @if ($company->country)
+                <tr><td data-profile="country">{{ $company->country }}</td></tr>
+              @else
+                <tr><td data-profile="country" class="text-muted">Vul hier het land in.</td></tr>
+              @endif
+            </tbody>
+          </table>
+        </div>
+      </div>
+
     @if (session('notification'))
     <div class="timeline col-xs-12 col-md-6 col-md-offset-3">
       <div class="alert alert-info">
@@ -144,6 +195,8 @@
       </div>
 		</div>
     @endif
+
+    </div>
 
     @if ($role != 0)
 
