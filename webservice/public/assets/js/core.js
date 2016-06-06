@@ -85,7 +85,7 @@ $(document).on('click', '[data-toggle="modal"]', function(){
 		dataLength = $("[data-card=" + $(form).attr('data-name') + "]").find('span').length + 1;
 
 		// Voeg de vaardigheid toe aan het profiel
-		$("[data-card=" + $(form).attr('data-name') + "]").append(' <span class="label label-primary" data-profile="skill-'+ dataLength +'" data-profile-array="skill" data-color="#000">'+ $(form).serializeArray()[0]['value'] +'</span>');
+		$("[data-card=" + $(form).attr('data-name') + "]").append(' <span class="label label-primary" data-profile="skill-'+ dataLength +'" data-profile-array="skill" data-color="#000">'+ $(form).serializeArray()[0]['value'] +'<i class="material-icons"></i></span>');
 
 		showSaveButton('save');
 
