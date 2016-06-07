@@ -24,6 +24,7 @@ class AdminController extends Controller
 		$role = User::where('id', \Auth::id())->pluck('role')[0];
 
 		if($role == 1) {
+			$admins = User::where('role', 1)->get();
 
 			$userReports = UserReports::where('id', '!=', 0)->with('reporter', 'reported')->orderBy('created_at', 'asc')->take(15)->get();
 			$blockedUsers = User::where('status', 0)->get();
@@ -31,6 +32,7 @@ class AdminController extends Controller
 			$blockedCompanies = Company::where('status', 0)->get();
 
 			return view('admin', [
+				'admins' => $admins,
 				'userReports' => $userReports,
 				'blockedUsers' => $blockedUsers,
 				'companyReports' => $companyReports,
@@ -138,4 +140,53 @@ class AdminController extends Controller
 		}
 	}
 
+
+	public function remove_administrator($user_id)
+	{
+		$role = User::where('id', \Auth::id())->pluck('role')[0];
+
+		if($role == 1 && \Auth::User()->id != $user_id) {
+
+			$test = User::where('role', 1)->take(2)->get(['id']);
+
+			if(count($test) <= 1){
+				if(!User::where('id', $user_id)->update(['role' => 0])){
+					die('Er is een fout opgetreden bij het actief zetten van de gebruiker.');
+				}
+
+				return redirect('admin');
+			} else {
+				die('Je moet minimaal 1 administrator hebben');
+			}
+		} else if (\Auth::User()->id == $user_id) {
+			die('Je kan jezelf niet verwijderen als admin');
+		} else {
+			abort(404);
+		}
+	}
+
+	public function check_add_admin()
+    {
+
+      $role = User::where('id', \Auth::id())->pluck('role')[0];
+
+      if($role == 1) {
+        $email = Input::get('email');
+
+        $user = User::where('email', $email)->first(['email', 'role']);
+
+
+        if($user->role === 0){
+          	$user = User::where('email', $email)->update(['role' => 1]);
+
+          	return ['De gebruiker is nu een administrator'];
+        } else if ($user->role === 1) {
+          	return ['De gebruiker is al een administrator'];
+        } else {
+        	return ['De gebruiker is niet gevonden'];
+        }
+      } else {
+        abort(404);
+      }
+    }
 }

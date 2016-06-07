@@ -336,12 +336,33 @@ function InputToText()
  	}
  });
 
-// === === === //
-// == Replace input value with search result === //
-// === === === //
+// == Replace input value with search result (skills) === //
  $(document).on('click', '.skillResultButton', function(){
  	$('#skillSearch').val($(this).text());
  	searchSkillsTable($(this).text(), 3, 'skillResult');
+ })
+
+ // === === === //
+// == search users table === //
+// === === === //
+ $('#userSearch').keyup(function(){
+ 	if($(this).val().length > 3){
+ 		searchUserTable($(this).val(), 3, 'userResult');
+ 	}
+ });
+
+// == Replace input value with search result (Administrators) === //
+ $(document).on('click', '.userResultButton', function(){
+ 	$('#userSearch').val($(this).text());
+ 	searchUserTable($(this).text(), 3, 'userResult');
+ })
+
+ // === === === //
+// == add administrator === //
+// === === === //
+
+ $(document).on('click', '#addAdministrator', function(){
+ 	updateUserAdmin( $('#userSearch').val() );
  })
 
 // === === === //
@@ -349,7 +370,9 @@ function InputToText()
 // === === === //
 
 $('*[danger-action]').click(function(e){
-	e.preventDefault();
+	if($(this).attr('href') !== undefined){
+		e.preventDefault();
+	}
 	var r = confirm("Weet u zeker dat u deze melding wil "+$(this).attr('danger-action')+"?");
 
 	if (r == true) {

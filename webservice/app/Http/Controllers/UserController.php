@@ -14,7 +14,6 @@ use App\Skill;
 use App\Http\Requests;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
-use Illuminate\Routing\Controller;
 
 class UserController extends Controller
 {
@@ -127,7 +126,7 @@ class UserController extends Controller
         die('Er ging iets fout met het rapporteren van het bedrijf.');
       }
 
-      return redirect()->route('user', $data['user'])->with('notification', 'De gebruiker is successvol gerapporteerd');
+      return redirect()->route('user', $data['user'])->with('notification', 'De gebruiker is succesvol gerapporteerd.');
     }
 
     public function change_profile_picture()
@@ -197,4 +196,16 @@ class UserController extends Controller
 
       return $query;
     }
+
+    public function search_user()
+    {
+
+      $text = Input::get('text');
+      $limit = Input::get('limit');
+
+      $query = User::where('email', 'LIKE', '%'.$text.'%')->where('role', 0)->take(3)->get(['email']);
+
+      return $query;
+    }
+
 }

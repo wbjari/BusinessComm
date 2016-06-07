@@ -9,6 +9,41 @@
     <div class="container top">
         <div class="card">
             <div class="col-md-12">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th class="text-center">#</th>
+                            <th>Naam</th>
+                            <th>Email</th>
+                            <th class="text-right">Actie</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($admins as $admin)
+                        <tr>
+                            <td class="text-center">{{ $admin->id }}</td>
+                            <td>{{ $admin->firstname.' '.$admin->lastname }}</td>
+                            <td>{{ $admin->email }}</td>
+                            <td class="td-actions text-right">
+                                <form action="{{ url('admin/'.$admin->id.'/remove') }}" method="POST" danger-action="verwijderen">
+                                    <button type="submit" rel="tooltip" title="Administrator verwijderen" class="btn btn-danger btn-simple btn-sm">
+                                        <i class="material-icons">clear</i>
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+                <p id="updateAdminResult"></p>
+                <button class="btn btn-primary btn-raised btn-xs pull-right" data-toggle="modal" data-target="#search_user">Administrator toevoegen</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="container top">
+        <div class="card">
+            <div class="col-md-12">
                 <h2>Gerapporteerde gebruikers</h2>
                 @if (count($userReports) < 1)
                     <h4 class="no-result">Geen resultaten gevonden...</h4>
@@ -162,6 +197,29 @@
                         </tbody>
                     </table>
                 @endif
+            </div>
+        </div>
+    </div>
+
+    <!-- ADMINISTRATOR TOEVOEGEN -->
+    <div class="modal fade" id="search_user" tabindex="-1" role="dialog" aria-labelledby="search_user" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="material-icons">clear</i></button>
+                    <h4 class="modal-title">Administrator toevoegen</h4>
+                </div>
+                <div class="modal-body">
+                    <form method="POST">
+                        <input type="text" class="form-control" name="user_email" id="userSearch" placeholder="Email">
+                    </form>
+
+                    <div id="userResult"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Annuleren</button>
+                    <button type="button" class="btn btn-info" data-dismiss="modal" id="addAdministrator">Toevoegen</button>
+                </div>
             </div>
         </div>
     </div>
