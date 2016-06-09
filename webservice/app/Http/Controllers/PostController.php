@@ -30,7 +30,7 @@ class PostController extends Controller
 
       $filename = date('d_m_Y_h_i_s') . '_' . rand(1000, 9999) . '_' . $original_name;
       $file_path = public_path() . '/storage/posts/'. $company_id;
-      $database_path = url('/storage/posts/' . $company_id);
+      $database_path = '/storage/posts/' . $company_id;
 
       $file->move($file_path, $filename);
 
