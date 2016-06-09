@@ -1,31 +1,3 @@
-function ajax_changeLogo(data)
-{
-
-  $.ajax({
-    url: site_url + "/change-logo",
-    type: "POST",
-    dataType: 'JSON',
-    data: { data: data },
-    beforeSend: function (xhr) {
-        var token = $('meta[name="_token"]').attr('content');
-
-        if (token) {
-              return xhr.setRequestHeader('X-CSRF-TOKEN', token);
-        }
-    },
-    success: function (response) {
-      console.log('success');
-      console.log(response);
-    },
-    error: function (response) {
-      console.log('error');
-      console.log(response);
-    }
-  });
-
-}
-
-
 function ajax_requestCompany(data)
 {
 
@@ -34,14 +6,9 @@ function ajax_requestCompany(data)
     type: "POST",
     data: { data: data },
     dataType: 'json',
-    beforeSend: function (xhr) {
-        var token = $('meta[name="_token"]').attr('content');
-
-        if (token) {
-              return xhr.setRequestHeader('X-CSRF-TOKEN', token);
-        }
-    },
     success: function(response) {
+      notification(response);
+
       $('button.requester')
       .attr('id', 'cancelRequestCompany')
       .html('Annuleren')
@@ -61,19 +28,15 @@ function ajax_cancelRequestCompany(data)
     type: "POST",
     data: { data: data },
     dataType: 'json',
-    beforeSend: function (xhr) {
-        var token = $('meta[name="_token"]').attr('content');
-
-        if (token) {
-              return xhr.setRequestHeader('X-CSRF-TOKEN', token);
-        }
-    },
     success: function(response) {
+      notification(response);
+
       $('button.requester')
       .attr('id', 'requestCompany')
       .html('Aansluiten')
       .removeClass('btn-danger')
       .addClass('btn-primary');
+
     }
   });
 
@@ -87,14 +50,8 @@ function ajax_removePost(post_id)
     type: "POST",
     data: { data: post_id },
     dataType: 'json',
-    beforeSend: function (xhr) {
-        var token = $('meta[name="_token"]').attr('content');
-
-        if (token) {
-              return xhr.setRequestHeader('X-CSRF-TOKEN', token);
-        }
-    },
     success: function(response) {
+      notification(response);
 
       $('.posts').find('.remove-post[data-id="' + post_id + '"]').parent()
       .slideUp(350, function() {
@@ -103,9 +60,7 @@ function ajax_removePost(post_id)
 
       $('#removePostModal').modal('hide');
 
-    },
-    error: function(response) {
-      alert('Er is iets fout gegaan, probeer het later opnieuw');
+
     }
   });
 
@@ -119,20 +74,14 @@ function ajax_acceptRequest(data)
     type: "POST",
     data: { data: data },
     dataType: 'json',
-    beforeSend: function (xhr) {
-        var token = $('meta[name="_token"]').attr('content');
-
-        if (token) {
-              return xhr.setRequestHeader('X-CSRF-TOKEN', token);
-        }
-    },
     success: function(response) {
+      notification(response);
       $('.requests').find('li[data-id="' + data['user'] + '"]').remove();
 
-      console.log($('.requests').find('ul li').length);
       if ($('.requests').find('ul li').length < 1) {
         $('.requests').remove();
       }
+
     }
   });
 
@@ -146,17 +95,10 @@ function ajax_denyRequest(data)
     type: "POST",
     data: { data: data },
     dataType: 'json',
-    beforeSend: function (xhr) {
-        var token = $('meta[name="_token"]').attr('content');
-
-        if (token) {
-              return xhr.setRequestHeader('X-CSRF-TOKEN', token);
-        }
-    },
     success: function(response) {
+      notification(response);
       $('.requests').find('li[data-id="' + data['user'] + '"]').remove();
 
-      console.log($('.requests').find('ul li').length);
       if ($('.requests').find('ul li').length < 1) {
         $('.requests').remove();
       }
@@ -173,14 +115,8 @@ function ajax_removeSkill(data)
     type: "POST",
     data: { data: data },
     dataType: 'json',
-    beforeSend: function (xhr) {
-        var token = $('meta[name="_token"]').attr('content');
-
-        if (token) {
-              return xhr.setRequestHeader('X-CSRF-TOKEN', token);
-        }
-    },
     success: function(response) {
+      notification(response);
       $('div[data-card="skills"] span[data-id="' + data + '"]').remove();
     }
   });
@@ -195,14 +131,8 @@ function searchSkillsTable(text, limit, idName)
     type: "POST",
     data: { text: text, limit: limit },
     dataType: 'json',
-    beforeSend: function (xhr) {
-        var token = $('meta[name="_token"]').attr('content');
-
-        if (token) {
-              return xhr.setRequestHeader('X-CSRF-TOKEN', token);
-        }
-    },
     success: function(response) {
+      notification(response);
        $('#'+idName).html('');
       if(response.length >= 1){
         for (i = 0; i < response.length; i++) {
@@ -222,14 +152,8 @@ function searchUserTable(text, limit, idName)
     type: "POST",
     data: { text: text, limit: limit },
     dataType: 'json',
-    beforeSend: function (xhr) {
-        var token = $('meta[name="_token"]').attr('content');
-
-        if (token) {
-              return xhr.setRequestHeader('X-CSRF-TOKEN', token);
-        }
-    },
     success: function(response) {
+      notification(response);
          $('#'+idName).html('');
 
         if(response.length >= 1){
@@ -241,3 +165,25 @@ function searchUserTable(text, limit, idName)
   });
 }
 
+function ajax_saveProfile(data)
+{
+
+  $.ajax({
+    url: site_url +'/'+ currPage,
+    type: "POST",
+    dataType: "JSON",
+    data: { data: data },
+    beforeSend: function (xhr) {
+          var token = $('meta[name="_token"]').attr('content');
+
+          if (token) {
+              return xhr.setRequestHeader('X-CSRF-TOKEN', token);
+          }
+      },
+    success: function (response) {
+      notification(response);
+      showSaveButton('saved');
+    }
+  })
+
+}

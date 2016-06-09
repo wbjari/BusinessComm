@@ -7,6 +7,25 @@
 @include('includes.header')
 
 <div class="container top">
+
+  <div class="notifications">
+    @if (session('notification'))
+    <div class="col-md-12">
+      <div class="alert alert-info">
+        <div class="container-fluid">
+          <div class="alert-icon">
+            <i class="material-icons">info_outline</i>
+          </div>
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true"><i class="material-icons">clear</i></span>
+          </button>
+          <b>Info:</b> <span class="message">{{ session('notification') }}</span>
+        </div>
+      </div>
+    </div>
+    @endif
+  </div>
+
       <div class="row">
         <div class="col-md-7">
             <div class="card">

@@ -17,6 +17,29 @@ $(document).ready(function() {
 	removeSkill();
 })
 
+function notification(message) {
+
+	if(message) {
+		$('.notifications').empty();
+		$('.notifications').append('\
+		<div class="col-md-12">\
+		<div class="alert alert-info">\
+		<div class="container-fluid">\
+		<div class="alert-icon">\
+		<i class="material-icons">info_outline</i>\
+		</div>\
+		<button type="button" class="close" data-dismiss="alert" aria-label="Close">\
+		<span aria-hidden="true"><i class="material-icons">clear</i></span>\
+		</button>\
+		<b>Info:</b> <span class="message">' + message + '</span>\
+		</div>\
+		</div>\
+		</div>\
+		');
+	}
+
+}
+
 // Reageert als je op een element met data-profile="" klikt.
 $(document).on('click', '*[data-profile]', function(){
 
@@ -140,26 +163,7 @@ $('.btn-profile-save').click(function(){
 
 	// Als de gebruiker zickh op een gebruikers of bedrijfspagina bevindt.
 	if(currPage !== undefined){
-
-		$.ajax({
-			url: site_url +'/'+ currPage,
-			type: "POST",
-			dataType: "JSON",
-			data: { data: data },
-			beforeSend: function (xhr) {
-		        var token = $('meta[name="_token"]').attr('content');
-
-		        if (token) {
-		            return xhr.setRequestHeader('X-CSRF-TOKEN', token);
-		        }
-		    },
-			success: function (response) {
-				showSaveButton('saved');
-			},
-			error: function (response) {
-				showSaveButton('error');
-			}
-		})
+		ajax_saveProfile(data);
 	}
 });
 
@@ -235,17 +239,6 @@ $('.requests button').click(function() {
 		ajax_denyRequest(data);
 
 	}
-
-});
-
-$('.denyRequest').click(function() {
-
-	var user = $(this).parent().data('id');
-	var company = $('meta[name="company"]').attr('content');
-
-	var data = {user, company};
-
-	ajax_acceptRequest(data);
 
 });
 

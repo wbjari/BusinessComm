@@ -50,16 +50,13 @@ class AdminController extends Controller
 		if($role == 1) {
 			$banningCompany = CompanyReports::where('id', $report_id)->with('reporter', 'reported')->first();
 
-			if(!Company::where('id', $banningCompany->reported->id)->update(['status' => 0])){
-				die('Er is een fout opgetreden bij het bevestigen van de melding.');
+			if(Company::where('id', $banningCompany->reported->id)->where('status', 1)->exists()){
+				Company::where('id', $banningCompany->reported->id)->update(['status' => 0]);
+				CompanyReports::where('company_id', $banningCompany->reported->id)->delete();
+				return redirect('admin')->with('notification', 'Het bedrijf is succesvol geblokkeerd.');
 			}
-
-			CompanyReports::where('company_id', $banningCompany->reported->id)->delete();
-
-			return redirect('admin');
-		} else {
-			abort(404);
 		}
+		return redirect('admin')->with('notification', 'Er is iets fout gegaan bij het blokkeren van het bedrijf.');
 	}
 
 	public function company_delete_report($report_id)
@@ -67,14 +64,12 @@ class AdminController extends Controller
 		$role = User::where('id', \Auth::id())->pluck('role')[0];
 
 		if($role == 1) {
-			if(!CompanyReports::where('id', $report_id)->delete()){
-				die('Er is een fout opgetreden bij het verwijderen van de melding.');
+			if(CompanyReports::where('id', $report_id)->exists()){
+				CompanyReports::where('id', $report_id)->delete();
+				return redirect('admin')->with('notification', 'Het rapport is succesvol verwijderd.');
 			}
-
-			return redirect('admin');
-		} else {
-			abort(404);
 		}
+		return redirect('admin')->with('notification', 'Er is iets fout gegaan bij het verwijderen van het rapport.');
 	}
 
 	public function company_activate($company_id)
@@ -82,14 +77,13 @@ class AdminController extends Controller
 		$role = User::where('id', \Auth::id())->pluck('role')[0];
 
 		if($role == 1) {
-			if(!Company::where('id', $company_id)->update(['status' => 1])){
-				die('Er is een fout opgetreden bij het actief zetten van het bedrijf.');
+			if(Company::where('id', $company_id)->where('status', 0)->exists()){
+				Company::where('id', $company_id)->update(['status' => 1]);
+				return redirect('admin')->with('notification', 'Het bedrijf is succesvol geactiveerd.');
 			}
-
-			return redirect('admin');
-		} else {
-			abort(404);
 		}
+		return redirect('admin')->with('notification', 'Er is iets fout gegaan bij het activeren van het bedrijf.');
+
 	}
 
 
@@ -101,13 +95,10 @@ class AdminController extends Controller
 			$banningUser = UserReports::where('id', $report_id)->with('reporter', 'reported')->first();
 
 			if(User::where('id', $banningUser->reported->id)->update(['status' => 0]) && UserReports::where('user_id', $banningUser->reported->id)->delete()){
-				return redirect('admin');
-			}else{
-				die('Er is een fout opgetreden bij het bevestigen van de melding.');
+				return redirect('admin')->with('notification', 'Gebruiker is succesvol geblokkeerd.');
 			}
-		} else {
-			abort(404);
 		}
+		return redirect('admin')->with('notification', 'Er is iets fout gegaan bij het blokkeren van de gebruiker.');
 	}
 
 	public function user_delete_report($report_id)
@@ -115,14 +106,12 @@ class AdminController extends Controller
 		$role = User::where('id', \Auth::id())->pluck('role')[0];
 
 		if($role == 1) {
-			if(!UserReports::where('id', $report_id)->delete()){
-				die('Er is een fout opgetreden bij het verwijderen van de melding.');
+			if(UserReports::where('id', $report_id)->exists()){
+				UserReports::where('id', $report_id)->delete();
+				return redirect('admin')->with('notification', 'Het rapport is succesvol verwijderd.');
 			}
-
-			return redirect('admin');
-		} else {
-			abort(404);
 		}
+		return redirect('admin')->with('notification', 'Er is iets fout gegaan bij het verwijderen van het rapport.');
 	}
 
 	public function user_activate($user_id)
@@ -130,14 +119,12 @@ class AdminController extends Controller
 		$role = User::where('id', \Auth::id())->pluck('role')[0];
 
 		if($role == 1) {
-			if(!User::where('id', $user_id)->update(['status' => 1])){
-				die('Er is een fout opgetreden bij het actief zetten van de gebruiker.');
+			if(User::where('id', $user_id)->where('status', 0)->exists()){
+				User::where('id', $user_id)->update(['status' => 1]);
+				return redirect('admin')->with('notification', 'De gebruiker is succesvol geactiveerd.');
 			}
-
-			return redirect('admin');
-		} else {
-			abort(404);
 		}
+		return redirect('admin')->with('notification', 'Er is iets fout gegaan bij het activeren van de gebruiker.');
 	}
 
 
@@ -159,9 +146,8 @@ class AdminController extends Controller
 			}
 		} else if (\Auth::User()->id == $user_id) {
 			return redirect('admin')->with('notification', 'Je kan jezelf niet verwijderen als administrator.');
-		} else {
-			abort(404);
 		}
+		return redirect('admin')->with('notification', 'Er is iets fout gegaan bij het verwijderen van de administrator.');
 	}
 
 	public function check_add_admin()
@@ -184,8 +170,7 @@ class AdminController extends Controller
         } else {
         	return redirect('admin')->with('notification', 'De gebruiker is niet gevonden.');
         }
-      } else {
-        abort(404);
       }
+			return redirect('admin')->with('notification', 'Er is iets fout gegaan bij het controleren.');
     }
 }

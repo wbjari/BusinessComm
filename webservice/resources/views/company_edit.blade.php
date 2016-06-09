@@ -45,6 +45,23 @@
 	</div>
 
 	<div class="container">
+    <div class="notifications">
+      @if (session('notification'))
+      <div class="col-md-12">
+        <div class="alert alert-info">
+          <div class="container-fluid">
+            <div class="alert-icon">
+              <i class="material-icons">info_outline</i>
+            </div>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true"><i class="material-icons">clear</i></span>
+            </button>
+            <b>Info:</b> <span class="message">{{ session('notification') }}</span>
+          </div>
+        </div>
+      </div>
+      @endif
+    </div>
 
     @if ($role == 2 || $role == 3)
       @if ($requests->count() != 0)
@@ -58,7 +75,7 @@
                 <a href="{{ url('/user/' . $request['user_id']) }}">{{ $request['firstname'] }} {{ $request['lastname'] }}</a>
                 <br />
                 <button type="button" class="btn btn-success btn-sm btn-raised" data-type="accept" name="button">Accepteren</button>
-                <button type="button" class="btn btn-danger btn-sm btn-raised" data-type="accept" name="button">Weigeren</button>
+                <button type="button" class="btn btn-danger btn-sm btn-raised" data-type="deny" name="button">Weigeren</button>
               </li>
 
             @endforeach
@@ -81,7 +98,6 @@
                 <th>Naam</th>
                 <th>Email</th>
                 <th>Rechten</th>
-                <th class="text-right">Acties</th>
               </tr>
             </thead>
             <tbody>
@@ -107,9 +123,6 @@
                       @endif
                       <option value="Verwijderen">Verwijderen</option>
                     </select>
-                    <td class="td-actions text-right">
-                      <button type="submit" class="btn btn-info btn-simple btn-xs"><i class="material-icons">save</i></button>
-                    </td>
                   @endif
                   </td>
               </tr>
@@ -170,22 +183,6 @@
           </table>
         </div>
       </div>
-
-    @if (session('notification'))
-    <div class="timeline col-xs-12 col-md-6 col-md-offset-3">
-      <div class="alert alert-info">
-        <div class="container-fluid">
-          <div class="alert-icon">
-            <i class="material-icons">info_outline</i>
-          </div>
-          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true"><i class="material-icons">clear</i></span>
-          </button>
-          <b>Info:</b> {{ session('notification') }}
-        </div>
-      </div>
-    </div>
-    @endif
 
     @if ($company['biography'])
 		<div class="card">

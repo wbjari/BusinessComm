@@ -49,7 +49,7 @@ class PostController extends Controller
 
     $post->save();
 
-    return redirect(url('/company/' . $company_id));
+    return redirect('company/'.$company_id)->with('notification', 'Bericht is succesvol aan de tijdlijn toegevoegd.');
 
   }
 
@@ -74,10 +74,10 @@ class PostController extends Controller
         }
       }
 
+      return Response::json('Het bericht is succesvol verwijderd.');
+
     }
-
-    return Response::json(true);
-
+    return Response::json('Er is iets fout gegaan bij het verwijderen van het bericht.');
   }
 
   public function edit()
@@ -99,9 +99,10 @@ class PostController extends Controller
           'edited_by' => $user_id
         ]);
 
+        return redirect('company/'.$company_id)->with('notification', 'Het bericht is succesvol bewerkt.');
       }
 
-    return redirect('/company/' . $company_id);
+      return redirect('company/'.$company_id)->with('notification', 'Er is iets fout gegaan bij het bewerken van het bericht.');
 
   }
 

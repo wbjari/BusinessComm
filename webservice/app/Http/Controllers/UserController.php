@@ -112,7 +112,7 @@ class UserController extends Controller
 
       User::where('id', $user_id)->update($data);
 
-      return Response::json(true);
+      return Response::json('Profiel succesvol bewerkt.');
 
     }
 
@@ -123,7 +123,7 @@ class UserController extends Controller
       if((int)$data['user'] === \Auth::User()->id){
         return redirect()->route('user', $data['user'])->with('notification', 'Je kan jezelf niet rapporteren.');
       } elseif(!userReports::insert(['user_id' => $data['user'], 'reason' => $data['reason'], 'reported_by' => \Auth::User()->id])){
-        die('Er ging iets fout met het rapporteren van het bedrijf.');
+        return redirect('user/'.$data['user'])->with('notification', 'Er is iets fout gegaan bij het rapporteren.');
       }
 
       return redirect()->route('user', $data['user'])->with('notification', 'De gebruiker is succesvol gerapporteerd.');
@@ -165,13 +165,10 @@ class UserController extends Controller
 
           User::where('id', $user_id)->update(['profilepicture' => $database_path]);
 
+          return redirect('user/'.$user_id)->with('notification', 'Profielfoto is succesvol gewijzigd.');
         }
-
       }
-
-      $url = '/user/' . $user_id;
-      return redirect(url($url));
-
+      return redirect('user/'.$user_id)->with('notification', 'Er is iets fout gegaan bij het wijzigen van uw profielfoto.');
     }
 
     public function remove_skill() {
@@ -180,10 +177,9 @@ class UserController extends Controller
 
       if ($query->exists()) {
         $query->delete();
-        return Response::json(true);
+        return Response::json("Vaardigheid succesvol verwijderd.");
       }
-
-
+      return Response::json("Er is iets fout gegaan bij het verwijderen van de vaardigheid.");
     }
 
     public function search_skill()

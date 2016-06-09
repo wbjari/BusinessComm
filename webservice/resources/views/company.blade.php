@@ -41,21 +41,23 @@
 
 	<div class="container">
 
-    @if (session('notification'))
-    <div class="timeline col-xs-12 col-md-6 col-md-offset-3">
-      <div class="alert alert-info">
-        <div class="container-fluid">
-          <div class="alert-icon">
-            <i class="material-icons">info_outline</i>
+    <div class="notifications">
+      @if (session('notification'))
+      <div class="col-md-12">
+        <div class="alert alert-info">
+          <div class="container-fluid">
+            <div class="alert-icon">
+              <i class="material-icons">info_outline</i>
+            </div>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true"><i class="material-icons">clear</i></span>
+            </button>
+            <b>Info:</b> <span class="message">{{ session('notification') }}</span>
           </div>
-          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true"><i class="material-icons">clear</i></span>
-          </button>
-          <b>Info:</b> {{ session('notification') }}
         </div>
       </div>
+      @endif
     </div>
-    @endif
 
     @if ($role == 2 || $role == 3)
       @if ($requests->count() != 0)

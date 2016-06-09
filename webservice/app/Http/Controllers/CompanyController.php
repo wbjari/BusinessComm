@@ -240,13 +240,11 @@ class CompanyController extends Controller
 
           Company::where('id', $company_id)->update(['logo' => $database_path]);
 
+          return redirect('company/' . $company_id)->with('notification', 'Logo is succesvol gewijzigd.');
         }
 
       }
-
-      $url = '/company/' . $company_id;
-      return redirect(url($url));
-
+      return redirect('company/' . $company_id)->with('notification', 'Er is iets fout gegaan bij het wijzigen van het logo.');
     }
 
     public function request()
@@ -263,10 +261,10 @@ class CompanyController extends Controller
 
         $inquiry->save();
 
-        return Response::json(true);
+        return Response::json('Verzoek is succesvol ingediend.');
 
       }
-
+      return Response::json('Er is iets fout gegaan met het indienen van het verzoek.');
     }
 
     public function cancel_request()
@@ -274,10 +272,10 @@ class CompanyController extends Controller
 
       $data = Input::get('data');
 
-      Inquiry::where('user_id', '=', \Auth::id())->where('company_id', '=', $data)->delete();
-
-      return Response::json(true);
-
+      if (!Inquiry::where('user_id', '=', \Auth::id())->where('company_id', '=', $data)->delete()) {
+        return Response::json('Er is iets fout gegaan bij het annuleren van het verzoek.');
+      }
+      return Response::json('Verzoek is succesvol geannuleerd.');
     }
 
     public function accept_request()
@@ -301,10 +299,10 @@ class CompanyController extends Controller
 
         $inquiry_query->delete();
 
-        return Response::json(true);
+        return Response::json('Het verzoek is succesvol geaccepteerd.');
 
       }
-
+      return Response::json('Er is iets fout gegaan bij het accepteren van het verzoek.');
     }
 
     public function deny_request()
@@ -320,10 +318,10 @@ class CompanyController extends Controller
 
         $inquiry_query->delete();
 
-        return Response::json(true);
+        return Response::json('Verzoek is succesvol afgewezen.');
 
       }
-
+      return Response::json('Er is iets fout gegaan bij het afwijzen van het verzoek.');
     }
 
     public function report_company()
@@ -331,10 +329,10 @@ class CompanyController extends Controller
       $data = Input::get();
 
       if(!CompanyReports::insert(['company_id' => $data['company'], 'reason' => $data['reason'], 'reported_by' => \Auth::User()->id])){
-        die('Er ging iets fout met het rapporteren van het bedrijf.');
+        return redirect('company/'.$company_id)->with('notification', 'Er is iets fout gegaan bij het rapporteren van het bedrijf.');
       }
 
-      return redirect()->route('company', $data['company'])->with('notification', 'Het bedrijf is successvol gerapporteerd');
+      return redirect('company/'.$company_id)->with('notification', 'Bedrijf is succesvol gerapporteerd.');
     }
 
     public function edit($company_id)
@@ -348,17 +346,13 @@ class CompanyController extends Controller
       if(count($confirm_admin) > 0){
         $data = Input::get('data');
 
-
         if(Company::where('id', $company_id)->update($data)){
-          $result['code'] = '200';
-          $result['status'] = 'Het bedrijf is successvol bijgewerkt.';
-        } else {
-          $result['code'] = '500';
-          $result['status'] = 'Oops! Er is iets fout gegaan.';
+          return Response::json('Het bedrijf is successvol bewerkt.');
         }
+
       }
 
-      return json_encode($result);
+      return Response::json('Er is iets fout gegaan bij het bewerken van het bedrijf.');
     }
 
     public function users_edit($company_id) {
@@ -368,27 +362,27 @@ class CompanyController extends Controller
       switch ($data['userRole']) {
         case 'Mede-beheerder':
           if(!CompanyUser::where('user_id', $data['id'])->where('company_id', $company_id)->update(['role' => 2])){
-            die('Er is een fout opgetreden. Er zijn niet de juiste waardes meegegeven.');
+            return redirect('company/'.$company_id)->with('notification', 'Er is iets fout gegaan bij het veranderen van de rol van de gebruiker.');
           }
-          return redirect(url('/company/'.$company_id));
+          return redirect('company/'.$company_id)->with('notification', 'De gebruiker heeft nu de rol: Mede-beheerder.');
           break;
 
         case 'Lid':
           if(!CompanyUser::where('user_id', $data['id'])->where('company_id', $company_id)->update(['role' => 1])){
-            die('Er is een fout opgetreden. Er zijn niet de juiste waardes meegegeven.');
+            return redirect('company/'.$company_id)->with('notification', 'Er is iets fout gegaan bij het veranderen van de rol van de gebruiker.');
           }
-          return redirect(url('/company/'.$company_id));
+          return redirect('company/'.$company_id)->with('notification', 'De gebruiker heeft nu de rol: Lid.');
           break;
 
         case 'Verwijderen':
           if(!CompanyUser::where('user_id', $data['id'])->where('company_id', $company_id)->delete()){
-            die('Er is een fout opgetreden. Er zijn niet de juiste waardes meegegeven.');
+            return redirect('company/'.$company_id)->with('notification', 'Er is een fout opgetreden. Er zijn niet de juiste waardes meegegeven.');
           }
-          return redirect(url('/company/'.$company_id));
+          return redirect('company/'.$company_id)->with('notification', 'Lid is succesvol uit het bedrijf verwijderd.');
           break;
 
         default:
-          die('onbekende fout');
+          return redirect('company/'.$company_id)->with('notification', 'Er is een onbekende fout opgetreden.');
           break;
       }
 

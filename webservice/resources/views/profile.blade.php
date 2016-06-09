@@ -30,21 +30,25 @@
 	</div>
 
 	<div class="container">
-	<div class="timeline col-xs-12 col-md-6 col-md-offset-3">
-		@if (session('notification'))
-	      <div class="alert alert-info">
-	        <div class="container-fluid">
-	          <div class="alert-icon">
-	            <i class="material-icons">info_outline</i>
-	          </div>
-	          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-	            <span aria-hidden="true"><i class="material-icons">clear</i></span>
-	          </button>
-	          <b>Info:</b> {{ session('notification') }}
-	        </div>
-	      </div>
-	    @endif
+    <div class="notifications">
+      @if (session('notification'))
+      <div class="col-md-12">
+        <div class="alert alert-info">
+          <div class="container-fluid">
+            <div class="alert-icon">
+              <i class="material-icons">info_outline</i>
+            </div>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true"><i class="material-icons">clear</i></span>
+            </button>
+            <b>Info:</b> <span class="message">{{ session('notification') }}</span>
+          </div>
+        </div>
+      </div>
+      @endif
+    </div>
 
+    <div class="timeline col-xs-12 col-md-6 col-md-offset-3">
 		@if ($user->biography)
 			<div class="card">
 				<div class="col-md-12">
