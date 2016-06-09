@@ -7,6 +7,21 @@
   @include('includes.header')
 
     <div class="container top">
+
+        @if (session('notification'))
+            <div class="alert alert-info alert-padding">
+                <div class="container-fluid">
+                    <div class="alert-icon">
+                        <i class="material-icons">info_outline</i>
+                    </div>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true"><i class="material-icons">clear</i></span>
+                    </button>
+                    <b>Info:</b> {{ session('notification') }}
+                </div>
+            </div>
+        @endif
+
         <div class="card">
             <div class="col-md-12">
                 <table class="table">
@@ -210,15 +225,15 @@
                     <h4 class="modal-title">Administrator toevoegen</h4>
                 </div>
                 <div class="modal-body">
-                    <form method="POST">
-                        <input type="text" class="form-control" name="user_email" id="userSearch" placeholder="Email">
-                    </form>
+                    <form action="/admin/checkadmin" method="POST">
+                        <input type="text" class="form-control" name="user_email" id="userSearch" placeholder="Email" autocomplete="off">
 
                     <div id="userResult"></div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Annuleren</button>
-                    <button type="button" class="btn btn-info" data-dismiss="modal" id="addAdministrator">Toevoegen</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Annuleren</button>
+                        <button type="submit" class="btn btn-info">Toevoegen</button>
+                    </form>
                 </div>
             </div>
         </div>

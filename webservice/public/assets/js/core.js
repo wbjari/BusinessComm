@@ -379,3 +379,10 @@ $('*[danger-action]').click(function(e){
 		window.location.href = $(this).attr('href');
 	}
 })
+
+// === === === //
+// == bedrijf rechten lid aanapssen === //
+// === === === //
+$('#userRole').on('change', function() {
+    $(this).parent('form').submit();
+});

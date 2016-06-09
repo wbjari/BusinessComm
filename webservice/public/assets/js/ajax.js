@@ -234,60 +234,10 @@ function searchUserTable(text, limit, idName)
 
         if(response.length >= 1){
           for (i = 0; i < response.length; i++) {
-             $('#'+idName).append('<button class="btn btn-simple btn-primary btn-xs userResultButton" style="width:100%;">'+response[i].email+'<div class="ripple-container"></div></button>')
+             $('#'+idName).append('<button type="button" class="btn btn-simple btn-primary btn-xs userResultButton" style="width:100%;">'+response[i].email+'<div class="ripple-container"></div></button>')
           }
         }
     }
   });
 }
 
-function searchUserTable(text, limit, idName)
-{
-
-  $.ajax({
-    url: "/user/search",
-    type: "POST",
-    data: { text: text, limit: limit },
-    dataType: 'json',
-    beforeSend: function (xhr) {
-        var token = $('meta[name="_token"]').attr('content');
-
-        if (token) {
-              return xhr.setRequestHeader('X-CSRF-TOKEN', token);
-        }
-    },
-    success: function(response) {
-         $('#'+idName).html('');
-
-        if(response.length >= 1){
-          for (i = 0; i < response.length; i++) {
-             $('#'+idName).append('<button class="btn btn-simple btn-primary btn-xs userResultButton" style="width:100%;">'+response[i].email+'<div class="ripple-container"></div></button>')
-          }
-        }
-    }
-  });
-}
-
-function updateUserAdmin(email)
-{
-
-  $.ajax({
-    url: "/admin/checkadmin",
-    type: "POST",
-    data: { email : email },
-    dataType: 'json',
-    beforeSend: function (xhr) {
-        var token = $('meta[name="_token"]').attr('content');
-
-        if (token) {
-              return xhr.setRequestHeader('X-CSRF-TOKEN', token);
-        }
-    },
-    success: function(response) {
-      $('#updateAdminResult').text(response);
-    },
-    error: function(rotzooi){
-      console.error('Kan de gebruiekr niet updaten');
-    }
-  });
-}

@@ -147,19 +147,18 @@ class AdminController extends Controller
 
 		if($role == 1 && \Auth::User()->id != $user_id) {
 
-			$test = User::where('role', 1)->take(2)->get(['id']);
-
-			if(count($test) <= 1){
+			$adminCount = User::where('role', 1)->take(2)->get(['id']);
+			if(count($adminCount) > 1){
 				if(!User::where('id', $user_id)->update(['role' => 0])){
 					die('Er is een fout opgetreden bij het actief zetten van de gebruiker.');
 				}
 
-				return redirect('admin');
+				return redirect('admin')->with('notification', 'De administrator is successvol verwijderd.');
 			} else {
-				die('Je moet minimaal 1 administrator hebben');
+				return redirect('admin')->with('notification', 'Je moet minimaal 1 administrator hebben.');
 			}
 		} else if (\Auth::User()->id == $user_id) {
-			die('Je kan jezelf niet verwijderen als admin');
+			return redirect('admin')->with('notification', 'Je kan jezelf niet verwijderen als administrator.');
 		} else {
 			abort(404);
 		}
@@ -171,7 +170,7 @@ class AdminController extends Controller
       $role = User::where('id', \Auth::id())->pluck('role')[0];
 
       if($role == 1) {
-        $email = Input::get('email');
+        $email = Input::get('user_email');
 
         $user = User::where('email', $email)->first(['email', 'role']);
 
@@ -179,11 +178,11 @@ class AdminController extends Controller
         if($user->role === 0){
           	$user = User::where('email', $email)->update(['role' => 1]);
 
-          	return ['De gebruiker is nu een administrator'];
+          	return redirect('admin')->with('notification', 'De gebruiker is nu een administrator.');
         } else if ($user->role === 1) {
-          	return ['De gebruiker is al een administrator'];
+          	return redirect('admin')->with('notification', 'De gebruiker is al een administrator.');
         } else {
-        	return ['De gebruiker is niet gevonden'];
+        	return redirect('admin')->with('notification', 'De gebruiker is niet gevonden.');
         }
       } else {
         abort(404);
