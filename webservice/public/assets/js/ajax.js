@@ -185,6 +185,7 @@ function ajax_saveProfile(data)
       showSaveButton('saved');
     }
   })
+}
 
 function searchCompanyTable(searchValue)
 {
