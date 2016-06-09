@@ -60,6 +60,15 @@
 
             <div class="card">
                 <div class="col-md-12">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Zoeken naar bedrijven.">
+                        <span class="input-group-addon" id="searchCompany" style="cursor:"><i class="material-icons">search</i></span>
+                    </div>
+
+                    <div id="companySearchResult">
+                        
+                    </div>
+
                   @if ($nearby['nearby'] == true)
                     <h2>In de buurt</h2>
                   @else

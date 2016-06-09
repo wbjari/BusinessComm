@@ -60,6 +60,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::post('/skill/search', 'UserController@search_skill');
     Route::post('/user/search', 'UserController@search_user');
+    Route::post('/company/search', 'DashboardController@search_company');
     Route::post('/admin/checkadmin', 'AdminController@check_add_admin');
     Route::post('/admin/{user_id}/remove', 'AdminController@remove_administrator');
 

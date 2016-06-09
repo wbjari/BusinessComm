@@ -379,3 +379,15 @@ $('*[danger-action]').click(function(e){
 $('#userRole').on('change', function() {
     $(this).parent('form').submit();
 });
+
+// === === === //
+// == bedrijf zoeken op dashboard === //
+// === === === //
+
+$('#searchCompany').on('click', function(){
+	searchCompanyTable( $(this).parent().find('input').val() );
+});
+
+$(document).on('click', '.cancelCompanySearch', function(){
+	$('#companySearchResult').html('');
+});
