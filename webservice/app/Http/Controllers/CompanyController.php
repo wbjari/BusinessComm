@@ -103,26 +103,14 @@ class CompanyController extends Controller
             break;
         }
       }
-
-      if($is_member && $role == 3){
-        return view('company_edit', [
-          'company' => $company,
-          'posts' => $posts,
-          'requested' => $requested,
-          'role' => $role,
-          'requests' => $requests,
-          'members' => $members
-        ]);
-      } else {
-        return view('company', [
-          'company' => $company,
-          'posts' => $posts,
-          'requested' => $requested,
-          'role' => $role,
-          'requests' => $requests,
-          'members' => $members
-        ]);
-      }
+      return view('company', [
+        'company' => $company,
+        'posts' => $posts,
+        'requested' => $requested,
+        'role' => $role,
+        'requests' => $requests,
+        'members' => $members
+      ]);
     }
 
     public function index_create()

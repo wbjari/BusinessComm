@@ -32,18 +32,11 @@ class UserController extends Controller
           'skills.id',
           'skills.name'
         ]);
-
-        if(\Auth::User()->id === (int)$user_id){
-          return view('profile_edit', [
-            'user' => $user,
-            'user_skills' => $user_skills
-          ]);
-        } else {
+        
           return view('profile', [
             'user' => $user,
             'user_skills' => $user_skills
           ]);
-        }
 
           //   $notifications = '';
           //
