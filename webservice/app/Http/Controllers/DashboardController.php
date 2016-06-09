@@ -72,4 +72,15 @@ class DashboardController extends Controller
         ]);
     }
 
+    public function search_company()
+    {
+
+        $name = Input::get('name');
+
+        $query = Company::where('name', 'LIKE', '%'.$name.'%')->take(5)->get(['id', 'name']);
+
+        return $query;
+
+    }
+
 }

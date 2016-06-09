@@ -241,3 +241,34 @@ function searchUserTable(text, limit, idName)
   });
 }
 
+function searchCompanyTable(searchValue)
+{
+
+  $.ajax({
+    url: "/company/search",
+    type: "POST",
+    data: { name: searchValue },
+    dataType: 'json',
+    beforeSend: function (xhr) {
+        var token = $('meta[name="_token"]').attr('content');
+
+        if (token) {
+              return xhr.setRequestHeader('X-CSRF-TOKEN', token);
+        }
+    },
+    success: function(response) {
+        $('#companySearchResult').html('');
+
+        if(response.length > 0){
+          for (i = 0; i < response.length; i++) {
+            $('#companySearchResult').append('<a href="/company/'+response[i].id+'"><button type="button" class="btn btn-simple btn-primary btn-xs" style="width:100%;">'+response[i].name+'<div class="ripple-container"></div></button></a>')
+          }
+        } else {
+          $('#companySearchResult').html('<h4 class="no-result">Geen bedrijven gevonden.</h4>');
+        }
+
+       $('#companySearchResult').append('<button type="button" class="btn btn-simple btn-danger btn-xs cancelCompanySearch" style="width:100%;">Zoeken Annuleren<div class="ripple-container"></div></button>');
+    }
+  });
+
+}
