@@ -144,7 +144,7 @@ class CompanyController extends Controller
 
           $file_status = true;
 
-          $original_name = $file->getClientOriginalName();
+          $original_name = preg_replace('/[^A-Za-z0-9\-]/', '', $file->getClientOriginalName());
 
           $filename = date('d_m_Y_h_i_s') . '_' . rand(1000, 9999) . '_' . $original_name;
           $file_path = public_path() . '/storage/companies';
@@ -217,7 +217,7 @@ class CompanyController extends Controller
             }
           }
 
-          $original_name = $file->getClientOriginalName();
+          $original_name = preg_replace('/[^A-Za-z0-9\-]/', '', $file->getClientOriginalName());
 
           $filename = date('d_m_Y_h_i_s') . '_' . rand(1000, 9999) . '_' . $original_name;
           $file_path = public_path() . '/storage/companies';
