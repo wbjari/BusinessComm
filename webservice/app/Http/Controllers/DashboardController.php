@@ -19,6 +19,7 @@ class DashboardController extends Controller
 
     public function index()
     {
+
     	$userid = \Auth::User()->id;
         $user = User::where('id', $userid)->first();
 

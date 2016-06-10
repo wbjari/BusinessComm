@@ -11,6 +11,8 @@
 |
 */
 
+use App\Http\Middleware\StatusMiddleware;
+
 Route::get('/', function () {
   if (Auth::guest()) {
     return view('home');

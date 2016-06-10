@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use App\User;
 use Illuminate\Support\Facades\Auth;
 
 class Authenticate
@@ -23,6 +24,12 @@ class Authenticate
             } else {
                 return redirect()->guest('login');
             }
+        }
+
+        $user_id = \Auth::User()->id;
+
+        if ((int)User::where('id', $user_id)->first(['status'])->status === 0) {
+            return response('U bent geblokkeerd. Neem contact op met de beheerder of wacht tot uw blokkering voorbij is.', 403);
         }
 
         return $next($request);
