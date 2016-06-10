@@ -104,7 +104,6 @@
           <img src="{{ url('assets/img/avatar.png') }}" alt="{{ $user->firstname }}&nbsp;{{ $user->lastname }}" class="img-rounded img-responsive dashboard-profile">
           @endif
           <p class="dashboard-name">{{ $user->firstname .' '. $user->lastname}}</p>
-          <p class="dashboard-function">Mediadeveloper</p>
         </a>
         <ul class="dashboard-profile-list">
           @if($profileProgress < 100)

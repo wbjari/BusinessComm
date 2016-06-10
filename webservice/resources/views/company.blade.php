@@ -239,13 +239,13 @@
             {!! csrf_field() !!}
             <input type="hidden" name="company_id" value="{{ $company['id'] }}">
             <div class="form-group">
-              <input type="text" name="title" class="form-control" placeholder="Titel *" autocomplete="off">
+              <input type="text" name="title" class="form-control" placeholder="Titel *" pattern="[^]{1,50}" title="Titel mag maximaal 50 tekens bevatten" autocomplete="off" required>
             </div>
             <div class="form-group">
-              <textarea name="message" class="form-control" placeholder="Bericht *" autocomplete="off"></textarea>
+              <textarea name="message" class="form-control" placeholder="Bericht *" pattern="[\s\S]*\S[\s\S]*" autocomplete="off" required></textarea>
             </div>
             <label class="control-label" for="file">Afbeelding</label>
-            <input type="file" name="file">
+            <input type="file" name="file" accept="image/jpeg, image/png">
             <div class="form-group">
               <input type="submit" class="btn btn-primary btn-raised pull-right" name="submit" value="Plaatsen">
             </div>
@@ -334,8 +334,8 @@
         <input type="hidden" name="company" value="{{ $company['id'] }}">
         <div class="modal-body">
           <div class="col-sm-6">
-            <label class="control-label">Logo</label>
-            <input type="file" id="changeLogo" name="changeLogo">
+            <label class="control-label">Logo *</label>
+            <input type="file" id="changeLogo" name="changeLogo" accept="image/jpeg, image/png" required>
           </div>
         </div>
         <div class="modal-footer">
@@ -379,7 +379,8 @@
         {!! csrf_field() !!}
         <input type="hidden" name="company" value="{{ $company->id }}">
         <div class="modal-body">
-          <input type="text" name="reason" placeholder="Reden" class="form-control">
+          <label class="control-label">Reden *</label>
+          <input type="text" name="reason" placeholder="Typ hier uw reden" pattern="[\s\S]*\S[\s\S]*" class="form-control" required>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Annuleren</button>
@@ -402,10 +403,10 @@
         <input type="hidden" name="post_id" value="">
         <div class="modal-body">
           <div class="form-group">
-            <input type="text" name="title" class="form-control" value="" autocomplete="off">
+            <input type="text" name="title" class="form-control" value="" pattern="[^]{1,50}" title="Titel mag maximaal 50 tekens bevatten" autocomplete="off" required>
           </div>
           <div class="form-group">
-            <textarea name="message" class="form-control" autocomplete="off"></textarea>
+            <textarea name="message" class="form-control" pattern="[\s\S]*\S[\s\S]*" autocomplete="off" required></textarea>
           </div>
         </div>
         <div class="modal-footer">

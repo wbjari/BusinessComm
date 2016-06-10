@@ -197,7 +197,7 @@
       </div>
       <div class="modal-body">
         <form data-name="skills">
-          <input type="text" class="form-control" name="skill" id="skillSearch" placeholder="Vaardigheid">
+          <input type="text" class="form-control" name="skill" id="skillSearch" placeholder="Vaardigheid" required>
         </form>
         <div id="skillResult"></div>
       </div>
@@ -220,7 +220,7 @@
         <div class="modal-body">
           <div class="col-sm-6">
             <label class="control-label">Afbeelding</label>
-            <input type="file" id="changePic" name="changePic">
+            <input type="file" id="changePic" name="changePic" accept="image/jpeg, image/png">
           </div>
         </div>
         <div class="modal-footer">
@@ -243,7 +243,7 @@
         {!! csrf_field() !!}
         <input type="hidden" name="user" value="{{ $user->id }}">
         <div class="modal-body">
-          <input type="text" name="reason" placeholder="Reden" class="form-control">
+          <input type="text" name="reason" placeholder="Reden" class="form-control" required>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Annuleren</button>

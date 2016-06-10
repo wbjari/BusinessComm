@@ -26,18 +26,18 @@
       <div class="col-sm-6">
         <div class="form-group label-floating">
           <label class="control-label">Naam *</label>
-          <input type="text" class="form-control" name="name" required>
+          <input type="text" class="form-control" name="name" pattern="[A-Za-z0-9!?#\s]{1,50}" title="Naam mag maximaal 50 tekens bevatten" required>
         </div>
       </div>
       <div class="col-sm-6">
         <div class="form-group label-floating">
           <label class="control-label">Slogan</label>
-          <input type="text" class="form-control" name="slogan">
+          <input type="text" class="form-control" pattern="[A-Za-z!.,?/#@\s]{0,200}" title="Slogan mag maximaal 200 tekens bevatten" name="slogan">
         </div>
       </div>
       <div class="col-sm-6">
         <label class="control-label">Logo</label>
-        <input type="file" name="logo">
+        <input type="file" name="logo" accept="image/jpeg, image/png" title="Alleen jpeg en png bestanden zijn toegestaan">
       </div>
       <div class="col-sm-6">
         <div class="form-group label-floating">
@@ -48,7 +48,7 @@
       <div class="col-sm-6">
         <div class="form-group label-floating">
           <label class="control-label">Telefoon</label>
-          <input type="tel" class="form-control" name="telephone">
+          <input type="text" class="form-control" name="telephone" pattern="[0-9]{8,20}" title="Telefoonnummer mag alleen cijfers bevatten en tussen de 8 en 20 tekens zijn">
         </div>
       </div>
       <div class="col-sm-6">
@@ -60,31 +60,31 @@
       <div class="col-sm-6">
         <div class="form-group label-floating">
           <label class="control-label">Adres *</label>
-          <input type="text" class="form-control" name="address" required>
+          <input type="text" class="form-control" name="address" pattern="[A-Za-z0-9-\s]*" title="Adres mag alleen de volgende tekens bevatten: A-Z, a-z, 0-9, spatie en -" required>
         </div>
       </div>
       <div class="col-sm-6">
         <div class="form-group label-floating">
           <label class="control-label">Postcode *</label>
-          <input type="text" class="form-control" name="zipcode" required>
+          <input type="text" class="form-control" name="zipcode" pattern="[A-Z0-9]{6}" title="Postcode mag alleen de volgende tekens bevatten: A-Z, 0-9 en mag moet 6 tekens bevatten." required>
         </div>
       </div>
       <div class="col-sm-6">
         <div class="form-group label-floating">
           <label class="control-label">Plaats *</label>
-          <input type="text" class="form-control" name="location" required>
+          <input type="text" class="form-control" name="location" pattern="[A-Za-z-\s]{1,100}" title="Plaats mag alleen de volgende tekens bevatten: A-Z, a-z, spatie en -. En moet tussen de 1 en 100 tekens bevatten." required>
         </div>
       </div>
       <div class="col-sm-6">
         <div class="form-group label-floating">
           <label class="control-label">Provincie *</label>
-          <input type="text" class="form-control" name="province" required>
+          <input type="text" class="form-control" name="province" pattern="[A-Za-z-\s]{1,100}" title="Provincie mag alleen de volgende tekens bevatten: A-Z, a-z, spatie en -. En moet tussen de 1 en 100 tekens bevatten." required>
         </div>
       </div>
       <div class="col-sm-6">
         <div class="form-group label-floating">
           <label class="control-label">Land *</label>
-          <input type="text" class="form-control" name="country" required>
+          <input type="text" class="form-control" name="country" pattern="[A-Za-z-\s]{1,100}" title="Land mag alleen de volgende tekens bevatten: A-Z, a-z, spatie en -. En moet tussen de 1 en 100 tekens bevatten." required>
         </div>
       </div>
       <button type="submit" class="btn btn-success btn-raised form-submit">

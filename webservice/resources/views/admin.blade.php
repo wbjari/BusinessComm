@@ -219,7 +219,7 @@
       </div>
       <div class="modal-body">
         <form action="/admin/checkadmin" method="POST">
-          <input type="text" class="form-control" name="user_email" id="userSearch" placeholder="Email" autocomplete="off">
+          <input type="email" class="form-control" name="user_email" id="userSearch" placeholder="Email" autocomplete="off">
           <div id="userResult"></div>
       </div>
       <div class="modal-footer">

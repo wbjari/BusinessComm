@@ -11,7 +11,7 @@
         <div class="col-sm-6">
           <div class="form-group info label-floating {{ $errors->has('firstname') ? ' has-error' : '' }}">
             <label class="control-label">Voornaam *</label>
-            <input type="text" class="form-control" name="firstname" value="{{ old('firstname') }}" required>
+            <input type="text" class="form-control" name="firstname" value="{{ old('firstname') }}" pattern="[A-Za-z-]{1,100}" title="Voornaam mag alleen alfabetische tekens en een - bevatten" required>
             @if ($errors->has('firstname'))
             <span class="help-block">
             <strong>{{ $errors->first('firstname') }}</strong>
@@ -22,7 +22,7 @@
         <div class="col-sm-6">
           <div class="form-group info label-floating {{ $errors->has('lastname') ? ' has-error' : '' }}">
             <label class="control-label">Achternaam *</label>
-            <input type="text" class="form-control" name="lastname" value="{{ old('lastname') }}" required>
+            <input type="text" class="form-control" name="lastname" value="{{ old('lastname') }}" pattern="[A-Za-z-\s]{1,100}" title="Achternaam mag alleen alfabetische tekens, spaties en een - bevatten" required>
             @if ($errors->has('lastname'))
             <span class="help-block">
             <strong>{{ $errors->first('lastname') }}</strong>
