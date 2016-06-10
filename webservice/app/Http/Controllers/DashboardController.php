@@ -36,11 +36,9 @@ class DashboardController extends Controller
         }
         $profileProgress = $rowFilledCount / $rowCount * 100;
 
+        // Get all companies from user
         $myCompanies = CompanyUser::where('user_id', $userid)->join('companies', 'company_users.company_id', '=', 'companies.id')->get(['company_id', 'name', 'slogan', 'logo']);
-    	  $companies = Company::all(['id','name','slogan','logo']);
-
-        $notifications = '';
-
+    	$companies = Company::all(['id','name','slogan','logo']);
 
         // Companies close to you
         $user_location = User::where('id', $userid)->pluck('location')[0];
@@ -67,7 +65,6 @@ class DashboardController extends Controller
         	'user' => json_decode(json_encode($user, true)),
           'myCompanies' => $myCompanies,
           'profileProgress' => (int)$profileProgress,
-        	'notifications' => $notifications,
     		  'companies' => $companies,
           'nearby' => $nearby
         ]);

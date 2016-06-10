@@ -21,10 +21,13 @@ class UserController extends Controller
     public function index($user_id)
     {
 
+      // Get user data
       $user = User::where('id', $user_id)->first();
 
+      // if userstatus is 1 (allowed)
       if($user->status === 1){
 
+        // Get user skills
         $user_skills = UserSkill::
         where('user_skills.user_id', $user_id)
         ->join('skills', 'skills.id', '=', 'user_skills.skills_id')
@@ -38,15 +41,6 @@ class UserController extends Controller
             'user_skills' => $user_skills
           ]);
 
-          //   $notifications = '';
-          //
-          // $companies = Company::all(['name','slogan','logo']);
-          //
-          //   return view('dashboard', [
-          //    'user' => $user,
-          //    'notifications' => $notifications,
-          //  'companies' => $companies
-          //   ]);
       } else {
         abort(404);
       }
@@ -57,22 +51,25 @@ class UserController extends Controller
     {
 
       $user_id = \Auth::User()->id;
-
       $data = Input::get('data');
 
+      // if skill array exists in data array
       if (array_key_exists('skill', $data)) {
+
         $skill_ids = [];
 
         foreach ($data['skill'] as $skill) {
-
+          // foreach skill
           $query = Skill::where('name', $skill);
 
+          // If skill exists in database
           if ($query->exists()) {
 
+            // get skill id
             $id = $query->pluck('id')[0];
-
           } else {
 
+            // Create new skill
             $new_skill = new Skill;
 
             $new_skill->name = $skill;
@@ -84,6 +81,7 @@ class UserController extends Controller
 
           }
 
+          // if skill is not added to user, add to user
           if (!UserSkill::where('user_id', $user_id)->where('skills_id', $id)->exists()) {
 
             $user_skill = new UserSkill;
@@ -94,12 +92,12 @@ class UserController extends Controller
             $user_skill->save();
 
           }
-
         }
 
         unset($data['skill']);
       }
 
+      // Update user data
       User::where('id', $user_id)->update($data);
 
       return Response::json('Profiel succesvol bewerkt.');
@@ -110,6 +108,7 @@ class UserController extends Controller
     {
       $data = Input::get();
 
+      // if user id is logged in id, report user
       if((int)$data['user'] === \Auth::User()->id){
         return redirect()->route('user', $data['user'])->with('notification', 'Je kan jezelf niet rapporteren.');
       } elseif(!userReports::insert(['user_id' => $data['user'], 'reason' => $data['reason'], 'reported_by' => \Auth::User()->id])){
@@ -127,9 +126,7 @@ class UserController extends Controller
       if (Input::hasFile('changePic')) {
 
         $file = Input::file('changePic');
-
         $type = $file->getclientoriginalextension();
-
         $file_status = false;
 
         if($type == 'jpg' || $type == 'jpeg' || $type == 'png') {
@@ -144,8 +141,10 @@ class UserController extends Controller
             }
           }
 
+          // Remove special characters from name
           $original_name = preg_replace('/[^A-Za-z0-9\-]/', '', $file->getClientOriginalName());
 
+          // add date and random number to filename
           $filename = date('d_m_Y_h_i_s') . '_' . rand(1000, 9999) . '_' . $original_name;
           $file_path = public_path() . '/storage/users';
           $database_path = '/storage/users';

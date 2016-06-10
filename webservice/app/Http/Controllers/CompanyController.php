@@ -86,6 +86,7 @@ class CompanyController extends Controller
 
       $members = CompanyUser::where('company_id', $company_id)->join('users', 'users.id', '=', 'company_users.user_id')->get(['users.id', 'users.firstname', 'users.lastname', 'users.email', 'company_users.role']);
 
+      // Replace company roles with text
       foreach ($members as $member) {
         switch ($member->role) {
           case 1:
@@ -123,6 +124,7 @@ class CompanyController extends Controller
     public function create(Request $request)
     {
 
+      // Validate all form fields
       $this->validate($request, [
         'name' => 'required',
         'address' => 'required',
@@ -132,20 +134,21 @@ class CompanyController extends Controller
         'country' => 'required'
       ]);
 
+
       if ($request->hasFile('logo')) {
 
         $file = $request->file('logo');
-
         $type = $file->getclientoriginalextension();
-
         $file_status = false;
 
         if($type == 'jpg' || $type == 'jpeg' || $type == 'png') {
 
           $file_status = true;
 
+          // Remove special characters from filename
           $original_name = preg_replace('/[^A-Za-z0-9\-]/', '', $file->getClientOriginalName());
 
+          // Add date and random number to filename
           $filename = date('d_m_Y_h_i_s') . '_' . rand(1000, 9999) . '_' . $original_name;
           $file_path = public_path() . '/storage/companies';
           $database_path = '/storage/companies';
@@ -153,10 +156,7 @@ class CompanyController extends Controller
           $file->move($file_path, $filename);
 
         }
-
-
       }
-
 
       $company = new Company;
 
@@ -172,7 +172,7 @@ class CompanyController extends Controller
       $company->country     =   $request["country"];
 
       if (Input::hasFile('logo') && $file_status == true) {
-        $company->logo        =   $database_path.'/'.$filename;
+        $company->logo = $database_path.'/'.$filename;
       }
 
       $company->save();
@@ -200,9 +200,7 @@ class CompanyController extends Controller
       if (Input::hasFile('changeLogo')) {
 
         $file = Input::file('changeLogo');
-
         $type = $file->getclientoriginalextension();
-
         $file_status = false;
 
         if($type == 'jpg' || $type == 'jpeg' || $type == 'png') {
@@ -217,8 +215,10 @@ class CompanyController extends Controller
             }
           }
 
+          // Remove special characters from filename
           $original_name = preg_replace('/[^A-Za-z0-9\-]/', '', $file->getClientOriginalName());
 
+          // Add date and random number to filename
           $filename = date('d_m_Y_h_i_s') . '_' . rand(1000, 9999) . '_' . $original_name;
           $file_path = public_path() . '/storage/companies';
           $database_path = '/storage/companies';

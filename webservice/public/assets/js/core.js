@@ -339,7 +339,7 @@ function InputToText()
 // == search users table === //
 // === === === //
  $('#userSearch').keyup(function(){
- 	if($(this).val().length > 3){
+  	if($(this).val().length > 3){
  		searchUserTable($(this).val(), 3, 'userResult');
  	}
  });
@@ -361,7 +361,6 @@ function InputToText()
 // === === === //
 // == Confirm boxes === //
 // === === === //
-
 $('*[danger-action]').click(function(e){
 	if($(this).attr('href') !== undefined){
 		e.preventDefault();
