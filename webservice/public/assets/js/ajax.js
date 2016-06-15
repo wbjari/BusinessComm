@@ -132,7 +132,6 @@ function searchSkillsTable(text, limit, idName)
     data: { text: text, limit: limit },
     dataType: 'json',
     success: function(response) {
-      notification(response);
        $('#'+idName).html('');
       if(response.length >= 1){
         for (i = 0; i < response.length; i++) {
@@ -153,7 +152,6 @@ function searchUserTable(text, limit, idName)
     data: { text: text, limit: limit },
     dataType: 'json',
     success: function(response) {
-      notification(response);
          $('#'+idName).html('');
 
         if(response.length >= 1){

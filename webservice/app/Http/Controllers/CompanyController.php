@@ -317,10 +317,10 @@ class CompanyController extends Controller
       $data = Input::get();
 
       if(!CompanyReports::insert(['company_id' => $data['company'], 'reason' => $data['reason'], 'reported_by' => \Auth::User()->id])){
-        return redirect('company/'.$company_id)->with('notification', 'Er is iets fout gegaan bij het rapporteren van het bedrijf.');
+        return redirect('company/'.$data['company'])->with('notification', 'Er is iets fout gegaan bij het rapporteren van het bedrijf.');
       }
 
-      return redirect('company/'.$company_id)->with('notification', 'Bedrijf is succesvol gerapporteerd.');
+      return redirect('company/'.$data['company'])->with('notification', 'Bedrijf is succesvol gerapporteerd.');
     }
 
     public function edit($company_id)

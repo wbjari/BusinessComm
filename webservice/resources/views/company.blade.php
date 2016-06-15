@@ -110,7 +110,7 @@
                     <form action="{{ url('/company/'.$company->id.'/users/edit') }}" enctype="multipart/form-data" method="POST">
                       {!! csrf_field() !!}
                       <input type="hidden" name="id" value="{{ $member->id }}">
-                      <select name="userRole" id="userRole">
+                      <select name="userRole" class="userRole">
                         <option value="{{ $member->role }}">{{ $member->role }}</option>
                         @if ($member->role !== 'Mede-beheerder')
                         <option value="Mede-beheerder">Mede-beheerder</option>

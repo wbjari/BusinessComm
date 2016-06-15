@@ -375,7 +375,7 @@ $('*[danger-action]').click(function(e){
 // === === === //
 // == bedrijf rechten lid aanapssen === //
 // === === === //
-$('#userRole').on('change', function() {
+$('.userRole').on('change', function() {
     $(this).parent('form').submit();
 });
 

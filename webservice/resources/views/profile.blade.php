@@ -23,12 +23,12 @@
       @endif
       @if ($user->province)
       <span @if ($user->id == \Auth::id()) data-profile="province" @endif>{{ $user->province }}</span>,
-      @elseif (!$user->location && $user->id == \Auth::id())
+      @elseif (!$user->province && $user->id == \Auth::id())
       <span data-profile="province" class="text-muted">Vul hier uw provincie</span>,
       @endif
       @if ($user->country)
       <span @if ($user->id == \Auth::id()) data-profile="country" @endif>{{ $user->country }}</span>
-      @elseif (!$user->location && $user->id == \Auth::id())
+      @elseif (!$user->country && $user->id == \Auth::id())
       <span data-profile="country" class="text-muted">Vul hier uw land in</span>
       @endif
     </h5>
